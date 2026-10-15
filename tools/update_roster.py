@@ -18,13 +18,35 @@ ROSTER=[
 CLASSES={'Ranger':'Waldläufer','Gladiator':'Gladiator','Templar':'Templer','Cleric':'Kleriker','Spiritmaster':'Beschwörer','SpiritMaster':'Beschwörer','Chanter':'Kantor'}
 COLORS={'Ranger':'#a9d6b3','Gladiator':'#efae73','Templar':'#8db7e6','Cleric':'#e6d5ab','Spiritmaster':'#b5a0eb','SpiritMaster':'#b5a0eb','Chanter':'#8dcecf'}
 TRACES={'JKLee': '#a9d6b3', 'NaminiLee': '#f0ce8c', 'LordSanchez2': '#8db7e6', 'FumosLee': '#e9adba', 'BrouceLee': '#ef986d', 'SurfingLee': '#b5a0eb', 'Roctopus': '#8dcecf'}
+def fetch_profile(entry,lang):
+ name,cid=entry
+ # Match the public character page's canonical query and language context.
+ # Variant queries returned incomplete stats and 803 while NaminiLee's live
+ # official page showed 1047 on 2026-10-15. Reject such partial responses below.
+ url='https://aion2.plaync.com/api/character/info?'+urlencode({'region':'eu','lang':lang,'characterId':cid,'serverId':2322})
+ headers={'Accept':'application/json, text/plain, */*','Accept-Language':lang+','+lang.split('-')[0]+';q=0.9',
+  'Referer':'https://aion2.plaync.com/'+lang.lower()+'/characters/2322/'+quote(cid,safe='')+'?region=eu',
+  'User-Agent':'DangerionsProfileChecker/1.0','Cache-Control':'no-cache'}
+ with urlopen(Request(url,headers=headers),timeout=30) as r: d=json.load(r)
+ p=d['profile']
+ if p.get('characterName')!=name or p.get('characterId')!=cid or p.get('serverId')!=2322:
+  raise ValueError('Official profile identity does not match the requested character.')
+ levels=[x['value'] for x in d['stat']['statList'] if x['type']=='ItemLevel']
+ if len(levels)!=1 or type(levels[0]) is not int or not 0 < levels[0] < 100000:
+  raise ValueError('Official profile has no unambiguous valid item level.')
+ stats=[x for x in d['stat']['statList'] if x['type']!='ItemLevel' and x.get('value',0)>0]
+ if stats and not any(x.get('statSecondList') for x in stats):
+  raise ValueError('Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained.')
+ return d,levels[0]
 def fetch_one(entry):
  name,cid=entry
- url='https://aion2.plaync.com/api/character/info?'+urlencode({'lang':'en-US','region':'eu','characterId':cid,'serverId':2322})
- with urlopen(Request(url,headers={'Accept':'application/json'}),timeout=30) as r: d=json.load(r)
- p=d['profile'];il=next(x['value'] for x in d['stat']['statList'] if x['type']=='ItemLevel')
- assert p['characterName']==name and p['serverId']==2322
- assert isinstance(il,(int,float)) and 0 < il < 100000
+ d,il=fetch_profile(entry,'en-US')
+ check,check_il=fetch_profile(entry,'de-DE')
+ p=d['profile']
+ # Never guess which of two conflicting responses is right, or substitute a
+ # historical maximum. Confirmed decreases remain valid observations.
+ if il!=check_il or p['characterLevel']!=check['profile']['characterLevel']:
+  raise ValueError(f'Conflicting official profile values (en-US item level {il}, de-DE {check_il}); previous observation retained.')
  now=datetime.now(timezone.utc).isoformat()
  avatar=ROOT/'dist'/'assets'/f'{name}.png'
  if not avatar.exists():
@@ -41,7 +63,9 @@ def run():
   for f,name in jobs.items():
    try: players.append(f.result())
    except Exception as e: failures.append({'name':name,'error':str(e)});players.extend(p for p in old['players'] if p['name']==name)
- if len(failures)==len(ROSTER) or not players:raise RuntimeError('No fresh verified character data; previous dataset was not changed.')
+ if len(failures)==len(ROSTER) or not players:
+  print(json.dumps({'failures':failures},ensure_ascii=False),file=sys.stderr)
+  raise RuntimeError('No fresh verified character data; previous dataset was not changed.')
  players.sort(key=lambda p:(-p['itemLevel'],p['name'].lower()))
  day=datetime.now(ZoneInfo('Europe/Berlin')).strftime('%Y-%m-%d')
  # One daily closing snapshot; failed fetches never create an observation.
