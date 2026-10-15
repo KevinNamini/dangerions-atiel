@@ -1,0 +1,11 @@
+services:
+  - type: web
+    runtime: static
+    name: dangerions-atiel
+    branch: main
+    buildCommand: "true"
+    staticPublishPath: dist
+    autoDeploy: false
+    envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: "true"
