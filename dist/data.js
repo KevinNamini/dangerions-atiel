@@ -4,7 +4,7 @@ window.DANGERIONS_DATA = {
   "region": "Europa",
   "faction": "Asmodier",
   "updatedAt": "2026-10-15T17:37:53.411974+00:00",
-  "scheduleEnabled": false,
+  "scheduleEnabled": true,
   "players": [
     {
       "name": "JKLee",
