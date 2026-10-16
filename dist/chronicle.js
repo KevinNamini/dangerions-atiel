@@ -115,8 +115,8 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     state.period=period;state.selected=selected;
     const cutoff=stamp(currentDay)-(Number(period)-1)*86400000;
     days=hourly()?progress.snapshots.filter(s=>s===progress.baseline||(Date.parse(s.capturedAt)>=progress.at-86400000&&Date.parse(s.capturedAt)<=progress.at)):history.filter(h=>period==='all'||stamp(h.day)>=cutoff);
-    $('days-tag').textContent=days.length+' '+(hourly()?'Messpunkte':days.length===1?'Tagesstand':'Tagesstände');
-    $('chart-note').textContent=hourly()?'Echte Abrufe · Berliner Zeit. Das Stundenarchiv wächst ab der Umstellung. Fehlende Abrufe bleiben Lücken.':'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand. Fehlende Tage bleiben Lücken.';
+    $('days-tag').textContent=days.length+' '+(hourly()?(days.length===1?'Messpunkt':'Messpunkte'):days.length===1?'Tagesstand':'Tagesstände');
+    $('chart-note').textContent=hourly()?'Echte Abrufe · Berliner Zeit. Das Stundenarchiv wächst ab der Umstellung. Fehlende Abrufe bleiben Lücken. Jeder Pfad hat seine eigene Skala.':'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand. Fehlende Tage bleiben Lücken. Jeder Pfad hat seine eigene Skala.';
     document.querySelectorAll('[data-period]').forEach(b=>{b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
     renderPaths();renderFocus();
   }
