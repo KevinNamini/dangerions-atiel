@@ -25,6 +25,12 @@ Diese Anweisung gehört ausschließlich zum von Kevin autorisierten öffentliche
 - Rangwechsel nur bei vollständigen verifizierten Vergleichsgruppen berechnen. Neue Spieler erhalten `NEU`; bei fehlenden oder alten Daten keinen Auf-/Abstieg behaupten. Gleiches Item-Level teilt einen Rang (1, 1, 3).
 - Die Standardansicht heißt vorläufig `Seit Start`, danach `24 h`, und verwendet echte Zeitstempel. Der frühere Tagesstand erscheint nur als vorhandener Messpunkt mit gestrichelter Verbindung zum ersten Stundenwert; keine Zwischenwerte ergänzen. `7 Tage`, `30 Tage` und `Alle` zeigen die bestehende Tageschronik. Heute ist ein laufender Tag.
 
+## Manuell ergänzter Spielstart
+
+Kevin hat am 16.10.2026 ausdrücklich Stechers Spielstart am **15.10.2026 um 23:00 Uhr Europe/Berlin** mit **Level 1 und Item-Level 0** angegeben. Dieser einzelne historische Start steht in `history` mit `source: "user-reported"`, `reportedBy: "Kevin"` und eigenem `recordedAt`. Er ist keine verifizierte öffentliche Profilbeobachtung. Den Eintrag einschließlich Herkunft und ursprünglichem Zeitpunkt bei weiteren Abrufen innerhalb der regulären Archivaufbewahrung erhalten; keine historischen Stunden-Snapshots daraus erzeugen. Die API-Prüfungen bleiben unverändert.
+
+Die Anzeige berücksichtigt diesen gekennzeichneten Nullpunkt in der Tageschronik, den Profilen und im vorläufigen Startvergleich einschließlich Rangwechsel. Der spätere 24-h-Vergleich nutzt weiterhin echte Abrufe. Null ist nur für einen ausdrücklich zugeschriebenen Start mit Level 1 zulässig; keine Prozentsteigerung ausgehend von null berechnen. Der tatsächliche individuelle Startzeitpunkt und Kevin als Quelle werden angezeigt.
+
 ## Regeln
 
 - Ausschließlich JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus und Stecher auf Atiel erfassen. Stecher wurde auf Kevins Wunsch am 16.10.2026 ergänzt; sein öffentliches Profil zeigte bei der Aufnahme keine Legion an. Eine fehlende Gildenanzeige nicht als falsche Identität behandeln und keine Gilde ergänzen.

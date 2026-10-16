@@ -3,7 +3,6 @@
 window.createDangerionsChronicle = function ({data,players,history,currentDay,rank,delta,image,n,esc,formatDay,shortDay,progress,state={}}) {
   const $=id=>document.getElementById(id);
   const stamp=day=>Date.parse(day+'T12:00:00Z');
-  const valid=v=>Number.isFinite(v)&&v>0;
   const signed=v=>(v>0?'+':v<0?'−':'±')+n(Math.abs(v));
   // The atlas follows the labelled comparison; the main IL ranking stays intact.
   const progressPlayers=[...players].sort((a,b)=>{
@@ -18,18 +17,18 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   const calendar=iso=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin'}).format(new Date(iso));
   const today=calendar(Date.now());
   const label=v=>hourly()?clock(v.observedAt):shortDay(v.day);
-  const detail=v=>`${dateTime(v.observedAt)} Uhr · ${n(v.value)} Item-Level${!hourly()&&v.day===today?' · laufender Tag':''}`;
+  const detail=v=>`${dateTime(v.observedAt)} Uhr · ${n(v.value)} Item-Level${v.reportedBy?' · Level '+v.level+' · Startwert laut '+v.reportedBy:!hourly()&&v.day===today?' · laufender Tag':''}`;
   const range=()=>hourly()?[progress.provisional?progress.startAt:Math.min(progress.at-86400000,progress.startAt),progress.at]:[stamp(days[0]?.day||currentDay),stamp(days.at(-1)?.day||currentDay)];
 
   function observations(p){
     const seen=new Set();
     return days.flatMap(h=>{
       const v=h.values[p.name];
-      if(!valid(v?.itemLevel)||!Number.isFinite(Date.parse(v.observedAt)))return [];
+      if(!progress.validObservation(v))return [];
       const at=hourly()?Date.parse(v.observedAt):stamp(h.day);
       if(hourly()&&((at<progress.at-86400000&&h!==progress.baseline)||at>progress.at||seen.has(v.observedAt)))return [];
       seen.add(v.observedAt);
-      return [{day:h.day,id:hourly()?v.observedAt:h.day,at,value:v.itemLevel,observedAt:v.observedAt,source:h.source}];
+      return [{day:h.day,id:hourly()?v.observedAt:h.day,at,value:v.itemLevel,level:v.level,observedAt:v.observedAt,source:h.source,reportedBy:progress.reported(v)?v.reportedBy:null}];
     }).sort((a,b)=>a.at-b.at);
   }
   function paths(points,x,y){
@@ -79,7 +78,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const p=players.find(q=>q.name===selected),points=observations(p);
     activePoints=points;
     const first=points[0],last=points.at(-1),gain=points.length>1?last.value-first.value:null;
-    const pct=gain===null?null:(gain/first.value*100);
+    const pct=gain===null||first.value===0?null:(gain/first.value*100);
     const growth=gain===null?'Der erste Meilenstein.':gain>0?'Der Aufstieg geht weiter.':gain<0?'Ein neuer Kurs.':'Die Stärke bleibt.';
     const profile=`<div class="atlas-daeva"><div class="atlas-orbit" aria-hidden="true"><span class="orbit-ring"></span><span class="orbit-cross">✦</span>${image(p)}</div><div class="atlas-daeva-name"><p class="eyebrow">IM FOKUS <span>· IL-RANG ${rank(p)}</span></p><h3>${esc(p.name)}</h3><p>${esc(p.className)} <span>· Level ${p.level}</span></p></div><div class="atlas-current"><span>AKTUELLES ITEM-LEVEL</span><strong>${n(p.itemLevel)}</strong>${trend(delta(p))}</div><button class="atlas-profile-link" data-player="${esc(p.name)}">Charakterprofil <span aria-hidden="true">↗</span></button></div>`;
     if(!points.length){
@@ -106,12 +105,12 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
       svg+=`<path d="${path} L${run.at(-1).x},${h} L${run[0].x},${h} Z" fill="url(#atlas-fill)"/><path class="atlas-trail-glow" d="${path}"/><path class="atlas-trail observed-line" d="${path}"/>`;
     });
     svg+='</svg>';
-    const markers=points.filter((v,i)=>i===0||i===points.length-1||i%Math.ceil((points.length-1)/5)===0||v.id===state.observation).map(v=>`<button class="atlas-point ${v.id===(state.observation||last.id)?'selected':''} ${points.length<=3?'labelled':''}" style="left:${x(v.at)/w*100}%;top:${y(v.value)/h*100}%" data-observation="${v.id}" aria-pressed="${v.id===(state.observation||last.id)}" aria-label="${dateTime(v.observedAt)} Uhr: ${n(v.value)} Item-Level"><span>${n(v.value)}</span></button>`).join('');
+    const markers=points.filter((v,i)=>i===0||i===points.length-1||i%Math.ceil((points.length-1)/5)===0||v.id===state.observation).map(v=>`<button class="atlas-point ${v.id===(state.observation||last.id)?'selected':''} ${points.length<=3?'labelled':''}" style="left:${x(v.at)/w*100}%;top:${y(v.value)/h*100}%" data-observation="${v.id}" aria-pressed="${v.id===(state.observation||last.id)}" aria-label="${esc(detail(v))}"><span>${n(v.value)}</span></button>`).join('');
     const ticks=grid.map(g=>`<span class="atlas-y" style="top:${g.y/h*100}%">${n(Math.round(g.value))}</span>`).join('');
     const edges=span?[{at:start,text:hourly()?shortDay(calendar(start))+' '+clock(start):shortDay(days[0].day)},{at:end,text:hourly()?shortDay(calendar(end))+' '+clock(end):shortDay(days.at(-1).day)}]:[{at:start,text:shortDay(days[0].day)}];
     const dates=edges.map((v,i)=>`<time class="atlas-x ${i===edges.length-1?'last':''}" style="left:${x(v.at)/w*100}%" datetime="${new Date(v.at).toISOString()}">${v.text}</time>`).join('');
-    const rangeGain=gain===null?'<span class="atlas-range-gain neutral">STARTPUNKT</span>':`<span class="atlas-range-gain ${gain>0?'up':gain<0?'down':'neutral'}"><b>${signed(gain)} IL</b><span>${signed(Number(pct.toFixed(1)))} % im Zeitraum</span></span>`;
-    $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-journey"><div class="atlas-journey-head"><div><p class="eyebrow">DER PERSÖNLICHE PFAD</p><h4>${growth}</h4></div>${rangeGain}</div><div class="atlas-graph" role="group" aria-label="Item-Level-Verlauf von ${esc(p.name)}. ${points.length} echte ${hourly()?'Messpunkte':'Tagesstände'}. Senkrechte Skala ${n(min)} bis ${n(max)}.">${svg}${ticks}${markers}${dates}${points.length===1?'<span class="atlas-first-note '+(hourly()?'hourly-start':'')+'">Der erste<br>Messpunkt.</span>':''}</div><div class="atlas-time-machine"><div><span class="time-machine-star" aria-hidden="true">✧</span><span><small>MEILENSTEIN</small><output id="atlas-inspection">${detail(last)}</output></span></div><label class="atlas-date-control"><span class="sr-only">Messpunkt auswählen</span><select id="atlas-day-select" aria-label="Messpunkt auswählen">${[...points].reverse().map(v=>`<option value="${v.id}">${hourly()?shortDay(calendar(v.observedAt))+' '+clock(v.observedAt):v.day.slice(0,4)===currentDay.slice(0,4)?shortDay(v.day):formatDay(v.day)}</option>`).join('')}</select></label></div></div></div>`;
+    const rangeGain=gain===null?'<span class="atlas-range-gain neutral">STARTPUNKT</span>':`<span class="atlas-range-gain ${gain>0?'up':gain<0?'down':'neutral'}"><b>${signed(gain)} IL</b><span>${pct===null?'Start bei 0 IL':signed(Number(pct.toFixed(1)))+' % im Zeitraum'}${first.reportedBy?' · laut '+esc(first.reportedBy):''}</span></span>`;
+    $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-journey"><div class="atlas-journey-head"><div><p class="eyebrow">DER PERSÖNLICHE PFAD</p><h4>${growth}</h4></div>${rangeGain}</div><div class="atlas-graph" role="group" aria-label="Item-Level-Verlauf von ${esc(p.name)}. ${points.length} ${hourly()?'Messpunkte':'Tagesstände'}${points.some(v=>v.reportedBy)?', einschließlich Startwert laut '+esc(points.find(v=>v.reportedBy).reportedBy):' aus Profilabrufen'}. Senkrechte Skala ${n(min)} bis ${n(max)}.">${svg}${ticks}${markers}${dates}${points.length===1?'<span class="atlas-first-note '+(hourly()?'hourly-start':'')+'">Der erste<br>Messpunkt.</span>':''}</div><div class="atlas-time-machine"><div><span class="time-machine-star" aria-hidden="true">✧</span><span><small>MEILENSTEIN</small><output id="atlas-inspection">${esc(detail(last))}</output></span></div><label class="atlas-date-control"><span class="sr-only">Messpunkt auswählen</span><select id="atlas-day-select" aria-label="Messpunkt auswählen">${[...points].reverse().map(v=>`<option value="${v.id}">${hourly()?shortDay(calendar(v.observedAt))+' '+clock(v.observedAt):v.day.slice(0,4)===currentDay.slice(0,4)?shortDay(v.day):formatDay(v.day)}</option>`).join('')}</select></label></div></div></div>`;
     $('atlas-day-select').onchange=e=>{state.observation=e.target.value;renderFocus();};
     selectObservation(points.some(v=>v.id===state.observation)?state.observation:last.id);
     document.querySelectorAll('#chart img.portrait').forEach(img=>{img.onerror=()=>{img.style.visibility='hidden';};});
@@ -122,6 +121,8 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     days=hourly()?[...(progress.provisional?[progress.baseline]:[]),...progress.snapshots.filter(s=>s===progress.baseline||(Date.parse(s.capturedAt)>=(progress.provisional?progress.startAt:progress.at-86400000)&&Date.parse(s.capturedAt)<=progress.at))]:history.filter(h=>period==='all'||stamp(h.day)>=cutoff);
     $('days-tag').textContent=days.length+' '+(hourly()?(days.length===1?'Messpunkt':'Messpunkte'):days.length===1?'Tagesstand':'Tagesstände');
     $('chart-note').textContent=hourly()?(progress.provisional?'Vorläufiger Startvergleich · echte Messpunkte in Berliner Zeit. Die gestrichelte Linie verbindet den früheren Tagesstand mit dem Stundenarchiv. Wechselt automatisch auf 24 h. Jeder Pfad hat seine eigene Skala.':'Echte Abrufe · Berliner Zeit. Fehlende Abrufe bleiben Lücken. Jeder Pfad hat seine eigene Skala.'):'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand. Fehlende Tage bleiben Lücken. Jeder Pfad hat seine eigene Skala.';
+    const reportedNotes=days.flatMap(h=>Object.entries(h.values).filter(([,v])=>progress.reported(v)).map(([name,v])=>`${name}: Startwert am ${dateTime(v.observedAt)} Uhr laut ${v.reportedBy}.`));
+    if(reportedNotes.length)$('chart-note').textContent+=' '+[...new Set(reportedNotes)].join(' ');
     $('atlas-order-label').textContent=progress.provisional?'NACH ZUWACHS · SEIT START':'NACH ZUWACHS · LETZTE 24 H';
     document.querySelectorAll('[data-period]').forEach(b=>{if(b.dataset.period==='24h'){b.textContent=progress.provisional?'Seit Start':'24 h';b.title=progress.provisional?'Vorläufig: vorhandener Tagesstand und neue Stundenwerte':'Letzte 24 Stunden';}b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
     renderPaths();renderFocus();

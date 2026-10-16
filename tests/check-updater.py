@@ -30,13 +30,16 @@ with tempfile.TemporaryDirectory() as directory:
     assert first['hourlyStartedAt']==first['snapshots'][0]['capturedAt']
     assert len(first['history'])==2 and first['history'][0]==seed['history'][0]
     assert first['history'][-1]['values']['NaminiLee']['itemLevel']==originals['NaminiLee']['itemLevel']+10
-    assert 'Stecher' not in first['history'][0]['values']
+    assert first['history'][0]['values']['Stecher']==seed['history'][0]['values']['Stecher']
+    assert first['history'][0]['values']['Stecher']['source']=='user-reported'
+    assert first['history'][0]['values']['Stecher']['itemLevel']==0
     assert first['history'][-1]['values']['Stecher']['itemLevel']==originals['Stecher']['itemLevel']
     with contextlib.redirect_stdout(io.StringIO()):updater.run()
     second=json.loads(hp.read_text())
     assert len(second['snapshots'])==2 and second['snapshots'][0]==first['snapshots'][0]
     assert second['hourlyStartedAt']==first['hourlyStartedAt']
     assert len(second['history'])==2,'Never duplicate the same Berlin calendar day.'
+    assert second['history'][0]['values']['Stecher']==seed['history'][0]['values']['Stecher'],'Keep the attributed start and its exact time through hourly refreshes.'
     def partial(entry):
         if entry[0]=='Roctopus':raise ValueError('Temporary source failure')
         return fetch(entry)

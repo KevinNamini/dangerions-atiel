@@ -202,4 +202,28 @@ assert.equal(startup.periods[0].textContent,'24 h');
 assert.match(startup.el('chart').innerHTML,/<h3>NaminiLee<\/h3>/,'Automatic transition keeps the selected player.');
 assert.doesNotMatch(startup.el('chart').innerHTML,/atlas-start-link/);
 assert.match(startup.el('daily-champion').innerHTML,/AUFSTEIGER · 24 STUNDEN/);
+// Kevin's attributed zero start participates everywhere without an infinite percentage.
+const reported=structuredClone(warm);
+reported.history[0].values.Stecher={itemLevel:0,level:1,observedAt:'2026-10-15T23:00:00+02:00',source:'user-reported',reportedBy:'Kevin',recordedAt:'2026-10-16T11:30:00Z'};
+reported.players.find(p=>p.name==='Stecher').itemLevel=275;
+reported.history[1].values.Stecher.itemLevel=275;reported.snapshots[0].values.Stecher.itemLevel=275;
+const manual=mount(reported);
+assert.deepEqual(pathOrder(manual),['Stecher','JKLee','NaminiLee','LordSanchez2','BrouceLee','Roctopus','FumosLee','SurfingLee']);
+const stecherRow=manual.el('roster').innerHTML.split('data-player="Stecher"')[1].split('<div role="button"')[0];
+assert.match(stecherRow,/rank-move rise impact-1/);assert.match(stecherRow,/<b>\+1<\/b>/);assert.match(stecherRow,/\+275/);assert.doesNotMatch(stecherRow,/NEU/);
+assert.match(manual.el('comparison-detail').textContent,/Stecher: Start 15.10., 23:00 Uhr mit Level 1 \/ 0 IL laut Kevin/);
+assert.match(manual.el('chart').innerHTML,/<h3>Stecher<\/h3>/);assert.match(manual.el('chart').innerHTML,/\+275 IL/);
+assert.match(manual.el('chart').innerHTML,/Start bei 0 IL · laut Kevin/);
+assert.doesNotMatch(manual.el('chart').innerHTML,/NaN|Infinity|∞/);
+assert.equal((manual.el('chart').innerHTML.match(/data-observation=/g)||[]).length,2);
+manual.el('atlas-day-select').onchange({target:{value:'2026-10-15T23:00:00+02:00'}});
+assert.equal(manual.el('atlas-inspection').textContent,'15.10.2026, 23:00 Uhr · 0 Item-Level · Level 1 · Startwert laut Kevin');
+assert.match(manual.el('daily-champion').innerHTML,/Stecher/);assert.match(manual.el('daily-champion').innerHTML,/\+275/);
+assert.match(manual.el('atlas-pulse').innerHTML,/<b>6<\/b>aufgestiegen/);assert.doesNotMatch(manual.el('atlas-pulse').innerHTML,/ohne Startvergleich/);
+assert.match(manual.el('timeline').innerHTML,/Stecher \+275/);assert.match(manual.el('timeline').innerHTML,/23:00 Uhr laut Kevin/);
+for(const tab of manual.periods){tab.onclick();assert.match(manual.el('chart').innerHTML,/\+275 IL/);assert.doesNotMatch(manual.el('chart').innerHTML,/NaN|Infinity|∞/);assert.match(manual.el('chart-note').textContent,/23:00 Uhr laut Kevin/);}
+manual.document.onclick({target:{closest:()=>({dataset:{player:'Stecher'}})}});
+assert.match(manual.el('player-detail').innerHTML,/Spielstart: 15.10., 23:00 Uhr · Level 1 · 0 Item-Level · laut Kevin/);
+assert.equal((manual.el('player-detail').innerHTML.match(/class="detail-history"/g)||[]).length,2);
+assert.match(manual.el('player-detail').innerHTML,/\+275/);
 console.log('PASS: 24-hour atlas, timestamp selection, daily archive, eight rank-effect tiers, unchanged IL ranking, feed refresh preserving view, profiles and sharing.');

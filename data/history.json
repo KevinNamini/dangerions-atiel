@@ -173,6 +173,14 @@
           "itemLevel": 191,
           "level": 22,
           "observedAt": "2026-10-15T17:37:36.470132+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 0,
+          "level": 1,
+          "observedAt": "2026-10-15T23:00:00+02:00",
+          "source": "user-reported",
+          "reportedBy": "Kevin",
+          "recordedAt": "2026-10-16T09:26:50.937648+00:00"
         }
       }
     },
