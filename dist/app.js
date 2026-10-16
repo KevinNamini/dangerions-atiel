@@ -94,5 +94,4 @@ async function refreshFeed(){
 }
 if(typeof setInterval==='function')setInterval(refreshFeed,300000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshFeed();});
-const particles=document.querySelector('.embers');for(let i=0;i<21;i++){const p=document.createElement('i');p.style.left=(5+(i*43)%90)+'%';p.style.top=(20+(i*37)%70)+'%';p.style.animationDelay=-(i*.73)+'s';p.style.animationDuration=(8+i%7)+'s';particles.appendChild(p)}
 })();
