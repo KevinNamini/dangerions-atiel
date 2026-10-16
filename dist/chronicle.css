@@ -141,3 +141,82 @@
 .atlas-first-note.hourly-start{left:30%;top:42%;text-align:center}
 .atlas-time-machine output{max-width:340px;line-height:1.6}
 @media(max-width:720px){.chronicle-section .period-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;max-width:350px}.chronicle-section .period-tabs button{min-width:0;min-height:44px;padding-inline:8px;font-size:11px}.atlas-time-machine{align-items:start}.atlas-time-machine output{max-width:190px}.atlas-date-control select{max-width:110px;min-height:44px}.atlas-current .atlas-delta.neutral{max-width:130px;text-align:right}.atlas-first-note.hourly-start{left:25%;top:40%}}
+
+/* A celestial instrument around the Daeva: the portrait and values stay still. */
+.atlas-orbit .orbit-ring {
+  border-color: color-mix(in srgb, var(--focus-color) 46%, transparent);
+  animation: atlas-ellipse-orbit 26s linear infinite;
+  animation-play-state: var(--chronicle-motion-state, paused);
+}
+.atlas-orbit .orbit-ring::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--focus-color);
+  box-shadow: 0 0 5px var(--focus-color), 0 0 12px color-mix(in srgb, var(--focus-color) 55%, transparent);
+  pointer-events: none;
+}
+.atlas-orbit::before {
+  animation: atlas-counter-orbit 48s linear infinite;
+  animation-play-state: var(--chronicle-motion-state, paused);
+}
+.atlas-orbit::after {
+  animation: atlas-halo-breathe 6s ease-in-out -2s infinite;
+  animation-play-state: var(--chronicle-motion-state, paused);
+}
+.orbit-cross {
+  animation: atlas-star-breathe 5s ease-in-out -1s infinite;
+  animation-play-state: var(--chronicle-motion-state, paused);
+}
+.atlas-point.selected::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--focus-color);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: atlas-observation-pulse 4s ease-out infinite;
+  animation-play-state: var(--chronicle-motion-state, paused);
+}
+.ascension-atlas::before {
+  animation: atlas-starlight 9s ease-in-out -3s infinite;
+  animation-play-state: var(--chronicle-motion-state, paused);
+}
+@keyframes atlas-ellipse-orbit {
+  from { transform: rotate(40deg); }
+  to { transform: rotate(400deg); }
+}
+@keyframes atlas-counter-orbit {
+  to { transform: rotate(-360deg); }
+}
+@keyframes atlas-halo-breathe {
+  0%, 100% { opacity: .45; }
+  50% { opacity: 1; }
+}
+@keyframes atlas-star-breathe {
+  0%, 100% { opacity: .55; transform: scale(.9); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+@keyframes atlas-observation-pulse {
+  0% { opacity: 0; transform: scale(.45); }
+  18% { opacity: .55; }
+  72%, 100% { opacity: 0; transform: scale(1.6); }
+}
+@keyframes atlas-starlight {
+  0%, 100% { opacity: .45; }
+  50% { opacity: .95; }
+}
+@media (max-width: 720px) {
+  .atlas-orbit .orbit-ring::after { width: 4px; height: 4px; top: -2.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-orbit .orbit-ring, .atlas-orbit::before, .atlas-orbit::after,
+  .orbit-cross, .ascension-atlas::before { animation: none; }
+  .atlas-point.selected::before, .atlas-orbit .orbit-ring::after { display: none; }
+}

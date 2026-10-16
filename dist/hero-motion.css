@@ -48,11 +48,11 @@
   position: absolute;
   left: var(--mote-x);
   top: 76%;
-  width: 2.5px;
-  height: 2.5px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
-  background: #ffe3a8;
-  box-shadow: 0 0 8px 2px #e6b96480;
+  background: #fff0bc;
+  box-shadow: 0 0 4px 1px #fff0bcb3, 0 0 12px 3px #e6b96499;
   opacity: 0;
   animation: ember-ascent var(--mote-time) linear var(--mote-delay) infinite;
   animation-play-state: var(--hero-motion-state, paused);
@@ -67,6 +67,13 @@
 .world-motes i:nth-child(8) { --mote-x: 94%; --mote-time: 17s; --mote-delay: -10s; --mote-drift: -29px; }
 .world-motes i:nth-child(9) { --mote-x: 31%; --mote-time: 23s; --mote-delay: -6s; --mote-drift: 19px; }
 .world-motes i:nth-child(10) { --mote-x: 69%; --mote-time: 20s; --mote-delay: -15s; --mote-drift: -19px; }
+.world-motes i:nth-child(11) { --mote-x: 18%; --mote-time: 17s; --mote-delay: -11s; --mote-drift: 21px; }
+.world-motes i:nth-child(12) { --mote-x: 82%; --mote-time: 21s; --mote-delay: -6s; --mote-drift: -24px; }
+.world-motes i:nth-child(13) { --mote-x: 44%; --mote-time: 19s; --mote-delay: -14s; --mote-drift: -16px; }
+.world-motes i:nth-child(14) { --mote-x: 56%; --mote-time: 23s; --mote-delay: -4s; --mote-drift: 16px; }
+.world-motes i:nth-child(15) { --mote-x: 34%; --mote-time: 16s; --mote-delay: -6s; --mote-drift: 23px; }
+.world-motes i:nth-child(16) { --mote-x: 66%; --mote-time: 18s; --mote-delay: -14s; --mote-drift: -23px; }
+.world-motes i:nth-child(3n) { width: 4px; height: 4px; }
 
 /* The silhouette stays fixed; only a narrow reflected light passes across it. */
 .crest-glint {
@@ -110,8 +117,9 @@
 }
 @keyframes ember-ascent {
   0% { opacity: 0; transform: translate3d(0, 0, 0); }
-  18% { opacity: .85; }
-  64% { opacity: .6; }
+  18% { opacity: 1; }
+  46% { opacity: .8; transform: translate3d(calc(var(--mote-drift) * -.35), calc(var(--world-art-height) * -.26), 0); }
+  64% { opacity: .85; }
   100% { opacity: 0; transform: translate3d(var(--mote-drift), calc(var(--world-art-height) * -.57), 0); }
 }
 @keyframes crest-reflection {
@@ -125,8 +133,9 @@
 }
 
 @media (max-width: 720px) {
-  .world-motes i { width: 2px; height: 2px; }
-  .world-motes i:nth-child(n+9) { display: none; }
+  .world-motes i { width: 2.5px; height: 2.5px; }
+  .world-motes i:nth-child(3n) { width: 3.5px; height: 3.5px; }
+  .world-motes i:nth-child(n+13) { display: none; }
   .podium-card.first .portrait-ring::after { opacity: .85; }
 }
 @media (prefers-reduced-motion: reduce) {

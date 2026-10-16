@@ -1,18 +1,24 @@
-/* CSS owns all motion. Suspend it when the hero or the page is out of view. */
+/* CSS owns all motion. Each scene pauses independently when it leaves the screen. */
 (() => {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
+  const scenes = [
+    {element: document.querySelector('.hero'), property: '--hero-motion-state'},
+    {element: document.querySelector('#chart'), property: '--chronicle-motion-state'}
+  ].filter(scene => scene.element);
+  if (!scenes.length) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let inView = true;
-  const sync = () => document.documentElement.style.setProperty(
-    '--hero-motion-state', inView && !document.hidden && !reduced.matches ? 'running' : 'paused'
-  );
+  scenes.forEach(scene => { scene.inView = false; });
+  const sync = () => scenes.forEach(scene => document.documentElement.style.setProperty(
+    scene.property, scene.inView && !document.hidden && !reduced.matches ? 'running' : 'paused'
+  ));
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(([entry]) => {
-      inView = entry.isIntersecting;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const scene = scenes.find(scene => scene.element === entry.target);
+        if (scene) scene.inView = entry.isIntersecting;
+      });
       sync();
     });
-    observer.observe(hero);
+    scenes.forEach(scene => observer.observe(scene.element));
   }
   document.addEventListener('visibilitychange', sync);
   reduced.addEventListener('change', sync);
