@@ -1,0 +1,44 @@
+/* Small rank sigils: quiet at one place, brighter at larger moves. */
+.rank-position{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;min-width:0}
+.rank-position .rank-num{line-height:1}
+.rank-move{--move:#a7dfc0;--aura:#6bce9b24;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:3px;min-width:34px;min-height:23px;padding:2px 5px;border:1px solid transparent;border-radius:4px;color:var(--move);font:500 11px/1.2 var(--sans);font-variant-numeric:tabular-nums;white-space:nowrap;isolation:isolate}
+.rank-move b{font-weight:inherit}.rank-move>span{font-size:12px;line-height:1}
+.rank-move.fall{--move:#efaaa7;--aura:#e77e7822}
+.rank-move.unavailable,.rank-move.steady{color:#8693a1;font-size:10px;padding-inline:0;justify-content:flex-start;min-height:19px}
+.rank-move.unavailable{letter-spacing:.8px;font-size:8px}
+.rank-move.impact-2{font-size:12px;font-weight:650;background:var(--aura);border-color:color-mix(in srgb,var(--move) 22%,transparent);animation:rank-ignite 1.8s ease-out 2}
+.rank-move.impact-3{font-size:13px;font-weight:750;background:linear-gradient(135deg,var(--aura),transparent);border-color:color-mix(in srgb,var(--move) 38%,transparent);text-shadow:0 0 9px var(--aura);box-shadow:inset 0 0 9px var(--aura);animation:rank-ignite 1.6s ease-out 3}
+.rank-move.impact-4{font-size:14px;font-weight:800;background:linear-gradient(135deg,var(--aura),#101921);border-color:color-mix(in srgb,var(--move) 58%,transparent);text-shadow:0 0 12px var(--aura);box-shadow:0 0 12px var(--aura),inset 0 0 9px var(--aura);animation:rank-ignite 1.5s ease-out 3}
+.rank-move.impact-3:after,.rank-move.impact-4:after{content:'';position:absolute;inset:-3px;z-index:-1;border:1px solid var(--move);border-radius:6px;opacity:0;pointer-events:none;animation:rank-echo 1.8s ease-out 2}
+.rank-move.impact-4:after{animation-duration:1.5s;animation-iteration-count:3}
+@keyframes rank-ignite{0%,100%{filter:brightness(1);transform:translateY(0)}35%{filter:brightness(1.32);transform:translateY(-1px)}}
+@keyframes rank-echo{0%{opacity:0;transform:scale(.94)}25%{opacity:.3}100%{opacity:0;transform:scale(1.16)}}
+.rank-name{overflow-wrap:anywhere}.rank-person>div:last-child{min-width:0}
+.rank-caption small{color:#b3b8c0}
+#comparison-detail{max-width:460px;color:#909aa7;line-height:1.65;margin-top:5px;font-size:10px}
+.roster.cards .rank-position{position:absolute;top:14px;left:13px;gap:4px}
+.roster.cards .rank-position .rank-num{position:static}
+.roster.cards .rank-move{min-width:29px;padding-inline:3px}
+.roster.cards .rank-move.impact-4{font-size:12px}
+.roster.cards .delta small{font-size:9px}
+@media(max-width:720px){
+  .rank-columns,.rank-row{grid-template-columns:43px minmax(0,1fr) 66px 68px}
+  .rank-row{min-height:91px;padding:13px 5px;column-gap:3px}
+  .rank-columns{padding-inline:5px;column-gap:3px}
+  .rank-position{gap:6px}.rank-position .rank-num{font-size:21px}
+  .rank-move{min-width:32px;min-height:22px;padding:2px 3px;font-size:10px}
+  .rank-move.impact-2{font-size:11px}.rank-move.impact-3{font-size:12px}.rank-move.impact-4{font-size:13px}
+  .rank-avatar{width:33px;height:33px}.rank-person{gap:7px}
+  .rank-name{font-size:12px}.rank-meta{font-size:8px}
+  .rank-il{font-size:23px}.rank-il small{font-size:7px;max-width:63px;line-height:1.5}
+  .delta{font-size:11px}.delta.neutral{font-size:11px}.delta small{font-size:7px;line-height:1.5;max-width:67px}
+  .rank-caption{gap:10px;letter-spacing:.7px}.rank-caption small{font-size:9px;letter-spacing:0;text-align:right;max-width:122px}
+  #comparison-detail{font-size:9px;max-width:320px}
+  .roster.cards .rank-person{padding-top:13px}.roster.cards .rank-avatar{width:64px;height:64px}
+}
+@media(max-width:370px){
+  .rank-columns,.rank-row{grid-template-columns:39px minmax(0,1fr) 54px 56px;column-gap:3px}
+  .rank-avatar{width:26px;height:26px}.rank-person{gap:5px}.rank-name{font-size:11px}.rank-meta{font-size:7px;gap:3px}
+  .rank-il{font-size:20px}.rank-il small{font-size:6px}.delta small{font-size:6px}.rank-caption small{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.rank-move,.rank-move:after{animation:none!important;transform:none!important}.rank-move:after{display:none}}

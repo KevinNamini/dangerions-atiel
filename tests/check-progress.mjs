@@ -1,0 +1,42 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const context={window:{}};
+vm.runInNewContext(fs.readFileSync(new URL('../dist/progress.js',import.meta.url),'utf8'),context);
+const at='2026-10-16T10:07:00Z',old='2026-10-15T10:07:00Z';
+const names=['A','B','C','D','E','F'];
+function data(current=[1000,900,800,700,600,500],previous=[1000,900,800,700,600,500]){
+  return {updatedAt:at,failures:[],players:names.map((name,i)=>({name,itemLevel:current[i],observedAt:at})),snapshots:[{capturedAt:old,roster:names,values:Object.fromEntries(names.map((name,i)=>[name,{itemLevel:previous[i],observedAt:old}]))}]};
+}
+const metrics=d=>context.window.dangerionsProgress(d,Date.parse(at));
+const changed=data([1000,900,800,700,1100,500]);
+const m=metrics(changed);
+assert.equal(m.movement(changed.players[4]).value,4);
+assert.equal(m.movement(changed.players[0]).value,-1);
+assert.equal(m.delta(changed.players[0]),0,'A player can lose a place without losing Item-Level.');
+assert.equal(m.movement(changed.players[5]).value,0);
+const negative=data([1000,900,800,700,600,500],[1000,1100,800,700,600,500]);
+assert.equal(metrics(negative).delta(negative.players[1]),-200);
+const tied=data([1000,1000,800,700,600,500]);
+assert.equal(metrics(tied).rank(tied.players[0]),1);assert.equal(metrics(tied).rank(tied.players[1]),1);assert.equal(metrics(tied).rank(tied.players[2]),3);
+assert.equal(metrics(tied).movement(tied.players[1]).value,1);
+const noHistory=data();noHistory.snapshots=[];
+assert.equal(metrics(noHistory).delta(noHistory.players[0]),null,'Daily archive must not masquerade as a 24-hour capture.');
+const late=data();late.snapshots[0].capturedAt='2026-10-15T11:07:00Z';
+Object.values(late.snapshots[0].values).forEach(v=>v.observedAt=late.snapshots[0].capturedAt);
+assert.equal(metrics(late).delta(late.players[0]),0,'A one-hour timing deviation is explicit but usable.');
+late.snapshots[0].capturedAt='2026-10-15T11:13:00Z';
+assert.equal(metrics(late).baseline,null,'A larger gap must not invent a precise 24-hour comparison.');
+const partial=data();delete partial.snapshots[0].values.C;
+assert.equal(metrics(partial).movement(partial.players[0]).value,null,'Incomplete cohorts cannot establish rank changes.');
+assert.equal(metrics(partial).delta(partial.players[0]),0,'Verified individual Item-Level comparison remains usable.');
+const stale=data();stale.failures=[{name:'B'}];
+assert.equal(metrics(stale).delta(stale.players[1]),null);assert.equal(metrics(stale).movement(stale.players[0]).value,null);
+assert.equal(context.window.dangerionsProgress(data(),Date.parse(at)+3*3600000).delta(data().players[0]),null,'Old current data must be labelled, not described as current.');
+const newcomer=data();newcomer.snapshots[0].roster=names.slice(0,-1);delete newcomer.snapshots[0].values.F;
+assert.equal(metrics(newcomer).movement(newcomer.players[5]).reason,'new');
+// 24 hours means elapsed time, even across Berlin's autumn DST change.
+const dst=data();dst.updatedAt='2026-10-25T10:00:00Z';dst.players.forEach(p=>p.observedAt=dst.updatedAt);
+dst.snapshots[0].capturedAt='2026-10-24T10:00:00Z';Object.values(dst.snapshots[0].values).forEach(v=>v.observedAt=dst.snapshots[0].capturedAt);
+assert.equal(context.window.dangerionsProgress(dst,Date.parse(dst.updatedAt)).delta(dst.players[0]),0);
+console.log('PASS: rank rises/falls/ties/newcomers, independent IL gain, missing/partial/stale captures, bounded 24-hour comparison and DST.');

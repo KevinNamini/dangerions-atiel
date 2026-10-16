@@ -12,6 +12,8 @@ with tempfile.TemporaryDirectory() as directory:
     (updater.ROOT/'data').mkdir();(updater.ROOT/'dist').mkdir()
     hp=updater.ROOT/'data/history.json'
     previous=(datetime.now(ZoneInfo('Europe/Berlin'))-timedelta(days=1)).strftime('%Y-%m-%d')
+    seed.pop('snapshots',None)
+    seed.pop('hourlyStartedAt',None)
     seed['history']=seed['history'][:1]
     seed['history'][0]['day']=previous
     hp.write_text(json.dumps(seed))
@@ -24,12 +26,16 @@ with tempfile.TemporaryDirectory() as directory:
     updater.fetch_one=fetch
     with contextlib.redirect_stdout(io.StringIO()):updater.run()
     first=json.loads(hp.read_text())
+    assert len(first['snapshots'])==1 and len(first['snapshots'][0]['roster'])==8
+    assert first['hourlyStartedAt']==first['snapshots'][0]['capturedAt']
     assert len(first['history'])==2 and first['history'][0]==seed['history'][0]
     assert first['history'][-1]['values']['NaminiLee']['itemLevel']==originals['NaminiLee']['itemLevel']+10
     assert 'Stecher' not in first['history'][0]['values']
-    assert first['history'][-1]['values']['Stecher']['itemLevel']==249
+    assert first['history'][-1]['values']['Stecher']['itemLevel']==originals['Stecher']['itemLevel']
     with contextlib.redirect_stdout(io.StringIO()):updater.run()
     second=json.loads(hp.read_text())
+    assert len(second['snapshots'])==2 and second['snapshots'][0]==first['snapshots'][0]
+    assert second['hourlyStartedAt']==first['hourlyStartedAt']
     assert len(second['history'])==2,'Never duplicate the same Berlin calendar day.'
     def partial(entry):
         if entry[0]=='Roctopus':raise ValueError('Temporary source failure')
@@ -40,6 +46,8 @@ with tempfile.TemporaryDirectory() as directory:
     except SystemExit as e:assert e.code==2
     result=json.loads(hp.read_text())
     assert result['failures'][0]['name']=='Roctopus'
+    assert 'Roctopus' not in result['snapshots'][-1]['values']
+    assert len(result['snapshots'])==3
     assert len(result['players'])==len(updater.ROSTER)==8
     assert next(p for p in result['players'] if p['name']=='Roctopus')['observedAt']==next(p for p in second['players'] if p['name']=='Roctopus')['observedAt']
     def fail(_):raise ValueError('Source offline')

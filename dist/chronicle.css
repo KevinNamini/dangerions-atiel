@@ -134,3 +134,9 @@
 }
 @media(max-width:370px){.atlas-masthead{font-size:7px;letter-spacing:.8px;margin-inline:14px}.atlas-masthead>span:first-child{gap:5px}.atlas-paths{padding-inline:10px;gap:7px}.atlas-path{padding-inline:8px}.path-identity>.portrait{width:23px;height:23px}.path-identity strong{font-size:10px}.path-value{font-size:22px}.path-stats .atlas-delta{font-size:9px}.path-stats .atlas-delta.neutral{font-size:7px;max-width:45px}.path-caption>span{display:none}.atlas-daeva{padding-inline:16px;gap:0 12px}.atlas-daeva-name h3{font-size:21px}.atlas-current>.atlas-delta{font-size:12px;gap:5px}.atlas-current .atlas-delta small{font-size:9px}.atlas-journey{padding-inline:14px}.atlas-journey-head h4{font-size:15px}.atlas-range-gain b{font-size:17px}.atlas-time-machine output{font-size:9px}.atlas-time-machine small{font-size:6px}.atlas-date-control select{font-size:9px;padding-inline:3px}.atlas-first-note{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.atlas-path,.atlas-point:after{transition:none}.atlas-path:hover{transform:none}}
+
+/* Four thumb-friendly periods and a legible hour-by-hour inspection. */
+.period-tabs{max-width:100%}.period-tabs button{min-height:44px}
+.atlas-first-note.hourly-start{left:30%;top:42%;text-align:center}
+.atlas-time-machine output{max-width:340px;line-height:1.6}
+@media(max-width:720px){.chronicle-section .period-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;max-width:350px}.chronicle-section .period-tabs button{min-width:0;min-height:44px;padding-inline:8px;font-size:11px}.atlas-time-machine{align-items:start}.atlas-time-machine output{max-width:190px}.atlas-date-control select{max-width:110px;min-height:44px}.atlas-current .atlas-delta.neutral{max-width:130px;text-align:right}.atlas-first-note.hourly-start{left:25%;top:40%}}

@@ -1,6 +1,6 @@
 # Dangerions · Hall of Ascension
 
-Öffentliche AION-2-Legionsrangliste für acht Charaktere auf **Atiel · Europa · Asmodier**. Eigene Fantasy-Gestaltung, Siegerpodest, Charakterprofile und Tageschronik. Besucher benötigen keinen Login.
+Öffentliche AION-2-Legionsrangliste für acht Charaktere auf **Atiel · Europa · Asmodier**. Eigene Fantasy-Gestaltung, Siegerpodest, Charakterprofile und Stunden- sowie Tageschronik. Besucher benötigen keinen Login.
 
 Website: https://dangerions-atiel.onrender.com/
 
@@ -12,9 +12,9 @@ Die Website lädt den neuesten Beobachtungsstand aus `data/history.json` in dies
 
 ## Erfassung
 
-`python3 tools/update_roster.py` ruft die festgelegten öffentlichen Profile ab und erhält bis zu 366 Berliner Tagesstände. `data/history.json` ist das dauerhafte Archiv; `dist/data.js` die identische eingebettete Rückfallfassung. Erster echter Stand: **15. Oktober 2026**. Frühere Werte wurden nicht erfunden.
+`python3 tools/update_roster.py` ruft die festgelegten öffentlichen Profile ab und erhält bis zu 366 Berliner Tagesstände. `snapshots` erhält zusätzlich 31 Tage echter Abrufe mit Zeitstempeln und angefragter Spielerliste; die feinere Historie beginnt am 16. Oktober 2026 ohne rückwirkend erfundene Punkte. `data/history.json` ist das dauerhafte Archiv; `dist/data.js` die identische eingebettete Rückfallfassung. Erster echter Stand: **15. Oktober 2026**. Frühere Werte wurden nicht erfunden.
 
-Die täglichen Hintergrundläufe sind über die mit Kevin eingerichtete ChatGPT-Automatisierung aktiviert, jeweils am Abend gegen 22 Uhr (Europe/Berlin). Das vollständige Verfahren steht in [AUTOMATION.md](AUTOMATION.md). Ohne einen aktivierten Zeitplan führt die Website selbst keine unbeaufsichtigte Erfassung aus. `scheduleEnabled` zeigt den eingerichteten Zustand an.
+Der bestehende Hintergrundlauf ist auf stündliche Erfassung jeweils um Minute 07 (Europe/Berlin) ausgelegt. Er nutzt weiterhin die bereits mit Kevin eingerichtete ChatGPT-Automatisierung; es gibt keinen zweiten parallelen Zeitplan. Das vollständige Verfahren steht in [AUTOMATION.md](AUTOMATION.md). Ohne einen aktivierten Zeitplan führt die Website selbst keine unbeaufsichtigte Erfassung aus. `scheduleEnabled` zeigt den eingerichteten Zustand an.
 
 Bei Teilausfällen bleiben die letzten bekannten Beobachtungen mit ihrem ursprünglichen Datum erhalten. Fehlende Tage werden als Lücken behandelt. Wiederholte Abrufe am selben Tag aktualisieren einen bestehenden Tagesstand. Ausrüstungswechsel können auch zu einem niedrigeren Item-Level führen.
 
@@ -26,12 +26,13 @@ Stecher wurde am **16. Oktober 2026** ergänzt: Assassine, Level 26, Item-Level 
 
 ## Prüfen und exportieren
 
-Die Chronik ist als **Aufstiegsatlas** gestaltet: ein großer Einzelverlauf mit auswählbaren Tagesständen und acht eigene Mini-Verläufe. Die Spielerkarten und der anfängliche Fokus folgen dem absoluten Item-Level-Zuwachs zum direkten Vortag, absteigend; Spieler ohne Vergleich stehen am Ende. Bei gleichem Zuwachs bleibt die Item-Level-Reihenfolge erhalten. Diese Sortierung gilt für jeden gewählten Zeitraum ausschließlich im Aufstiegsatlas; Podest und Rangliste bleiben nach aktuellem Item-Level sortiert. Tagesänderungen beziehen sich auf den direkten Vortag; der Gewinn im großen Verlauf auf den ersten und letzten tatsächlich erfassten Wert des gewählten Zeitraums. Jeder Verlauf hat eine eigene, im Detail beschriftete Skala. Lücken werden nicht verbunden; neue Spieler erhalten keine rückwirkenden Punkte. Die Ansicht „Alle“ umfasst das vollständige vorhandene Archiv.
+Die Chronik ist als **Aufstiegsatlas** gestaltet: ein großer Einzelverlauf mit auswählbaren Tagesständen und acht eigene Mini-Verläufe. Die Spielerkarten und der anfängliche Fokus folgen dem absoluten Item-Level-Zuwachs im 24-Stunden-Vergleich, absteigend; Spieler ohne Vergleich stehen am Ende. Bei gleichem Zuwachs bleibt die Item-Level-Reihenfolge erhalten. Diese Sortierung gilt für jeden gewählten Zeitraum ausschließlich im Aufstiegsatlas; Podest und Rangliste bleiben nach aktuellem Item-Level sortiert. Die Änderungen in Rangliste und Atlas vergleichen den letzten verifizierten Stand mit dem zeitlich nächsten Snapshot von vor 24 Stunden (höchstens 65 Minuten Abweichung). Fehlt dieser, gibt es keine Änderungsaussage. Der tatsächliche Zeitraum steht unter der Rangliste. Rangwechsel benötigen vollständige Vergleichsgruppen, alte aktuelle Werte über zwei Stunden werden markiert. ±1 ist dezent, ±2/±3/±4+ erhalten abgestufte endliche Leuchtimpulse, bei reduzierter Bewegung ohne Animation. Die Standardansicht „24 h“ nutzt echte Abrufzeiten; „7 Tage“, „30 Tage“ und „Alle“ Tagesstände, mit heute als laufendem Tag. Tagesänderungen im historischen Legionsbuch beziehen sich weiter auf den direkten Vortag; der Gewinn im großen Verlauf auf den ersten und letzten tatsächlich erfassten Wert des gewählten Zeitraums. Jeder Verlauf hat eine eigene, im Detail beschriftete Skala. Lücken werden nicht verbunden; neue Spieler erhalten keine rückwirkenden Punkte. Die Ansicht „Alle“ umfasst das vollständige vorhandene Archiv.
 
-`dist/chronicle.js` und `dist/chronicle.css` enthalten Darstellung und Bedienung des Atlas. Das bestehende Datenformat und die automatische Erfassung bleiben unverändert.
+`dist/progress.js` berechnet den Zeitvergleich, `dist/rank-motion.css` enthält die Rangwechsel-Effekte. Die geöffnete Website prüft den Datenfeed alle fünf Minuten sowie beim Zurückkehren in den Tab, behält die ausgewählte Ansicht bei und unterbricht kein geöffnetes Profil. `dist/chronicle.js` und `dist/chronicle.css` enthalten Darstellung und Bedienung des Atlas. Das Datenformat ist abwärtskompatibel um `schemaVersion: 2`, `hourlyStartedAt` und `snapshots` erweitert.
 
 ```sh
 node tests/check-app.mjs
+node tests/check-progress.mjs
 python3 tests/check-updater.py
 python3 tools/export_standalone.py Dangerions.html
 ```

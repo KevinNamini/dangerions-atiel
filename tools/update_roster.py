@@ -3,7 +3,7 @@
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode, quote
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from zoneinfo import ZoneInfo
 import json, concurrent.futures, sys
 ROOT=Path(__file__).resolve().parents[1]
@@ -69,16 +69,20 @@ def run():
   raise RuntimeError('No fresh verified character data; previous dataset was not changed.')
  players.sort(key=lambda p:(-p['itemLevel'],p['name'].lower()))
  day=datetime.now(ZoneInfo('Europe/Berlin')).strftime('%Y-%m-%d')
- # One daily closing snapshot; failed fetches never create an observation.
+ # Daily archive plus timestamped captures. Failed fetches never become new points.
  current={p['name']:{'itemLevel':p['itemLevel'],'level':p['level'],'observedAt':p['observedAt']} for p in players if p['name'] not in [f['name'] for f in failures]}
  history=old.get('history',[])
  existing=next((h for h in history if h['day']==day),None)
  if existing:existing['values'].update(current)
  else:history.append({'day':day,'values':current})
- data={'guild':'Dangerions','server':'Atiel','region':'Europa','faction':'Asmodier','updatedAt':datetime.now(timezone.utc).isoformat(),'scheduleEnabled':old.get('scheduleEnabled',False),'players':players,'history':sorted(history,key=lambda h:h['day'])[-366:],'failures':failures}
+ captured=datetime.now(timezone.utc)
+ snapshots=[s for s in old.get('snapshots',[]) if datetime.fromisoformat(s['capturedAt'])>=captured-timedelta(days=31)]
+ snapshots=[s for s in snapshots if s['capturedAt']!=captured.isoformat()]
+ snapshots.append({'capturedAt':captured.isoformat(),'roster':[name for name,_ in ROSTER],'values':current})
+ data={**old,'schemaVersion':2,'guild':'Dangerions','server':'Atiel','region':'Europa','faction':'Asmodier','updatedAt':captured.isoformat(),'hourlyStartedAt':old.get('hourlyStartedAt',captured.isoformat()),'scheduleEnabled':old.get('scheduleEnabled',False),'players':players,'history':sorted(history,key=lambda h:h['day'])[-366:],'snapshots':sorted(snapshots,key=lambda s:s['capturedAt']),'failures':failures}
  text=json.dumps(data,ensure_ascii=False,indent=2)
  tmp=history_path.with_suffix('.tmp');tmp.write_text(text);tmp.replace(history_path)
  (ROOT/'dist'/'data.js').write_text('window.DANGERIONS_DATA = '+text+';\n')
- print(json.dumps({'players':[{k:p[k] for k in ('name','className','level','itemLevel','combatPower','guild')} for p in players],'days':len(history),'failures':failures},ensure_ascii=False))
+ print(json.dumps({'players':[{k:p[k] for k in ('name','className','level','itemLevel','combatPower','guild')} for p in players],'days':len(history),'snapshots':len(snapshots),'capturedAt':captured.isoformat(),'failures':failures},ensure_ascii=False))
  if failures:sys.exit(2)
 if __name__=='__main__':run()

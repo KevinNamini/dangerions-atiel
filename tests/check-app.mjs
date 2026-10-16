@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 
-const source=fs.readFileSync(new URL('../dist/chronicle.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');
+const source=fs.readFileSync(new URL('../dist/progress.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/chronicle.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');
 const original=JSON.parse(fs.readFileSync(new URL('../data/history.json',import.meta.url),'utf8'));
 class Element {
   constructor(dataset={}){this.dataset=dataset;this.innerHTML='';this.textContent='';this.style={};this.listeners={};this.attrs={};this.hidden=false;this.classes=new Set();this.classList={add:x=>this.classes.add(x),remove:x=>this.classes.delete(x),toggle:(x,v)=>v?this.classes.add(x):this.classes.delete(x)};}
@@ -10,15 +10,17 @@ class Element {
   addEventListener(k,f){this.listeners[k]=f;}
   appendChild(){}
   showModal(){this.open=true;}
-  close(){this.open=false;this.listeners.close?.({});}
+  close(){this.open=false;this.onclose?.({});}
 }
 function mount(data,feed=null){
-  const ids=new Map(),extras=new Map();
+  const fixedNow=Date.parse('2026-10-16T12:00:00Z');
+  class FixedDate extends Date{constructor(...args){super(...(args.length?args:[fixedNow]));}static now(){return fixedNow;}}
+  const ids=new Map(),extras=new Map(),intervals=[];
   const el=id=>{if(!ids.has(id))ids.set(id,new Element());return ids.get(id)};
-  const periods=['7','30','all'].map(period=>new Element({period:String(period)}));
+  const periods=['24h','7','30','all'].map(period=>new Element({period:String(period)}));
   const document={body:new Element(),getElementById:el,createElement:()=>new Element(),listeners:{},addEventListener(k,f){this.listeners[k]=f},querySelector(s){if(!extras.has(s))extras.set(s,new Element());return extras.get(s)},querySelectorAll(s){if(s==='[data-period]')return periods;if(s==='[data-chart]')return [];return []}};
-  const ready=vm.runInNewContext(source,{window:{DANGERIONS_DATA:data},document,Intl,Date,AbortController,fetch:async()=>({ok:true,json:async()=>feed}),location:{protocol:feed?'https:':'file:',href:'file:///Dangerions.html'},navigator:{},setTimeout:()=>1,clearTimeout:()=>{}},{timeout:2000});
-  return {el,document,extras,periods,ready};
+  const ready=vm.runInNewContext(source,{window:{DANGERIONS_DATA:data},document,Intl,Date:FixedDate,AbortController,fetch:async()=>({ok:true,json:async()=>typeof feed==='function'?feed():feed}),location:{protocol:feed?'https:':'file:',href:'file:///Dangerions.html'},navigator:{},setTimeout:()=>1,clearTimeout:()=>{},setInterval:fn=>intervals.push(fn)},{timeout:2000});
+  return {el,document,extras,periods,ready,intervals};
 }
 // Fixed observations make regressions independent of future live data updates.
 const fixture=structuredClone(original);
@@ -26,8 +28,9 @@ const values={JKLee:[1258,1404],NaminiLee:[1047,1148],LordSanchez2:[774,843],Fum
 fixture.updatedAt='2026-10-16T12:00:00Z';
 fixture.players.forEach(p=>{p.itemLevel=values[p.name][1];p.observedAt=fixture.updatedAt});
 fixture.history=['2026-10-15','2026-10-16'].map((day,i)=>({day,values:Object.fromEntries(fixture.players.filter(p=>values[p.name][i]!==null).map(p=>[p.name,{itemLevel:values[p.name][i],level:p.level,observedAt:day+'T12:00:00Z'}]))}));
+fixture.snapshots=fixture.history.map(h=>({capturedAt:h.day+'T12:00:00Z',roster:Object.keys(h.values),values:structuredClone(h.values)}));
 const start=mount(fixture);
-const choose=(app,name)=>app.el('chart-select').listeners.click({target:{closest:()=>({dataset:{chart:name}})}});
+const choose=(app,name)=>app.el('chart-select').onclick({target:{closest:()=>({dataset:{chart:name}})}});
 const pathOrder=app=>[...app.el('chart-select').innerHTML.matchAll(/data-chart="([^"]+)"/g)].map(m=>m[1]);
 const dailyOrder=['JKLee','NaminiLee','LordSanchez2','BrouceLee','Roctopus','FumosLee','SurfingLee','Stecher'];
 assert.deepEqual(pathOrder(start),dailyOrder,'Atlas orders absolute daily gains, keeping equal gains stable and missing comparisons last.');
@@ -43,10 +46,10 @@ assert.match(start.el('chart').innerHTML,/11,6 % im Zeitraum/);
 assert.match(start.el('daily-champion').innerHTML,/JKLee/);
 assert.match(start.el('timeline').innerHTML,/5 aufgestiegen · 2 unverändert/);
 assert.match(start.el('atlas-pulse').innerHTML,/<b>5<\/b>aufgestiegen/);
-assert.match(start.el('atlas-pulse').innerHTML,/1 ohne Vortagsvergleich/);
+assert.match(start.el('atlas-pulse').innerHTML,/1 ohne 24-h-Vergleich/);
 start.el('view-cards').onclick();assert.equal(start.extras.get('.rank-columns').hidden,true);
 start.el('view-list').onclick();assert.equal(start.extras.get('.rank-columns').hidden,false);
-start.document.listeners.click({target:{closest:()=>({dataset:{player:'NaminiLee'}})}});
+start.document.onclick({target:{closest:()=>({dataset:{player:'NaminiLee'}})}});
 assert.equal(start.el('player-dialog').open,true);
 assert.match(start.el('player-detail').innerHTML,/1.148/);
 assert.match(start.el('player-detail').innerHTML,/OFFIZIELLES AION-PROFIL/);
@@ -58,6 +61,7 @@ const rising=structuredClone(fixture);
 for(const [name,value] of [['BrouceLee',1000],['Roctopus',491]]){
   rising.players.find(p=>p.name===name).itemLevel=value;
   rising.history[1].values[name].itemLevel=value;
+  rising.snapshots[1].values[name].itemLevel=value;
 }
 const dailyLeader=mount(rising);
 assert.deepEqual(pathOrder(dailyLeader).slice(0,3),['BrouceLee','Roctopus','JKLee'],'Use absolute gains, not percentage gains or current Item-Level.');
@@ -66,14 +70,15 @@ assert.match(dailyLeader.el('roster').innerHTML,/Rang 1: JKLee/);
 assert.deepEqual([...dailyLeader.el('roster').innerHTML.matchAll(/data-player="([^"]+)"/g)].map(m=>m[1]),['JKLee','NaminiLee','BrouceLee','LordSanchez2','FumosLee','SurfingLee','Roctopus','Stecher']);
 assert.deepEqual([...dailyLeader.el('podium').innerHTML.matchAll(/data-player="([^"]+)"/g)].map(m=>m[1]),['NaminiLee','JKLee','BrouceLee']);
 
+start.periods[1].onclick();
 choose(start,'NaminiLee');
 assert.match(start.el('chart').innerHTML,/NaminiLee/);
 assert.match(start.el('chart').innerHTML,/\+101 IL/);
 assert.match(start.el('chart').innerHTML,/9,6 % im Zeitraum/);
-start.el('chart').listeners.click({target:{closest:()=>({dataset:{observation:'2026-10-15'}})}});
-assert.equal(start.el('atlas-inspection').textContent,'15.10.2026 · 1.047 Item-Level');
+start.el('chart').onclick({target:{closest:()=>({dataset:{observation:'2026-10-15'}})}});
+assert.equal(start.el('atlas-inspection').textContent,'15.10.2026, 14:00 Uhr · 1.047 Item-Level');
 start.el('atlas-day-select').onchange({target:{value:'2026-10-16'}});
-assert.equal(start.el('atlas-inspection').textContent,'16.10.2026 · 1.148 Item-Level');
+assert.equal(start.el('atlas-inspection').textContent,'16.10.2026, 14:00 Uhr · 1.148 Item-Level · laufender Tag');
 choose(start,'FumosLee');
 assert.match(start.el('chart').innerHTML,/Unverändert/);
 assert.match(start.el('chart').innerHTML,/±0 IL/);
@@ -82,7 +87,7 @@ assert.match(start.el('chart').innerHTML,/Der erste Meilenstein/);
 assert.match(start.el('chart').innerHTML,/STARTPUNKT/);
 assert.equal((start.el('chart').innerHTML.match(/data-observation=/g)||[]).length,1);
 assert.doesNotMatch(start.el('chart').innerHTML,/class="atlas-trail observed-line"/);
-start.document.listeners.click({target:{closest:()=>({dataset:{player:'Stecher'}})}});
+start.document.onclick({target:{closest:()=>({dataset:{player:'Stecher'}})}});
 assert.equal((start.el('player-detail').innerHTML.match(/class="detail-history"/g)||[]).length,1);
 assert.match(start.el('player-detail').innerHTML,/Legion: nicht angezeigt/);
 
@@ -96,6 +101,7 @@ assert.match(rejected.el('freshness').textContent,/Letzter gespeicherter Stand/)
 
 const first=structuredClone(fixture);first.history=first.history.slice(0,1);
 first.players=first.players.filter(p=>first.history[0].values[p.name]);
+first.snapshots=first.snapshots.slice(0,1);first.updatedAt='2026-10-15T12:00:00Z';
 first.players.forEach(p=>{p.itemLevel=first.history[0].values[p.name].itemLevel;p.observedAt='2026-10-15T12:00:00Z'});
 const firstDay=mount(first);
 assert.doesNotMatch(firstDay.el('chart').innerHTML,/class="atlas-trail observed-line"/);
@@ -103,22 +109,22 @@ assert.match(firstDay.el('daily-champion').innerHTML,/Krone wartet/);
 
 const declined=structuredClone(fixture);
 declined.players.find(p=>p.name==='NaminiLee').itemLevel=1037;
-declined.history[1].values.NaminiLee.itemLevel=1037;
+declined.history[1].values.NaminiLee.itemLevel=1037;declined.snapshots[1].values.NaminiLee.itemLevel=1037;
 const down=mount(declined);choose(down,'NaminiLee');
 assert.match(down.el('chart').innerHTML,/−10 IL/);
 assert.match(down.el('chart').innerHTML,/Ein neuer Kurs/);
-assert.match(down.el('roster').innerHTML,/↓ -10/);
+assert.match(down.el('roster').innerHTML,/−10/);
 assert.deepEqual(pathOrder(down).slice(-4),['FumosLee','SurfingLee','NaminiLee','Stecher'],'Zero precedes negative changes; missing comparison follows both.');
 const tied=structuredClone(fixture);tied.players.find(p=>p.name==='NaminiLee').itemLevel=1404;
 const tie=mount(tied);assert.match(tie.el('roster').innerHTML,/Rang 1: NaminiLee/);assert.match(tie.el('roster').innerHTML,/Rang 3: LordSanchez2/);
 
-const gap=structuredClone(fixture);gap.history[0].day='2026-10-14';
+const gap=structuredClone(fixture);gap.history[0].day='2026-10-14';gap.snapshots[0].capturedAt='2026-10-14T12:00:00Z';
 const missing=mount(gap);
 assert.doesNotMatch(missing.el('chart').innerHTML,/class="atlas-trail observed-line"/,'Never connect observations across a missing calendar day.');
 assert.doesNotMatch(missing.el('chart-select').innerHTML,/class="observed-line"/);
 assert.match(missing.el('daily-champion').innerHTML,/Krone wartet/);
 assert.deepEqual(pathOrder(missing),fixture.players.toSorted((a,b)=>b.itemLevel-a.itemLevel).map(p=>p.name),'Do not substitute an older observation for the direct previous day.');
-const absent=structuredClone(fixture);absent.history.forEach(day=>{delete day.values.Roctopus});
+const absent=structuredClone(fixture);absent.history.forEach(day=>{delete day.values.Roctopus});absent.snapshots.forEach(s=>{delete s.values.Roctopus});
 const empty=mount(absent);choose(empty,'Roctopus');
 assert.match(empty.el('chart').innerHTML,/fehlen Messwerte/);
 assert.doesNotMatch(empty.el('chart').innerHTML,/NaN|Infinity/);
@@ -127,15 +133,40 @@ assert.doesNotMatch(empty.el('chart').innerHTML,/NaN|Infinity/);
 const long=structuredClone(fixture);
 long.history.unshift({day:'2025-10-16',values:structuredClone(fixture.history[0].values)});
 long.history[0].values.JKLee.itemLevel=1400;
-const archive=mount(long);
+const archive=mount(long);archive.periods[1].onclick();
 assert.equal(archive.el('days-tag').textContent,'2 Tagesstände');
-archive.periods[2].onclick();
+archive.periods[3].onclick();
 assert.equal(archive.el('days-tag').textContent,'3 Tagesstände');
 assert.match(archive.el('chart').innerHTML,/2025-10-16/);
 assert.deepEqual(pathOrder(archive),dailyOrder,'Changing the chart window must not sort by total period gains.');
-archive.periods[1].onclick();assert.deepEqual(pathOrder(archive),dailyOrder);
-archive.periods[0].onclick();assert.equal(archive.el('days-tag').textContent,'2 Tagesstände');
+archive.periods[2].onclick();assert.deepEqual(pathOrder(archive),dailyOrder);
+archive.periods[1].onclick();assert.equal(archive.el('days-tag').textContent,'2 Tagesstände');
 const live=mount(structuredClone(original));
 assert.equal((live.el('chart-select').innerHTML.match(/data-chart=/g)||[]).length,original.players.length);
 assert.doesNotMatch(live.el('chart').innerHTML,/NaN|Infinity|undefined/);
-console.log('PASS: daily-gain atlas order, unchanged IL ranking, individual paths, exact daily and period gains, selectable milestones, missing dates, new players, complete archive, profiles, feed validation and sharing.');
+// Both directions have progressively stronger rank sigils; never alter IL ordering.
+for(const [name,value,direction,tier] of [['BrouceLee',1000,'rise',2],['BrouceLee',1200,'rise',3],['BrouceLee',1500,'rise',4],['JKLee',900,'fall',1],['JKLee',700,'fall',2],['JKLee',670,'fall',3],['JKLee',650,'fall',4]]){
+  const moved=structuredClone(fixture);moved.players.find(p=>p.name===name).itemLevel=value;
+  const app=mount(moved),row=app.el('roster').innerHTML.split(`data-player="${name}"`)[1].split('<div role="button"')[0];
+  assert.match(row,new RegExp(`rank-move ${direction} impact-${tier}`));
+}
+const dense=structuredClone(fixture);
+dense.snapshots=Array.from({length:25},(_,i)=>{const capturedAt=new Date(Date.parse('2026-10-15T12:00:00Z')+i*3600000).toISOString();return {capturedAt,roster:dense.players.map(p=>p.name),values:Object.fromEntries(dense.players.map(p=>[p.name,{itemLevel:p.itemLevel,level:p.level,observedAt:capturedAt}]))}});
+const hours=mount(dense);
+assert.equal(hours.el('days-tag').textContent,'25 Messpunkte');
+assert.equal((hours.el('chart').innerHTML.match(/<option /g)||[]).length,25);
+assert.ok((hours.el('chart').innerHTML.match(/data-observation=/g)||[]).length<=8,'Dense charts keep a few large touch targets and every observation in the selector.');
+assert.match(hours.el('chart').innerHTML,/class="atlas-trail observed-line"/);
+hours.el('atlas-day-select').onchange({target:{value:dense.snapshots[4].capturedAt}});
+assert.match(hours.el('atlas-inspection').textContent,/15.10.2026, 18:00 Uhr/);
+let response=structuredClone(fixture);
+const polling=mount(fixture,()=>response);await polling.ready;
+polling.periods[3].onclick();choose(polling,'NaminiLee');polling.el('view-cards').onclick();
+response=structuredClone(fixture);response.updatedAt='2026-10-16T12:05:00Z';response.players.find(p=>p.name==='NaminiLee').itemLevel=1157;
+await polling.intervals[0]();
+assert.match(polling.el('chart').innerHTML,/<h3>NaminiLee<\/h3>/);
+assert.match(polling.el('chart').innerHTML,/1.157/);
+assert.equal(polling.periods[3].attrs['aria-pressed'],'true');
+assert.equal(polling.extras.get('.rank-columns').hidden,true);
+assert.match(polling.el('comparison-detail').textContent,/15.10., 14:00 → 16.10., 14:05/);
+console.log('PASS: 24-hour atlas, timestamp selection, daily archive, eight rank-effect tiers, unchanged IL ranking, feed refresh preserving view, profiles and sharing.');
