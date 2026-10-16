@@ -8,14 +8,17 @@
 .empty-chart{color:#939ea8;text-align:center;font-size:12px;padding:30px}.chart-area svg{min-width:380px}.chart-area{overflow-x:auto;justify-content:flex-start}.toast{max-width:calc(100% - 32px);width:max-content;text-align:center}
 @media(max-width:720px){.rank-name{font-size:12px}.rank-meta{font-size:8.5px}.delta.neutral{font-size:8px}.delta small{font-size:7px}.rank-il small{font-size:7px}.hero-overline{font-size:7px}.chart-area svg text{font-size:16px}.chart-area{height:195px}.player-chip{font-size:9px;min-height:30px}.chart-note{font-size:10px}.chart-head .eyebrow{font-size:8px}.chart-area svg{min-width:400px}.archive-status p{font-size:10px}.daily-champion p:not(.eyebrow){font-size:10px}.legion-copy>p:not(.eyebrow){font-size:11px}.guild-pills>span{font-size:8px}}
 
-/* A quiet entrance. The world, one crest, one name, three Daevas. */
-.world{height:1050px;background:linear-gradient(180deg,#06090d08 0%,#06090d0d 24%,#0b0d1166 53%,#0b0d11 94%),url('assets/ascension.webp') center top/cover no-repeat}
+/* The eclipse in the 1672 x 941 artwork is centred at (843, 104), radius 86.
+   Art and crest use this same geometry at every viewport size. */
+:root{--world-art-height:max(900px,56.28vw);--crest-size:88px;--wordmark-gap:30px;--art-centre-shift:calc(var(--world-art-height)*.007438895);--eclipse-centre-y:calc(var(--world-art-height)*.110520723);--eclipse-bottom:calc(var(--world-art-height)*.201912859)}
+.world{height:var(--world-art-height);background-image:linear-gradient(180deg,#06090d00 0%,#06090d08 24%,#0b0d1155 55%,#0b0d11 98%),url('assets/ascension.webp');background-size:100% 100%,auto var(--world-art-height);background-position:center top,calc(50% - var(--art-centre-shift)) top;background-repeat:no-repeat}
 .world:after{background:linear-gradient(90deg,#04070b33,transparent 30%,transparent 70%,#04070b33)}
-.hero{width:min(1060px,calc(100% - 40px));padding-top:65px}
-.hero-crest{height:88px;margin:0 auto}
-.hero-crest img{filter:drop-shadow(0 2px 18px #0009) drop-shadow(0 0 28px #e1b96855)}
-.hero h1{margin:28px 0 0;font-size:clamp(42px,7.8vw,98px);letter-spacing:7px;filter:drop-shadow(0 2px 15px #000c)}
-.podium{margin-top:86px;gap:24px;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,1fr)}
+.hero{width:min(1060px,calc(100% - 40px));padding-top:calc(var(--eclipse-bottom) + var(--wordmark-gap))}
+.hero-crest{position:absolute;left:50%;top:calc(var(--eclipse-centre-y) + var(--crest-size)*.045);width:calc(var(--crest-size)*1.333333);height:var(--crest-size);margin:0;transform:translate(-50%,-50%);line-height:0}
+.hero-crest img{display:block;width:100%;height:100%;filter:drop-shadow(0 3px 6px #02060ce6)}
+.hero h1{position:relative;isolation:isolate;width:max-content;max-width:100%;margin:0 auto;font-size:clamp(42px,7.8vw,98px);letter-spacing:7px;text-indent:7px;color:#f1f5fa;background:none;filter:none;text-shadow:0 2px 2px #04080d,0 5px 16px #02060ef2,0 0 34px #02060ecc}
+.hero h1:before{content:'';position:absolute;inset:-34% -15%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse,#040910bf 0%,#04091080 40%,transparent 73%);filter:blur(8px);border-radius:50%}
+.podium{margin-top:70px;gap:24px;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,1fr)}
 .podium-card{min-width:0;min-height:298px;padding:34px 16px 25px;background:linear-gradient(180deg,#141a20b8,#0b0e13e8);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 .podium-card.first{min-height:335px;padding-top:40px;background:radial-gradient(ellipse at 50% 0%,#b8904024,transparent 70%),linear-gradient(180deg,#171a20c7,#0b0e13f0)}
 .podium-card:after,.portrait-ring:before,.portrait-ring:after{display:none}
@@ -35,15 +38,15 @@
 .roster-source{display:flex;flex-direction:column;gap:5px;align-items:end;text-align:right}
 .roster-source .data-status{color:#9da6af}
 .embers{display:none}
-@media(min-width:1500px){.world{background-size:100% auto}}
 @media(max-width:720px){
+  :root{--world-art-height:700px;--crest-size:66px;--wordmark-gap:26px}
   html{scroll-padding-top:24px}
-  .world{height:700px;background-size:auto 700px;background-image:linear-gradient(180deg,#06090d00 0%,#06090d00 23%,#0b0d1155 50%,#0b0d11 97%),url('assets/ascension.webp')}
+  .world{background-image:linear-gradient(180deg,#06090d00 0%,#06090d00 23%,#0b0d1155 53%,#0b0d11 97%),url('assets/ascension.webp')}
   .world:after{background:linear-gradient(90deg,#04070b12,transparent 35%,transparent 65%,#04070b12)}
-  .hero{width:calc(100% - 24px);padding-top:50px}
-  .hero-crest{height:66px;margin:0}
-  .hero h1{margin:26px 0 0;font-size:clamp(32px,10.3vw,65px);line-height:1.15;letter-spacing:2px}
-  .podium{width:100%;gap:7px;margin-top:77px;grid-template-columns:minmax(0,1fr) minmax(0,1.13fr) minmax(0,1fr)}
+  .hero{width:calc(100% - 24px)}
+  .hero h1{font-size:clamp(32px,10.3vw,65px);line-height:1.15;letter-spacing:2px;text-indent:2px}
+  .hero h1:before{inset:-52% -8%;filter:blur(5px)}
+  .podium{width:100%;gap:7px;margin-top:58px;grid-template-columns:minmax(0,1fr) minmax(0,1.13fr) minmax(0,1fr)}
   .podium-card{padding:27px 5px 19px;min-height:230px;background:linear-gradient(180deg,#10171e99,#0b0e13eb);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
   .podium-card.first{min-height:263px;padding:34px 5px 21px}
   .top-rank{width:32px;height:35px;top:-18px;font-size:21px}
@@ -64,6 +67,7 @@
   .roster-source{align-items:start;text-align:left;gap:4px}.roster-source .data-status{font-size:10px}.roster-source #freshness{font-size:9px}
 }
 @media(max-width:360px){
-  .hero{width:calc(100% - 20px);padding-top:44px}.hero-crest{height:61px}.hero h1{letter-spacing:1.4px;margin-top:24px}.podium{gap:5px;margin-top:69px}.podium-card{padding-inline:3px;min-height:218px}.podium-card.first{padding-inline:3px;min-height:250px}.hero-nav>a,.hero-nav>button{padding-inline:17px;font-size:11px}
+  :root{--world-art-height:650px;--crest-size:61px;--wordmark-gap:26px}
+  .hero{width:calc(100% - 20px)}.hero h1{letter-spacing:1.4px;text-indent:1.4px}.podium{gap:5px;margin-top:55px}.podium-card{padding-inline:3px;min-height:218px}.podium-card.first{padding-inline:3px;min-height:250px}.hero-nav>a,.hero-nav>button{padding-inline:17px;font-size:11px}
 }
 @media(hover:none){.podium-card:hover{transform:none}}
