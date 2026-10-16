@@ -8,10 +8,33 @@
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(closest-side, transparent 62%, #f3cb7b0a 66%, #ffe5ac80 72%, #e7ae492b 77%, transparent 93%);
+  background: radial-gradient(closest-side, transparent 59%, #f3cb7b1a 65%, #ffe5accc 72%, #e7ae4966 78%, transparent 96%);
   opacity: 0;
   pointer-events: none;
-  animation: eclipse-breath 14s ease-in-out -4s infinite;
+  animation: eclipse-breath 8s ease-in-out -3s infinite;
+  animation-play-state: var(--hero-motion-state, paused);
+}
+
+/* Light travels along the existing eclipse rim, centred independently of rotation. */
+.eclipse-corona {
+  position: absolute;
+  left: 50%;
+  top: var(--eclipse-centre-y);
+  width: calc(var(--world-art-height) * .185);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.eclipse-corona::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(transparent 0deg 105deg, #efae4933 145deg, #ffdb91b3 181deg, #fff4d6 198deg, #f6bd6266 218deg, transparent 245deg 360deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 3px), #000 calc(100% - 1px), transparent 100%);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 3px), #000 calc(100% - 1px), transparent 100%);
+  opacity: .85;
+  animation: portrait-orbit 22s linear -5s infinite;
   animation-play-state: var(--hero-motion-state, paused);
 }
 
@@ -25,21 +48,25 @@
   position: absolute;
   left: var(--mote-x);
   top: 76%;
-  width: 2px;
-  height: 2px;
+  width: 2.5px;
+  height: 2.5px;
   border-radius: 50%;
-  background: #f0cf92;
-  box-shadow: 0 0 6px 1px #e6b96455;
+  background: #ffe3a8;
+  box-shadow: 0 0 8px 2px #e6b96480;
   opacity: 0;
   animation: ember-ascent var(--mote-time) linear var(--mote-delay) infinite;
   animation-play-state: var(--hero-motion-state, paused);
 }
-.world-motes i:nth-child(1) { --mote-x: 12%; --mote-time: 23s; --mote-delay: -8s; --mote-drift: 13px; }
-.world-motes i:nth-child(2) { --mote-x: 88%; --mote-time: 27s; --mote-delay: -19s; --mote-drift: -12px; }
-.world-motes i:nth-child(3) { --mote-x: 25%; --mote-time: 29s; --mote-delay: -23s; --mote-drift: -17px; }
-.world-motes i:nth-child(4) { --mote-x: 75%; --mote-time: 25s; --mote-delay: -3s; --mote-drift: 15px; }
-.world-motes i:nth-child(5) { --mote-x: 39%; --mote-time: 31s; --mote-delay: -12s; --mote-drift: 10px; }
-.world-motes i:nth-child(6) { --mote-x: 61%; --mote-time: 33s; --mote-delay: -27s; --mote-drift: -10px; }
+.world-motes i:nth-child(1) { --mote-x: 12%; --mote-time: 15s; --mote-delay: -8s; --mote-drift: 24px; }
+.world-motes i:nth-child(2) { --mote-x: 88%; --mote-time: 18s; --mote-delay: -13s; --mote-drift: -22px; }
+.world-motes i:nth-child(3) { --mote-x: 25%; --mote-time: 19s; --mote-delay: -16s; --mote-drift: -28px; }
+.world-motes i:nth-child(4) { --mote-x: 75%; --mote-time: 16s; --mote-delay: -3s; --mote-drift: 26px; }
+.world-motes i:nth-child(5) { --mote-x: 39%; --mote-time: 21s; --mote-delay: -12s; --mote-drift: 17px; }
+.world-motes i:nth-child(6) { --mote-x: 61%; --mote-time: 22s; --mote-delay: -18s; --mote-drift: -17px; }
+.world-motes i:nth-child(7) { --mote-x: 6%; --mote-time: 20s; --mote-delay: -4s; --mote-drift: 29px; }
+.world-motes i:nth-child(8) { --mote-x: 94%; --mote-time: 17s; --mote-delay: -10s; --mote-drift: -29px; }
+.world-motes i:nth-child(9) { --mote-x: 31%; --mote-time: 23s; --mote-delay: -6s; --mote-drift: 19px; }
+.world-motes i:nth-child(10) { --mote-x: 69%; --mote-time: 20s; --mote-delay: -15s; --mote-drift: -19px; }
 
 /* The silhouette stays fixed; only a narrow reflected light passes across it. */
 .crest-glint {
@@ -54,10 +81,10 @@
   content: "";
   position: absolute;
   inset: -30% -100%;
-  background: linear-gradient(108deg, transparent 44%, #fff6d8b3 50%, transparent 56%);
+  background: linear-gradient(108deg, transparent 42%, #fff6d8e6 50%, transparent 58%);
   opacity: 0;
   transform: translate3d(-45%, 0, 0);
-  animation: crest-reflection 24s ease-in-out -16s infinite;
+  animation: crest-reflection 12s ease-in-out -7s infinite;
   animation-play-state: var(--hero-motion-state, paused);
 }
 
@@ -69,39 +96,39 @@
   inset: -4px;
   border-radius: 50%;
   pointer-events: none;
-  background: conic-gradient(from 0deg, transparent 0deg 260deg, #f8dfa352 290deg, #ffeacdb3 315deg, transparent 346deg);
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1px), #000 0);
-  mask: radial-gradient(farthest-side, transparent calc(100% - 1px), #000 0);
-  opacity: .55;
-  animation: portrait-orbit 32s linear -7s infinite;
+  background: conic-gradient(from 0deg, transparent 0deg 235deg, #f8dfa366 280deg, #fff0c9 315deg, transparent 350deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 0);
+  opacity: .95;
+  animation: portrait-orbit 18s linear -4s infinite;
   animation-play-state: var(--hero-motion-state, paused);
 }
 
 @keyframes eclipse-breath {
-  0%, 100% { opacity: .2; }
-  50% { opacity: .65; }
+  0%, 100% { opacity: .25; }
+  50% { opacity: .95; }
 }
 @keyframes ember-ascent {
   0% { opacity: 0; transform: translate3d(0, 0, 0); }
-  18% { opacity: .46; }
-  64% { opacity: .3; }
+  18% { opacity: .85; }
+  64% { opacity: .6; }
   100% { opacity: 0; transform: translate3d(var(--mote-drift), calc(var(--world-art-height) * -.57), 0); }
 }
 @keyframes crest-reflection {
-  0%, 76% { opacity: 0; transform: translate3d(-45%, 0, 0); }
-  79% { opacity: .65; }
-  85% { opacity: .65; }
-  88%, 100% { opacity: 0; transform: translate3d(45%, 0, 0); }
+  0%, 64% { opacity: 0; transform: translate3d(-45%, 0, 0); }
+  68% { opacity: .95; }
+  80% { opacity: .95; }
+  86%, 100% { opacity: 0; transform: translate3d(45%, 0, 0); }
 }
 @keyframes portrait-orbit {
   to { transform: rotate(360deg); }
 }
 
 @media (max-width: 720px) {
-  .world-motes i { width: 1.5px; height: 1.5px; }
-  .world-motes i:nth-child(n+5) { display: none; }
-  .podium-card.first .portrait-ring::after { opacity: .4; }
+  .world-motes i { width: 2px; height: 2px; }
+  .world-motes i:nth-child(n+9) { display: none; }
+  .podium-card.first .portrait-ring::after { opacity: .85; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .world::before, .world-motes, .crest-glint, .podium-card.first .portrait-ring::after { display: none; }
+  .world::before, .eclipse-corona, .world-motes, .crest-glint, .podium-card.first .portrait-ring::after { display: none; }
 }
