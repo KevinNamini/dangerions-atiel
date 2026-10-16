@@ -16,7 +16,6 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   const dateTime=iso=>new Date(iso).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Berlin'});
   const calendar=iso=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin'}).format(new Date(iso));
   const today=calendar(Date.now());
-  const label=v=>hourly()?clock(v.observedAt):shortDay(v.day);
   const detail=v=>`${dateTime(v.observedAt)} Uhr · ${n(v.value)} Item-Level${v.reportedBy?' · Level '+v.level+' · Startwert laut '+v.reportedBy:!hourly()&&v.day===today?' · laufender Tag':''}`;
   const range=()=>hourly()?[progress.provisional?progress.startAt:Math.min(progress.at-86400000,progress.startAt),progress.at]:[stamp(days[0]?.day||currentDay),stamp(days.at(-1)?.day||currentDay)];
 
@@ -44,9 +43,6 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     if(!hourly()||!progress.provisional||points.length<2||points[0].source!=='daily'||points[1].at-points[0].at<=90*60000)return '';
     return `<path class="${cls} atlas-start-link" d="M${x(points[0].at)},${y(points[0].value)} L${x(points[1].at)},${y(points[1].value)}"/>`;
   }
-  function trend(d,label=progress.provisional?'seit Start':'in 24 h'){
-    return d===null?'<span class="atlas-delta neutral">Kein Vergleich</span>':`<span class="atlas-delta ${d>0?'up':d<0?'down':'neutral'}">${d>0?'↗':d<0?'↘':'—'} ${d===0?'Unverändert':signed(d)} <small>${label}</small></span>`;
-  }
   function miniChart(p){
     const points=observations(p);
     if(!points.length)return '<span class="path-empty">Noch kein Verlauf</span>';
@@ -59,15 +55,16 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   }
   function renderPaths(){
     $('chart-select').innerHTML=progressPlayers.map(p=>{
-      const d=delta(p),pts=observations(p);
-      return `<button class="atlas-path ${selected===p.name?'active':''}" data-chart="${esc(p.name)}" style="--path-color:${p.color}" aria-pressed="${selected===p.name}" aria-controls="chart" aria-label="Verlauf von ${esc(p.name)} anzeigen"><span class="path-identity">${image(p)}<span><strong>${esc(p.name)}</strong><small>IL-RANG ${rank(p)} <i>·</i> LV. ${p.level}</small></span><span class="path-arrow" aria-hidden="true">↗</span></span><span class="path-stats"><span class="path-value">${n(p.itemLevel)}<small>ITEM-LEVEL</small></span>${trend(d)}</span>${miniChart(p)}<span class="path-caption">${pts.length>1?label(pts[0])+' — '+label(pts.at(-1)):pts.length?'Erster Stand · '+label(pts[0]):'Keine Messung im Zeitraum'}<span aria-hidden="true">${selected===p.name?'IM FOKUS':'PFAD ANSEHEN'}</span></span></button>`;
+      const d=delta(p);
+      return `<button class="atlas-path ${selected===p.name?'active':''}" data-chart="${esc(p.name)}" style="--path-color:${p.color}" aria-pressed="${selected===p.name}" aria-controls="chart" aria-label="Verlauf von ${esc(p.name)} anzeigen. ${d===null?'Kein Vergleich':signed(d)+' Item-Level '+(progress.provisional?'seit Start':'in 24 Stunden')}"><span class="path-identity">${image(p)}<strong>${esc(p.name)}</strong><span class="path-selection" aria-hidden="true"></span></span><span class="path-preview">${miniChart(p)}<strong class="path-gain ${d===null||d===0?'neutral':d<0?'down':'up'}">${d===null?'—':signed(d)}</strong></span></button>`;
     }).join('');
   }
-  function selectObservation(day){
+  function selectObservation(day,reveal=true){
     const point=activePoints.find(v=>v.id===day);
     if(!point)return;
     state.observation=day;$('atlas-inspection').textContent=detail(point);
     $('atlas-day-select').value=day;
+    if(reveal){state.inspection=true;$('atlas-readings').open=true;}
     document.querySelectorAll('[data-observation]').forEach(button=>{
       const active=button.dataset.observation===day;
       button.classList.toggle('selected',active);
@@ -78,19 +75,20 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const p=players.find(q=>q.name===selected),points=observations(p);
     activePoints=points;
     const first=points[0],last=points.at(-1),gain=points.length>1?last.value-first.value:null;
-    const pct=gain===null||first.value===0?null:(gain/first.value*100);
-    const growth=gain===null?'Der erste Meilenstein.':gain>0?'Der Aufstieg geht weiter.':gain<0?'Ein neuer Kurs.':'Die Stärke bleibt.';
-    const profile=`<div class="atlas-daeva"><div class="atlas-orbit" aria-hidden="true"><span class="orbit-ring"></span><span class="orbit-cross">✦</span>${image(p)}</div><div class="atlas-daeva-name"><p class="eyebrow">IM FOKUS <span>· IL-RANG ${rank(p)}</span></p><h3>${esc(p.name)}</h3><p>${esc(p.className)} <span>· Level ${p.level}</span></p></div><div class="atlas-current"><span>AKTUELLES ITEM-LEVEL</span><strong>${n(p.itemLevel)}</strong>${trend(delta(p))}</div><button class="atlas-profile-link" data-player="${esc(p.name)}">Charakterprofil <span aria-hidden="true">↗</span></button></div>`;
+    const change=hourly()?delta(p):gain;
+    const changeLabel=change===null?'Kein Vergleich':hourly()?(progress.provisional?'seit Start':'in 24 h'):'im Zeitraum';
+    const profile=`<div class="atlas-daeva"><button class="atlas-profile-link" data-player="${esc(p.name)}" aria-label="Profil von ${esc(p.name)} öffnen" title="Spielerprofil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M10 5H5v14h14v-5"/></svg></button><div class="atlas-orbit" aria-hidden="true"><span class="orbit-ring"></span><span class="orbit-cross">✦</span>${image(p)}</div><div class="atlas-daeva-name"><h3>${esc(p.name)}</h3><p>Level ${p.level}</p></div><div class="atlas-metrics"><div class="atlas-current"><strong>${n(p.itemLevel)}</strong><span>Item-Level</span></div><div class="atlas-change ${change===null||change===0?'neutral':change<0?'down':'up'}"><strong>${change===null?'—':signed(change)}</strong><span>${changeLabel}</span></div></div></div>`;
     if(!points.length){
-      $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-empty"><span aria-hidden="true">✧</span><h4>Dieser Pfad wartet noch.</h4><p>Für ${esc(p.name)} fehlen Messwerte im gewählten Zeitraum.</p></div></div>`;
+      $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-empty"><span aria-hidden="true">✧</span><p>Noch kein Verlauf in diesem Zeitraum.</p></div></div>`;
       return;
     }
     const low=Math.min(...points.map(v=>v.value)),high=Math.max(...points.map(v=>v.value));
     const padding=Math.max((high-low)*.32,40);
     const step=Math.pow(10,Math.floor(Math.log10(Math.max(high-low,100))))/2;
     const min=Math.max(0,Math.floor((low-padding)/step)*step),max=Math.ceil((high+padding)/step)*step;
-    const w=600,h=240,left=54,right=24,top=25,bottom=23;
-    const [start,end]=range(),span=end-start;
+    const w=600,h=220,left=34,right=34,top=28,bottom=24;
+    // The personal path uses its own real endpoints, including a reported start.
+    const start=first.at,end=last.at,span=end-start;
     const x=at=>span?left+(at-start)/span*(w-left-right):(w+left-right)/2;
     const y=value=>top+(max-value)/(max-min)*(h-top-bottom);
     const runs=paths(points,x,y);
@@ -99,20 +97,23 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     grid.forEach(g=>{svg+=`<line x1="${left}" y1="${g.y}" x2="${w-right}" y2="${g.y}" class="atlas-gridline"/>`;});
     svg+=startLink(points,x,y,'atlas-trail');
     runs.forEach(run=>{
-      svg+=run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="2.5" fill="${p.color}"/>`).join('');
+      svg+=run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="1.6" fill="${p.color}" opacity=".5"/>`).join('');
       if(run.length<2)return;
       const path=run.map((v,i)=>(i?'L':'M')+v.x+','+v.y).join(' ');
       svg+=`<path d="${path} L${run.at(-1).x},${h} L${run[0].x},${h} Z" fill="url(#atlas-fill)"/><path class="atlas-trail-glow" d="${path}"/><path class="atlas-trail observed-line" d="${path}"/>`;
     });
     svg+='</svg>';
-    const markers=points.filter((v,i)=>i===0||i===points.length-1||i%Math.ceil((points.length-1)/5)===0||v.id===state.observation).map(v=>`<button class="atlas-point ${v.id===(state.observation||last.id)?'selected':''} ${points.length<=3?'labelled':''}" style="left:${x(v.at)/w*100}%;top:${y(v.value)/h*100}%" data-observation="${v.id}" aria-pressed="${v.id===(state.observation||last.id)}" aria-label="${esc(detail(v))}"><span>${n(v.value)}</span></button>`).join('');
-    const ticks=grid.map(g=>`<span class="atlas-y" style="top:${g.y/h*100}%">${n(Math.round(g.value))}</span>`).join('');
-    const edges=span?[{at:start,text:hourly()?shortDay(calendar(start))+' '+clock(start):shortDay(days[0].day)},{at:end,text:hourly()?shortDay(calendar(end))+' '+clock(end):shortDay(days.at(-1).day)}]:[{at:start,text:shortDay(days[0].day)}];
-    const dates=edges.map((v,i)=>`<time class="atlas-x ${i===edges.length-1?'last':''}" style="left:${x(v.at)/w*100}%" datetime="${new Date(v.at).toISOString()}">${v.text}</time>`).join('');
-    const rangeGain=gain===null?'<span class="atlas-range-gain neutral">STARTPUNKT</span>':`<span class="atlas-range-gain ${gain>0?'up':gain<0?'down':'neutral'}"><b>${signed(gain)} IL</b><span>${pct===null?'Start bei 0 IL':signed(Number(pct.toFixed(1)))+' % im Zeitraum'}${first.reportedBy?' · laut '+esc(first.reportedBy):''}</span></span>`;
-    $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-journey"><div class="atlas-journey-head"><div><p class="eyebrow">DER PERSÖNLICHE PFAD</p><h4>${growth}</h4></div>${rangeGain}</div><div class="atlas-graph" role="group" aria-label="Item-Level-Verlauf von ${esc(p.name)}. ${points.length} ${hourly()?'Messpunkte':'Tagesstände'}${points.some(v=>v.reportedBy)?', einschließlich Startwert laut '+esc(points.find(v=>v.reportedBy).reportedBy):' aus Profilabrufen'}. Senkrechte Skala ${n(min)} bis ${n(max)}.">${svg}${ticks}${markers}${dates}${points.length===1?'<span class="atlas-first-note '+(hourly()?'hourly-start':'')+'">Der erste<br>Messpunkt.</span>':''}</div><div class="atlas-time-machine"><div><span class="time-machine-star" aria-hidden="true">✧</span><span><small>MEILENSTEIN</small><output id="atlas-inspection">${esc(detail(last))}</output></span></div><label class="atlas-date-control"><span class="sr-only">Messpunkt auswählen</span><select id="atlas-day-select" aria-label="Messpunkt auswählen">${[...points].reverse().map(v=>`<option value="${v.id}">${hourly()?shortDay(calendar(v.observedAt))+' '+clock(v.observedAt):v.day.slice(0,4)===currentDay.slice(0,4)?shortDay(v.day):formatDay(v.day)}</option>`).join('')}</select></label></div></div></div>`;
-    $('atlas-day-select').onchange=e=>{state.observation=e.target.value;renderFocus();};
-    selectObservation(points.some(v=>v.id===state.observation)?state.observation:last.id);
+    // Keep touch targets apart; every observation remains available in Messwerte.
+    const selectedPoint=points.find(v=>v.id===state.observation)||last;
+    const markerPoints=[selectedPoint];
+    [first,last,...points].forEach(v=>{if(!markerPoints.some(q=>q.id===v.id||Math.abs(x(q.at)-x(v.at))<84))markerPoints.push(v);});
+    const markers=markerPoints.map(v=>`<button class="atlas-point ${v.id===selectedPoint.id?'selected':''} ${v.id===first.id&&points.length>1?'first':''}" style="left:${x(v.at)/w*100}%;top:${y(v.value)/h*100}%" data-observation="${v.id}" aria-pressed="${v.id===selectedPoint.id}" aria-label="${esc(detail(v))}"><span>${n(v.value)}</span></button>`).join('');
+    const edges=span?[first,last]:[first];
+    const dates=edges.map((v,i)=>`<time class="atlas-x ${edges.length===1?'only':i===0?'first':'last'}" datetime="${esc(v.observedAt)}">${hourly()?shortDay(calendar(v.observedAt))+' · '+clock(v.observedAt):shortDay(v.day)}</time>`).join('');
+    $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-journey"><div class="atlas-graph" role="group" aria-label="Item-Level-Verlauf von ${esc(p.name)}. ${points.length} ${hourly()?'Messpunkte':'Tagesstände'}${points.some(v=>v.reportedBy)?', einschließlich Startwert laut '+esc(points.find(v=>v.reportedBy).reportedBy):' aus Profilabrufen'}. Senkrechte Skala ${n(min)} bis ${n(max)}.">${svg}${markers}<div class="atlas-dates">${dates}</div>${points.length===1?'<span class="atlas-first-note">Erster Messpunkt</span>':''}</div><details class="atlas-readings" id="atlas-readings" ${state.inspection?'open':''}><summary>Messwerte</summary><div class="atlas-inspector"><label class="atlas-date-control"><span class="sr-only">Messpunkt auswählen</span><select id="atlas-day-select" aria-label="Messpunkt auswählen">${[...points].reverse().map(v=>`<option value="${v.id}">${hourly()?shortDay(calendar(v.observedAt))+' '+clock(v.observedAt):v.day.slice(0,4)===currentDay.slice(0,4)?shortDay(v.day):formatDay(v.day)}</option>`).join('')}</select></label><output id="atlas-inspection">${esc(detail(last))}</output></div></details></div></div>`;
+    $('atlas-readings').ontoggle=e=>{state.inspection=e.target.open;};
+    $('atlas-day-select').onchange=e=>{state.observation=e.target.value;state.inspection=true;renderFocus();};
+    selectObservation(selectedPoint.id,false);
     document.querySelectorAll('#chart img.portrait').forEach(img=>{img.onerror=()=>{img.style.visibility='hidden';};});
   }
   function render(){
@@ -123,18 +124,17 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     $('chart-note').textContent=hourly()?(progress.provisional?'Vorläufiger Startvergleich · echte Messpunkte in Berliner Zeit. Die gestrichelte Linie verbindet den früheren Tagesstand mit dem Stundenarchiv. Wechselt automatisch auf 24 h. Jeder Pfad hat seine eigene Skala.':'Echte Abrufe · Berliner Zeit. Fehlende Abrufe bleiben Lücken. Jeder Pfad hat seine eigene Skala.'):'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand. Fehlende Tage bleiben Lücken. Jeder Pfad hat seine eigene Skala.';
     const reportedNotes=days.flatMap(h=>Object.entries(h.values).filter(([,v])=>progress.reported(v)).map(([name,v])=>`${name}: Startwert am ${dateTime(v.observedAt)} Uhr laut ${v.reportedBy}.`));
     if(reportedNotes.length)$('chart-note').textContent+=' '+[...new Set(reportedNotes)].join(' ');
-    $('atlas-order-label').textContent=progress.provisional?'NACH ZUWACHS · SEIT START':'NACH ZUWACHS · LETZTE 24 H';
+    $('atlas-order-label').textContent=progress.provisional?'Zuwachs · seit Start':'Zuwachs · 24 h';
     document.querySelectorAll('[data-period]').forEach(b=>{if(b.dataset.period==='24h'){b.textContent=progress.provisional?'Seit Start':'24 h';b.title=progress.provisional?'Vorläufig: vorhandener Tagesstand und neue Stundenwerte':'Letzte 24 Stunden';}b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
     renderPaths();renderFocus();
   }
   $('chart-select').onclick=e=>{
     const b=e.target.closest('[data-chart]');
     if(!b||!players.some(p=>p.name===b.dataset.chart))return;
-    selected=b.dataset.chart;state.selected=selected;state.observation=null;
+    selected=b.dataset.chart;state.selected=selected;state.observation=null;state.inspection=false;
     document.querySelectorAll('[data-chart]').forEach(c=>{
       const active=c.dataset.chart===selected;
       c.classList.toggle('active',active);c.setAttribute('aria-pressed',String(active));
-      const caption=c.querySelector('.path-caption > span');if(caption)caption.textContent=active?'IM FOKUS':'PFAD ANSEHEN';
     });
     renderFocus();
     const focus=$('chart');

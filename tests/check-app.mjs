@@ -41,8 +41,9 @@ assert.match(start.el('roster').innerHTML,/Rang 8: Roctopus/);
 assert.equal((start.el('chart-select').innerHTML.match(/data-chart=/g)||[]).length,8);
 assert.match(start.el('chart').innerHTML,/JKLee/);
 assert.match(start.el('chart').innerHTML,/1.404/);
-assert.match(start.el('chart').innerHTML,/\+146 IL/);
-assert.match(start.el('chart').innerHTML,/11,6 % im Zeitraum/);
+assert.match(start.el('chart').innerHTML,/<strong>\+146<\/strong>/);
+assert.doesNotMatch(start.el('chart').innerHTML,/% im Zeitraum/);
+assert.equal((start.el('chart').innerHTML.match(/<strong>\+146<\/strong>/g)||[]).length,1,'The selected profile shows its gain once.');
 assert.match(start.el('daily-champion').innerHTML,/JKLee/);
 assert.match(start.el('timeline').innerHTML,/5 aufgestiegen · 2 unverändert/);
 assert.match(start.el('atlas-pulse').innerHTML,/<b>5<\/b>aufgestiegen/);
@@ -64,7 +65,7 @@ for(const [name,value] of [['BrouceLee',1000],['Roctopus',491]]){
 }
 const dailyLeader=mount(rising);
 assert.deepEqual(pathOrder(dailyLeader).slice(0,3),['BrouceLee','Roctopus','JKLee'],'Use absolute gains, not percentage gains or current Item-Level.');
-assert.match(dailyLeader.el('chart').innerHTML,/IM FOKUS <span>· IL-RANG 3<\/span><\/p><h3>BrouceLee/);
+assert.match(dailyLeader.el('chart').innerHTML,/<h3>BrouceLee<\/h3>/);
 assert.match(dailyLeader.el('roster').innerHTML,/Rang 1: JKLee/);
 assert.deepEqual([...dailyLeader.el('roster').innerHTML.matchAll(/data-player="([^"]+)"/g)].map(m=>m[1]),['JKLee','NaminiLee','BrouceLee','LordSanchez2','FumosLee','SurfingLee','Roctopus','Stecher']);
 assert.deepEqual([...dailyLeader.el('podium').innerHTML.matchAll(/data-player="([^"]+)"/g)].map(m=>m[1]),['NaminiLee','JKLee','BrouceLee']);
@@ -72,18 +73,19 @@ assert.deepEqual([...dailyLeader.el('podium').innerHTML.matchAll(/data-player="(
 start.periods[1].onclick();
 choose(start,'NaminiLee');
 assert.match(start.el('chart').innerHTML,/NaminiLee/);
-assert.match(start.el('chart').innerHTML,/\+101 IL/);
-assert.match(start.el('chart').innerHTML,/9,6 % im Zeitraum/);
+assert.match(start.el('chart').innerHTML,/<strong>\+101<\/strong>/);
+assert.match(start.el('chart').innerHTML,/<span>im Zeitraum<\/span>/);
 start.el('chart').onclick({target:{closest:()=>({dataset:{observation:'2026-10-15'}})}});
 assert.equal(start.el('atlas-inspection').textContent,'15.10.2026, 14:00 Uhr · 1.047 Item-Level');
+assert.equal(start.el('atlas-readings').open,true,'Tapping the graph reveals the exact observation.');
 start.el('atlas-day-select').onchange({target:{value:'2026-10-16'}});
 assert.equal(start.el('atlas-inspection').textContent,'16.10.2026, 14:00 Uhr · 1.148 Item-Level · laufender Tag');
 choose(start,'FumosLee');
-assert.match(start.el('chart').innerHTML,/Unverändert/);
-assert.match(start.el('chart').innerHTML,/±0 IL/);
+assert.match(start.el('chart').innerHTML,/atlas-change neutral/);
+assert.match(start.el('chart').innerHTML,/<strong>±0<\/strong>/);
 choose(start,'Stecher');
-assert.match(start.el('chart').innerHTML,/Der erste Meilenstein/);
-assert.match(start.el('chart').innerHTML,/STARTPUNKT/);
+assert.match(start.el('chart').innerHTML,/Erster Messpunkt/);
+assert.match(start.el('chart').innerHTML,/Kein Vergleich/);
 assert.equal((start.el('chart').innerHTML.match(/data-observation=/g)||[]).length,1);
 assert.doesNotMatch(start.el('chart').innerHTML,/class="atlas-trail observed-line"/);
 start.document.onclick({target:{closest:()=>({dataset:{player:'Stecher'}})}});
@@ -110,8 +112,8 @@ const declined=structuredClone(fixture);
 declined.players.find(p=>p.name==='NaminiLee').itemLevel=1037;
 declined.history[1].values.NaminiLee.itemLevel=1037;declined.snapshots[1].values.NaminiLee.itemLevel=1037;
 const down=mount(declined);choose(down,'NaminiLee');
-assert.match(down.el('chart').innerHTML,/−10 IL/);
-assert.match(down.el('chart').innerHTML,/Ein neuer Kurs/);
+assert.match(down.el('chart').innerHTML,/<strong>−10<\/strong>/);
+assert.match(down.el('chart').innerHTML,/atlas-change down/);
 assert.match(down.el('roster').innerHTML,/−10/);
 assert.deepEqual(pathOrder(down).slice(-4),['FumosLee','SurfingLee','NaminiLee','Stecher'],'Zero precedes negative changes; missing comparison follows both.');
 const tied=structuredClone(fixture);tied.players.find(p=>p.name==='NaminiLee').itemLevel=1404;
@@ -125,7 +127,7 @@ assert.match(missing.el('daily-champion').innerHTML,/Krone wartet/);
 assert.deepEqual(pathOrder(missing),fixture.players.toSorted((a,b)=>b.itemLevel-a.itemLevel).map(p=>p.name),'Do not substitute an older observation for the direct previous day.');
 const absent=structuredClone(fixture);absent.history.forEach(day=>{delete day.values.Roctopus});absent.snapshots.forEach(s=>{delete s.values.Roctopus});
 const empty=mount(absent);choose(empty,'Roctopus');
-assert.match(empty.el('chart').innerHTML,/fehlen Messwerte/);
+assert.match(empty.el('chart').innerHTML,/Noch kein Verlauf/);
 assert.doesNotMatch(empty.el('chart').innerHTML,/NaN|Infinity/);
 
 // All means the complete retained archive, not a 365-day approximation.
@@ -184,7 +186,7 @@ assert.equal(startup.periods[0].textContent,'Seit Start');
 assert.equal(startup.el('days-tag').textContent,'2 Messpunkte');
 assert.equal((startup.el('chart').innerHTML.match(/data-observation=/g)||[]).length,2);
 assert.match(startup.el('chart').innerHTML,/class="atlas-trail atlas-start-link"/);
-assert.match(startup.el('chart').innerHTML,/\+146 IL/);
+assert.match(startup.el('chart').innerHTML,/<strong>\+146<\/strong>/);
 assert.match(startup.el('daily-champion').innerHTML,/AUFSTEIGER · SEIT START/);
 assert.match(startup.el('atlas-pulse').innerHTML,/1 ohne Startvergleich/);
 startup.el('atlas-day-select').onchange({target:{value:'2026-10-15T17:37:00Z'}});
@@ -211,8 +213,11 @@ assert.deepEqual(pathOrder(manual),['Stecher','JKLee','NaminiLee','LordSanchez2'
 const stecherRow=manual.el('roster').innerHTML.split('data-player="Stecher"')[1].split('<div role="button"')[0];
 assert.match(stecherRow,/rank-move rise impact-1/);assert.match(stecherRow,/<b>\+1<\/b>/);assert.match(stecherRow,/\+275/);assert.doesNotMatch(stecherRow,/NEU/);
 assert.match(manual.el('comparison-detail').textContent,/Stecher: Start 15.10., 23:00 Uhr mit Level 1 \/ 0 IL laut Kevin/);
-assert.match(manual.el('chart').innerHTML,/<h3>Stecher<\/h3>/);assert.match(manual.el('chart').innerHTML,/\+275 IL/);
-assert.match(manual.el('chart').innerHTML,/Start bei 0 IL · laut Kevin/);
+assert.match(manual.el('chart').innerHTML,/<h3>Stecher<\/h3>/);assert.match(manual.el('chart').innerHTML,/<strong>\+275<\/strong>/);
+assert.match(manual.el('chart').innerHTML,/Startwert laut Kevin/);
+assert.match(manual.el('chart').innerHTML,/>15\.10\. · 23:00<\/time>/,'The personal time axis starts at the actual reported timestamp.');
+assert.equal((manual.el('chart').innerHTML.match(/<strong>\+275<\/strong>/g)||[]).length,1);
+assert.equal(manual.el('atlas-readings').open,undefined,'Exact observations start collapsed.');
 assert.doesNotMatch(manual.el('chart').innerHTML,/NaN|Infinity|∞/);
 assert.equal((manual.el('chart').innerHTML.match(/data-observation=/g)||[]).length,2);
 manual.el('atlas-day-select').onchange({target:{value:'2026-10-15T23:00:00+02:00'}});
@@ -220,7 +225,7 @@ assert.equal(manual.el('atlas-inspection').textContent,'15.10.2026, 23:00 Uhr ·
 assert.match(manual.el('daily-champion').innerHTML,/Stecher/);assert.match(manual.el('daily-champion').innerHTML,/\+275/);
 assert.match(manual.el('atlas-pulse').innerHTML,/<b>6<\/b>aufgestiegen/);assert.doesNotMatch(manual.el('atlas-pulse').innerHTML,/ohne Startvergleich/);
 assert.match(manual.el('timeline').innerHTML,/Stecher \+275/);assert.match(manual.el('timeline').innerHTML,/23:00 Uhr laut Kevin/);
-for(const tab of manual.periods){tab.onclick();assert.match(manual.el('chart').innerHTML,/\+275 IL/);assert.doesNotMatch(manual.el('chart').innerHTML,/NaN|Infinity|∞/);assert.match(manual.el('chart-note').textContent,/23:00 Uhr laut Kevin/);}
+for(const tab of manual.periods){tab.onclick();assert.match(manual.el('chart').innerHTML,/<strong>\+275<\/strong>/);assert.doesNotMatch(manual.el('chart').innerHTML,/NaN|Infinity|∞/);assert.match(manual.el('chart-note').textContent,/23:00 Uhr laut Kevin/);}
 manual.document.onclick({target:{closest:()=>({dataset:{player:'Stecher'}})}});
 assert.match(manual.el('player-detail').innerHTML,/Spielstart: 15.10., 23:00 Uhr · Level 1 · 0 Item-Level · laut Kevin/);
 assert.equal((manual.el('player-detail').innerHTML.match(/class="detail-history"/g)||[]).length,2);
