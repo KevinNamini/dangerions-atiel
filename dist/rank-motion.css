@@ -1,7 +1,6 @@
 /* Small rank sigils: quiet at one place, brighter at larger moves. */
 .rank-position{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0}
 .rank-position .rank-num{line-height:1;align-self:stretch;text-align:center}
-.rank-position .rank-move{align-self:stretch;justify-content:center;min-height:24px;padding-inline:2px}
 .rank-move{--move:#a7dfc0;--aura:#6bce9b24;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:3px;min-width:34px;min-height:23px;padding:2px 5px;border:1px solid transparent;border-radius:4px;color:var(--move);font:500 11px/1.2 var(--sans);font-variant-numeric:tabular-nums;white-space:nowrap;isolation:isolate}
 .rank-move b{font-weight:inherit}.rank-move>span{font-size:12px;line-height:1}
 .rank-move.fall{--move:#efaaa7;--aura:#e77e7822}
@@ -42,4 +41,5 @@
   .rank-avatar{width:26px;height:26px}.rank-person{gap:5px}.rank-name{font-size:11px}.rank-meta{font-size:7px;gap:3px}
   .rank-il{font-size:20px}.rank-il small{font-size:6px}.delta small{font-size:6px}.rank-caption small{font-size:8px}
 }
+.rank-position .rank-move{align-self:stretch;justify-content:center;min-height:24px;padding-inline:2px}
 @media(prefers-reduced-motion:reduce){.rank-move,.rank-move:after{animation:none!important;transform:none!important}.rank-move:after{display:none}}
