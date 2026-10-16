@@ -3,7 +3,7 @@
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-16T22:17:47.142602+00:00",
+  "updatedAt": "2026-10-16T23:12:23.318145+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -52,7 +52,7 @@
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-16T22:08:17.858760+00:00"
+      "observedAt": "2026-10-16T23:10:45.205097+00:00"
     },
     {
       "name": "LordSanchez2",
@@ -106,17 +106,17 @@
       "name": "Stecher",
       "classKey": "assassin",
       "className": "Assassine",
-      "level": 28,
-      "itemLevel": 275,
-      "combatPower": 15113,
-      "guild": "",
+      "level": 30,
+      "itemLevel": 297,
+      "combatPower": 15920,
+      "guild": "Dangerions",
       "server": "Atiel",
       "color": "#d6b0d8",
       "avatar": "assets/Stecher.png",
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-16T22:08:53.130386+00:00"
+      "observedAt": "2026-10-16T23:12:23.316717+00:00"
     },
     {
       "name": "Roctopus",
@@ -248,9 +248,9 @@
           "observedAt": "2026-10-16T22:08:26.620494+00:00"
         },
         "Stecher": {
-          "itemLevel": 275,
-          "level": 28,
-          "observedAt": "2026-10-16T22:08:53.130386+00:00"
+          "itemLevel": 297,
+          "level": 30,
+          "observedAt": "2026-10-16T23:12:23.316717+00:00"
         },
         "Roctopus": {
           "itemLevel": 203,
@@ -260,7 +260,7 @@
         "FumosLee": {
           "itemLevel": 919,
           "level": 45,
-          "observedAt": "2026-10-16T22:08:17.858760+00:00"
+          "observedAt": "2026-10-16T23:10:45.205097+00:00"
         },
         "SurfingLee": {
           "itemLevel": 636,
@@ -277,6 +277,18 @@
   ],
   "failures": [
     {
+      "name": "JKLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "NaminiLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "LordSanchez2",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
       "name": "FumosLee",
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
     },
@@ -285,7 +297,11 @@
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
     },
     {
-      "name": "Stecher",
+      "name": "SurfingLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "Roctopus",
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
     }
   ],
@@ -959,6 +975,51 @@
           "itemLevel": 203,
           "level": 22,
           "observedAt": "2026-10-16T22:17:39.061714+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-16T23:11:16.064459+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "FumosLee": {
+          "itemLevel": 919,
+          "level": 45,
+          "observedAt": "2026-10-16T23:10:45.205097+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 297,
+          "level": 30,
+          "observedAt": "2026-10-16T23:11:16.063249+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-16T23:12:23.318145+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "Stecher": {
+          "itemLevel": 297,
+          "level": 30,
+          "observedAt": "2026-10-16T23:12:23.316717+00:00"
         }
       }
     }
