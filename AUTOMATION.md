@@ -23,7 +23,7 @@ Diese Anweisung gehört ausschließlich zum von Kevin autorisierten öffentliche
 
 - Die Website verwendet den zeitlich nächsten Snapshot zu `updatedAt minus 24 Stunden`, höchstens 65 Minuten davon entfernt. Der tatsächliche Vergleichszeitpunkt wird angezeigt. Während der ersten 24 Stunden des Stundenarchivs darf die Anzeige auf Kevins Wunsch den vorhandenen Tagesstand vom Tag vor `hourlyStartedAt` als **vorläufigen Startvergleich** verwenden. Nur tatsächliche, zum gespeicherten Kalendertag passende `observedAt`-Werte verwenden; den tatsächlichen Zeitraum anzeigen. Das ist keine 24-h-Messung und erzeugt keine historischen Snapshots. Sobald ein passender echter 24-h-Snapshot vorhanden ist, wechselt die Anzeige automatisch darauf. Nach der Startphase bei fehlender Vergleichsbasis keine Änderungsaussage.
 - Rangwechsel nur bei vollständigen verifizierten Vergleichsgruppen berechnen. Neue Spieler erhalten `NEU`; bei fehlenden oder alten Daten keinen Auf-/Abstieg behaupten. Gleiches Item-Level teilt einen Rang (1, 1, 3).
-- Die Standardansicht heißt vorläufig `Seit Start`, danach `24 h`, und verwendet echte Zeitstempel. Der frühere Tagesstand erscheint nur als vorhandener Messpunkt mit gestrichelter Verbindung zum ersten Stundenwert; keine Zwischenwerte ergänzen. `7 Tage`, `30 Tage` und `Alle` zeigen die bestehende Tageschronik. Heute ist ein laufender Tag.
+- Die Standardansicht heißt vorläufig `Seit Start`, danach `24 h`, und verwendet echte Zeitstempel. Der frühere Tagesstand erscheint nur als vorhandener Messpunkt mit durchgezogener Verbindung zum ersten Stundenwert; keine Zwischenwerte ergänzen. `7 Tage`, `30 Tage` und `Alle` zeigen die bestehende Tageschronik. Heute ist ein laufender Tag.
 
 ## Manuell ergänzter Spielstart
 

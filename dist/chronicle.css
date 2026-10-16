@@ -16,7 +16,7 @@
 .atlas-profile-link:hover{color:var(--focus-color);border-color:color-mix(in srgb,var(--focus-color) 35%,transparent)}
 .atlas-orbit{width:86px;height:86px;position:relative;display:grid;place-items:center;margin:0 auto 27px}
 .atlas-orbit:before,.atlas-orbit:after,.orbit-ring{content:'';position:absolute;inset:0;border:1px solid color-mix(in srgb,var(--focus-color) 28%,transparent);border-radius:50%}
-.atlas-orbit:before{inset:-7px;border-style:dashed;opacity:.4}
+.atlas-orbit:before{inset:-7px;border-style:solid;opacity:.4}
 .atlas-orbit:after{inset:6px;border-color:color-mix(in srgb,var(--focus-color) 40%,transparent);box-shadow:0 0 32px color-mix(in srgb,var(--focus-color) 12%,transparent)}
 .orbit-ring{inset:-16px 16px;transform:rotate(40deg)}
 .orbit-cross{position:absolute;right:0;top:2px;color:var(--focus-color);font-size:14px;z-index:2;text-shadow:0 0 14px var(--focus-color)}
@@ -32,10 +32,10 @@
 .atlas-journey{padding:18px 20px 8px;min-width:0}
 .atlas-graph{position:relative;height:190px;margin:8px 0 30px;min-width:0}
 .atlas-plot{display:block;width:100%;height:100%;overflow:visible}
-.atlas-gridline{stroke:#a8b6c6;stroke-opacity:.1;stroke-dasharray:2 7;vector-effect:non-scaling-stroke}
+.atlas-gridline{stroke:#a8b6c6;stroke-opacity:.1;stroke-dasharray:none;vector-effect:non-scaling-stroke}
 .atlas-trail{stroke:var(--focus-color);stroke-width:2.5;fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .atlas-trail-glow{stroke:var(--focus-color);stroke-width:10;stroke-opacity:.06;fill:none;vector-effect:non-scaling-stroke}
-.atlas-start-link{stroke-dasharray:5 7;opacity:.65}
+.atlas-start-link{stroke-dasharray:none;opacity:1}
 .atlas-point{position:absolute;width:44px;height:44px;transform:translate(-50%,-50%);border-radius:50%;z-index:2;padding:0}
 .atlas-point:after{content:'';position:absolute;width:7px;height:7px;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--focus-color);border:2px solid #141b22;border-radius:50%;box-shadow:0 0 0 5px color-mix(in srgb,var(--focus-color) 9%,transparent);transition:box-shadow .18s}
 .atlas-point.selected:after{width:9px;height:9px;box-shadow:0 0 0 5px color-mix(in srgb,var(--focus-color) 16%,transparent),0 0 0 10px color-mix(in srgb,var(--focus-color) 5%,transparent),0 0 18px color-mix(in srgb,var(--focus-color) 25%,transparent)}
