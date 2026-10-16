@@ -12,22 +12,24 @@ class Element {
   showModal(){this.open=true;}
   close(){this.open=false;this.listeners.close?.({});}
 }
-function mount(data){
+function mount(data,feed=null){
   const ids=new Map(),extras=new Map();
   const el=id=>{if(!ids.has(id))ids.set(id,new Element());return ids.get(id)};
   const periods=[7,30,365].map(period=>new Element({period:String(period)}));
   const document={body:new Element(),getElementById:el,createElement:()=>new Element(),listeners:{},addEventListener(k,f){this.listeners[k]=f},querySelector(s){if(!extras.has(s))extras.set(s,new Element());return extras.get(s)},querySelectorAll(s){if(s==='[data-period]')return periods;if(s==='[data-chart]')return [];return []}};
-  vm.runInNewContext(source,{window:{DANGERIONS_DATA:data},document,Intl,Date,location:{protocol:'file:',href:'file:///Dangerions.html'},navigator:{},setTimeout:()=>1,clearTimeout:()=>{}},{timeout:2000});
-  return {el,document,extras,periods};
+  const ready=vm.runInNewContext(source,{window:{DANGERIONS_DATA:data},document,Intl,Date,AbortController,fetch:async()=>({ok:true,json:async()=>feed}),location:{protocol:feed?'https:':'file:',href:'file:///Dangerions.html'},navigator:{},setTimeout:()=>1,clearTimeout:()=>{}},{timeout:2000});
+  return {el,document,extras,periods,ready};
 }
 const start=mount(structuredClone(original));
-assert.equal((start.el('roster').innerHTML.match(/class="rank-row/g)||[]).length,7);
+assert.equal((start.el('roster').innerHTML.match(/class="rank-row/g)||[]).length,8);
 assert.equal((start.el('podium').innerHTML.match(/class="podium-card/g)||[]).length,3);
 assert.match(start.el('roster').innerHTML,/Rang 1: JKLee/);
-assert.match(start.el('roster').innerHTML,/Rang 7: Roctopus/);
-assert.match(start.el('chart-note').textContent,/erste Momentaufnahme/);
+assert.match(start.el('roster').innerHTML,/Rang 7: Stecher, Assassine, Level 26, Item-Level 249/);
+assert.match(start.el('roster').innerHTML,/Rang 8: Roctopus/);
 assert.doesNotMatch(start.el('chart').innerHTML,/<path /);
 assert.match(start.el('daily-champion').innerHTML,/Krone wartet/);
+assert.match(start.el('timeline').innerHTML,/Noch keine Werte zum direkten Vortagsvergleich/);
+assert.match(start.el('roster').innerHTML,/Kein aktueller Wert/);
 start.el('view-cards').onclick();assert.equal(start.extras.get('.rank-columns').hidden,true);
 start.el('view-list').onclick();assert.equal(start.extras.get('.rank-columns').hidden,false);
 start.document.listeners.click({target:{closest:()=>({dataset:{player:'NaminiLee'}})}});
@@ -37,8 +39,30 @@ assert.match(start.el('player-detail').innerHTML,/OFFIZIELLES AION-PROFIL/);
 start.el('close-dialog').onclick();assert.equal(start.document.body.style.overflow,'');
 await start.el('share').onclick();assert.match(start.el('toast').textContent,/lokal/);
 
+start.document.listeners.click({target:{closest:()=>({dataset:{player:'Stecher'}})}});
+assert.equal((start.el('player-detail').innerHTML.match(/class="detail-history"/g)||[]).length,1);
+assert.match(start.el('player-detail').innerHTML,/16\.10\.2026/);
+assert.doesNotMatch(start.el('player-detail').innerHTML,/15\.10\.2026/);
+assert.match(start.el('player-detail').innerHTML,/Legion: nicht angezeigt/);
+
+const feed=structuredClone(original);
+feed.players.find(p=>p.name==='Stecher').itemLevel=250;
+const online=mount(structuredClone(original),feed);await online.ready;
+assert.match(online.el('roster').innerHTML,/Stecher, Assassine, Level 26, Item-Level 250/);
+const duplicate=structuredClone(feed);duplicate.players[7]=structuredClone(duplicate.players[6]);
+const rejected=mount(structuredClone(original),duplicate);await rejected.ready;
+assert.match(rejected.el('roster').innerHTML,/Rang 8: Roctopus/,'A duplicate name must not replace another player in the feed.');
+
+// Retain the original first-day fixture; new players have no invented earlier observations.
+const baseline=structuredClone(original);
+baseline.history=baseline.history.slice(0,1);
+baseline.players=baseline.players.filter(p=>baseline.history[0].values[p.name]);
+const firstDay=mount(baseline);
+assert.match(firstDay.el('chart-note').textContent,/erste Momentaufnahme/);
+assert.match(firstDay.el('daily-champion').innerHTML,/Krone wartet/);
+
 // Compare real business rules against synthetic previous-day observations.
-const withPrevious=structuredClone(original),today=withPrevious.history[0];
+const withPrevious=structuredClone(baseline),today=withPrevious.history[0];
 const yesterday={day:'2026-10-14',values:structuredClone(today.values)};
 yesterday.values.JKLee.itemLevel-=25;
 yesterday.values.NaminiLee.itemLevel+=10;
@@ -68,4 +92,4 @@ const empty=mount(noPoints);
 empty.el('chart-select').listeners.click({target:{closest:()=>({dataset:{chart:'Roctopus'}})}});
 assert.match(empty.el('chart').innerHTML,/fehlen Messwerte/);
 assert.doesNotMatch(empty.el('chart').innerHTML,/NaN|Infinity/);
-console.log('PASS: seven verified players, item-level ranking, tied ranks, profiles, views, first-day honesty, daily gains/losses/zero, missing dates, empty charts and local sharing.');
+console.log('PASS: eight verified players, fresh feed and duplicate rejection, new-player history, item-level ranking, tied ranks, profiles, views, daily comparisons, missing dates, empty charts and local sharing.');

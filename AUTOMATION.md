@@ -1,10 +1,10 @@
 # Dangerions: tägliche Charakter-Erfassung
 
-Diese Anweisung gehört ausschließlich zum von Kevin autorisierten öffentlichen Fanprojekt `KevinNamini/dangerions-atiel` auf Branch `main`. Der bestehende ChatGPT-Zeitplan erfasst die sieben festgelegten Charaktere täglich am Abend in Europe/Berlin. Keine weiteren Zeitpläne anlegen.
+Diese Anweisung gehört ausschließlich zum von Kevin autorisierten öffentlichen Fanprojekt `KevinNamini/dangerions-atiel` auf Branch `main`. Der bestehende ChatGPT-Zeitplan erfasst alle in `tools/update_roster.py` festgelegten Charaktere täglich am Abend in Europe/Berlin. Keine weiteren Zeitpläne anlegen.
 
 ## Quellen und Ausgabe
 
-- Offizielle öffentliche AION-2-Charakter-Schnittstelle: `https://aion2.plaync.com/api/character/info` mit `region=eu`, `serverId=2322` und den sieben Charakter-IDs aus `tools/update_roster.py`. Das Skript verwendet die kanonische Anfrage der offiziellen Charakterseite mit passendem Sprachkontext, fordert mit `Cache-Control: no-cache` eine erneute Prüfung an und gleicht `en-US` mit `de-DE` ab. Keine zusätzlichen Abfrageparameter ergänzen.
+- Offizielle öffentliche AION-2-Charakter-Schnittstelle: `https://aion2.plaync.com/api/character/info` mit `region=eu`, `serverId=2322` und den festgelegten Charakter-IDs aus `tools/update_roster.py`. Das Skript verwendet die kanonische Anfrage der offiziellen Charakterseite mit passendem Sprachkontext, fordert mit `Cache-Control: no-cache` eine erneute Prüfung an und gleicht `en-US` mit `de-DE` ab. Keine zusätzlichen Abfrageparameter ergänzen.
 - Verbindlicher vorheriger Datenstand: `data/history.json` im aktuellsten `main`-Commit dieses Repositorys. Niemals eine alte Chat-Datei oder den lokalen Stand eines früheren Laufs als Ausgangspunkt verwenden.
 - Ausgabe: `data/history.json` und die dazu identische Browser-Lesefassung `dist/data.js`. Keine anderen Dateien oder Einstellungen bei normalen Erfassungsläufen ändern.
 
@@ -21,7 +21,7 @@ Diese Anweisung gehört ausschließlich zum von Kevin autorisierten öffentliche
 
 ## Regeln
 
-- Ausschließlich JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee und Roctopus auf Atiel erfassen.
+- Ausschließlich JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus und Stecher auf Atiel erfassen. Stecher wurde auf Kevins Wunsch am 16.10.2026 ergänzt; sein öffentliches Profil zeigte bei der Aufnahme keine Legion an. Eine fehlende Gildenanzeige nicht als falsche Identität behandeln und keine Gilde ergänzen.
 - Ausschließlich Item-Level bestimmt den Rang. Charakterlevel und Kampfkraft nicht vermischen.
 - `scheduleEnabled` und sonstige Konfiguration beibehalten. Keine Gildenleiter-Rolle erfinden und keine vollständige Mitgliederliste behaupten.
 - Bei einem erfolgreichen Routine-Lauf ist keine Nachricht an Kevin erforderlich. Bei blockiertem Zugriff oder fehlgeschlagener Speicherung den konkreten Fehler knapp melden. Keine E-Mails, Nachrichten an Gildenmitglieder oder externen Mitteilungen versenden.

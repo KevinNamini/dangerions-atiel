@@ -1,6 +1,6 @@
 # Dangerions · Hall of Ascension
 
-Öffentliche AION-2-Legionsrangliste für sieben Charaktere auf **Atiel · Europa · Asmodier**. Eigene Fantasy-Gestaltung, Siegerpodest, Charakterprofile und Tageschronik. Besucher benötigen keinen Login.
+Öffentliche AION-2-Legionsrangliste für acht Charaktere auf **Atiel · Europa · Asmodier**. Eigene Fantasy-Gestaltung, Siegerpodest, Charakterprofile und Tageschronik. Besucher benötigen keinen Login.
 
 Website: https://dangerions-atiel.onrender.com/
 
@@ -12,7 +12,7 @@ Die Website lädt den neuesten Beobachtungsstand aus `data/history.json` in dies
 
 ## Erfassung
 
-`python3 tools/update_roster.py` ruft die sieben öffentlichen Profile ab und erhält bis zu 366 Berliner Tagesstände. `data/history.json` ist das dauerhafte Archiv; `dist/data.js` die identische eingebettete Rückfallfassung. Erster echter Stand: **15. Oktober 2026**. Frühere Werte wurden nicht erfunden.
+`python3 tools/update_roster.py` ruft die festgelegten öffentlichen Profile ab und erhält bis zu 366 Berliner Tagesstände. `data/history.json` ist das dauerhafte Archiv; `dist/data.js` die identische eingebettete Rückfallfassung. Erster echter Stand: **15. Oktober 2026**. Frühere Werte wurden nicht erfunden.
 
 Die täglichen Hintergrundläufe sind über die mit Kevin eingerichtete ChatGPT-Automatisierung aktiviert, jeweils am Abend gegen 22 Uhr (Europe/Berlin). Das vollständige Verfahren steht in [AUTOMATION.md](AUTOMATION.md). Ohne einen aktivierten Zeitplan führt die Website selbst keine unbeaufsichtigte Erfassung aus. `scheduleEnabled` zeigt den eingerichteten Zustand an.
 
@@ -20,7 +20,9 @@ Bei Teilausfällen bleiben die letzten bekannten Beobachtungen mit ihrem ursprü
 
 ## Rangfolge
 
-Rangfolge ausschließlich nach Item-Level, bei Gleichstand gemeinsamer Rang (1, 1, 3). Charakterlevel und Kampfkraft werden getrennt dargestellt. Erfasst: JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee und Roctopus. Das ist keine vollständige Mitgliederliste; keine Gildenleiter-Rolle wurde verifiziert. Alle sieben Charakterporträts sind vorhanden. Ein eigens gezeichnetes Kantor-Symbol liegt zusätzlich als Ersatzgrafik vor.
+Rangfolge ausschließlich nach Item-Level, bei Gleichstand gemeinsamer Rang (1, 1, 3). Charakterlevel und Kampfkraft werden getrennt dargestellt. Erfasst: JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus und Stecher. Das ist keine vollständige Mitgliederliste; keine Gildenleiter-Rolle wurde verifiziert. Alle acht Charakterporträts sind vorhanden. Ein eigens gezeichnetes Kantor-Symbol liegt zusätzlich als Ersatzgrafik vor.
+
+Stecher wurde am **16. Oktober 2026** ergänzt: Assassine, Level 26, Item-Level 249, bestätigt in beiden API-Sprachen und im sichtbaren Profil. Sein öffentliches Profil zeigt derzeit keine Legion an; die Aufnahme in diese Rangliste erfolgte auf Kevins Wunsch. Sein Verlauf beginnt mit dieser Beobachtung, ohne rückwirkende Werte.
 
 ## Prüfen und exportieren
 

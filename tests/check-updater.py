@@ -12,6 +12,7 @@ with tempfile.TemporaryDirectory() as directory:
     (updater.ROOT/'data').mkdir();(updater.ROOT/'dist').mkdir()
     hp=updater.ROOT/'data/history.json'
     previous=(datetime.now(ZoneInfo('Europe/Berlin'))-timedelta(days=1)).strftime('%Y-%m-%d')
+    seed['history']=seed['history'][:1]
     seed['history'][0]['day']=previous
     hp.write_text(json.dumps(seed))
     originals={p['name']:p for p in seed['players']}
@@ -25,6 +26,8 @@ with tempfile.TemporaryDirectory() as directory:
     first=json.loads(hp.read_text())
     assert len(first['history'])==2 and first['history'][0]==seed['history'][0]
     assert first['history'][-1]['values']['NaminiLee']['itemLevel']==originals['NaminiLee']['itemLevel']+10
+    assert 'Stecher' not in first['history'][0]['values']
+    assert first['history'][-1]['values']['Stecher']['itemLevel']==249
     with contextlib.redirect_stdout(io.StringIO()):updater.run()
     second=json.loads(hp.read_text())
     assert len(second['history'])==2,'Never duplicate the same Berlin calendar day.'
@@ -37,7 +40,7 @@ with tempfile.TemporaryDirectory() as directory:
     except SystemExit as e:assert e.code==2
     result=json.loads(hp.read_text())
     assert result['failures'][0]['name']=='Roctopus'
-    assert len(result['players'])==7
+    assert len(result['players'])==len(updater.ROSTER)==8
     assert next(p for p in result['players'] if p['name']=='Roctopus')['observedAt']==next(p for p in second['players'] if p['name']=='Roctopus')['observedAt']
     def fail(_):raise ValueError('Source offline')
     updater.fetch_one=fail

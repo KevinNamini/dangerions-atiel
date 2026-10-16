@@ -3,7 +3,7 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-15T17:37:53.411974+00:00",
+  "updatedAt": "2026-10-16T01:03:21.500984+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -103,6 +103,22 @@ window.DANGERIONS_DATA = {
       "observedAt": "2026-10-15T17:37:25.570418+00:00"
     },
     {
+      "name": "Stecher",
+      "classKey": "assassin",
+      "className": "Assassine",
+      "level": 26,
+      "itemLevel": 249,
+      "combatPower": 14957,
+      "guild": "",
+      "server": "Atiel",
+      "color": "#d6b0d8",
+      "avatar": "assets/Stecher.png",
+      "avatarType": "portrait",
+      "title": "",
+      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
+      "observedAt": "2026-10-16T00:58:06.488360+00:00"
+    },
+    {
       "name": "Roctopus",
       "classKey": "chanter",
       "className": "Kantor",
@@ -157,6 +173,16 @@ window.DANGERIONS_DATA = {
           "itemLevel": 191,
           "level": 22,
           "observedAt": "2026-10-15T17:37:36.470132+00:00"
+        }
+      }
+    },
+    {
+      "day": "2026-10-16",
+      "values": {
+        "Stecher": {
+          "itemLevel": 249,
+          "level": 26,
+          "observedAt": "2026-10-16T00:58:06.488360+00:00"
         }
       }
     }

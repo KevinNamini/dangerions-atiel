@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch only the seven requested public AION 2 profiles, retaining Berlin daily snapshots."""
+"""Fetch the requested public AION 2 profiles, retaining Berlin daily snapshots."""
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode, quote
@@ -14,10 +14,11 @@ ROSTER=[
  ('FumosLee','NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ='),
  ('BrouceLee','NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I='),
  ('SurfingLee','NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE='),
- ('Roctopus','NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc=')]
-CLASSES={'Ranger':'Waldläufer','Gladiator':'Gladiator','Templar':'Templer','Cleric':'Kleriker','Spiritmaster':'Beschwörer','SpiritMaster':'Beschwörer','Chanter':'Kantor'}
-COLORS={'Ranger':'#a9d6b3','Gladiator':'#efae73','Templar':'#8db7e6','Cleric':'#e6d5ab','Spiritmaster':'#b5a0eb','SpiritMaster':'#b5a0eb','Chanter':'#8dcecf'}
-TRACES={'JKLee': '#a9d6b3', 'NaminiLee': '#f0ce8c', 'LordSanchez2': '#8db7e6', 'FumosLee': '#e9adba', 'BrouceLee': '#ef986d', 'SurfingLee': '#b5a0eb', 'Roctopus': '#8dcecf'}
+ ('Roctopus','NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc='),
+ ('Stecher','NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo=')]
+CLASSES={'Ranger':'Waldläufer','Gladiator':'Gladiator','Templar':'Templer','Cleric':'Kleriker','Spiritmaster':'Beschwörer','SpiritMaster':'Beschwörer','Chanter':'Kantor','Assassin':'Assassine'}
+COLORS={'Ranger':'#a9d6b3','Gladiator':'#efae73','Templar':'#8db7e6','Cleric':'#e6d5ab','Spiritmaster':'#b5a0eb','SpiritMaster':'#b5a0eb','Chanter':'#8dcecf','Assassin':'#d6b0d8'}
+TRACES={'JKLee': '#a9d6b3', 'NaminiLee': '#f0ce8c', 'LordSanchez2': '#8db7e6', 'FumosLee': '#e9adba', 'BrouceLee': '#ef986d', 'SurfingLee': '#b5a0eb', 'Roctopus': '#8dcecf', 'Stecher': '#d6b0d8'}
 def fetch_profile(entry,lang):
  name,cid=entry
  # Match the public character page's canonical query and language context.
