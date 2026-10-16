@@ -3,7 +3,7 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-16T22:08:53.131434+00:00",
+  "updatedAt": "2026-10-16T22:17:47.142602+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -20,15 +20,15 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-16T22:06:29.858511+00:00"
+      "observedAt": "2026-10-16T22:16:57.662463+00:00"
     },
     {
       "name": "NaminiLee",
       "classKey": "gladiator",
       "className": "Gladiator",
       "level": 45,
-      "itemLevel": 1167,
-      "combatPower": 60558,
+      "itemLevel": 1209,
+      "combatPower": 64031,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#f0ce8c",
@@ -36,7 +36,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Hot Potato",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-16T16:08:55.682104+00:00"
+      "observedAt": "2026-10-16T22:16:57.939449+00:00"
     },
     {
       "name": "FumosLee",
@@ -68,7 +68,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Grasper of the Core",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-16T22:08:10.002587+00:00"
+      "observedAt": "2026-10-16T22:17:14.173515+00:00"
     },
     {
       "name": "BrouceLee",
@@ -90,7 +90,7 @@ window.DANGERIONS_DATA = {
       "name": "SurfingLee",
       "classKey": "spiritmaster",
       "className": "Beschwörer",
-      "level": 39,
+      "level": 40,
       "itemLevel": 636,
       "combatPower": 30617,
       "guild": "Dangerions",
@@ -100,7 +100,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Don't Be Blinded by Greed",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-16T22:08:35.859679+00:00"
+      "observedAt": "2026-10-16T22:17:30.789504+00:00"
     },
     {
       "name": "Stecher",
@@ -132,7 +132,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-16T22:08:45.110220+00:00"
+      "observedAt": "2026-10-16T22:17:39.061714+00:00"
     }
   ],
   "history": [
@@ -235,12 +235,12 @@ window.DANGERIONS_DATA = {
         "JKLee": {
           "itemLevel": 1415,
           "level": 45,
-          "observedAt": "2026-10-16T22:06:29.858511+00:00"
+          "observedAt": "2026-10-16T22:16:57.662463+00:00"
         },
         "LordSanchez2": {
           "itemLevel": 843,
           "level": 45,
-          "observedAt": "2026-10-16T22:08:10.002587+00:00"
+          "observedAt": "2026-10-16T22:17:14.173515+00:00"
         },
         "BrouceLee": {
           "itemLevel": 663,
@@ -255,7 +255,7 @@ window.DANGERIONS_DATA = {
         "Roctopus": {
           "itemLevel": 203,
           "level": 22,
-          "observedAt": "2026-10-16T22:08:45.110220+00:00"
+          "observedAt": "2026-10-16T22:17:39.061714+00:00"
         },
         "FumosLee": {
           "itemLevel": 919,
@@ -264,19 +264,28 @@ window.DANGERIONS_DATA = {
         },
         "SurfingLee": {
           "itemLevel": 636,
-          "level": 39,
-          "observedAt": "2026-10-16T22:08:35.859679+00:00"
+          "level": 40,
+          "observedAt": "2026-10-16T22:17:30.789504+00:00"
+        },
+        "NaminiLee": {
+          "itemLevel": 1209,
+          "level": 45,
+          "observedAt": "2026-10-16T22:16:57.939449+00:00"
         }
       }
     }
   ],
   "failures": [
     {
-      "name": "JKLee",
+      "name": "FumosLee",
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
     },
     {
-      "name": "NaminiLee",
+      "name": "BrouceLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "Stecher",
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
     }
   ],
@@ -910,6 +919,46 @@ window.DANGERIONS_DATA = {
           "itemLevel": 203,
           "level": 22,
           "observedAt": "2026-10-16T22:08:45.110220+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-16T22:17:47.142602+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "JKLee": {
+          "itemLevel": 1415,
+          "level": 45,
+          "observedAt": "2026-10-16T22:16:57.662463+00:00"
+        },
+        "NaminiLee": {
+          "itemLevel": 1209,
+          "level": 45,
+          "observedAt": "2026-10-16T22:16:57.939449+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 843,
+          "level": 45,
+          "observedAt": "2026-10-16T22:17:14.173515+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 636,
+          "level": 40,
+          "observedAt": "2026-10-16T22:17:30.789504+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 203,
+          "level": 22,
+          "observedAt": "2026-10-16T22:17:39.061714+00:00"
         }
       }
     }
