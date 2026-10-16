@@ -230,4 +230,19 @@ manual.document.onclick({target:{closest:()=>({dataset:{player:'Stecher'}})}});
 assert.match(manual.el('player-detail').innerHTML,/Spielstart: 15.10., 23:00 Uhr · Level 1 · 0 Item-Level · laut Kevin/);
 assert.equal((manual.el('player-detail').innerHTML.match(/class="detail-history"/g)||[]).length,2);
 assert.match(manual.el('player-detail').innerHTML,/\+275/);
+// Small multiples must represent the amount gained, not stretch every gain to full height.
+const miniPoints=(app,name)=>[...app.el('chart-select').innerHTML.split(`data-chart="${name}"`)[1].split('</button>')[0].matchAll(/<circle cx="([^"]+)" cy="([^"]+)"/g)].map(m=>({x:Number(m[1]),y:Number(m[2])}));
+const miniRise=(app,name)=>{const points=miniPoints(app,name);return points[0].y-points.at(-1).y;};
+for(const tab of manual.periods){
+  tab.onclick();
+  assert.ok(Math.abs(miniRise(manual,'Roctopus')/miniRise(manual,'Stecher')-12/275)<1e-10,'+12 must occupy exactly 12/275 of the vertical rise of +275 in every period.');
+  assert.equal(miniPoints(manual,'Roctopus')[0].y,miniPoints(manual,'Stecher')[0].y,'Every player starts from the same gain baseline.');
+  assert.equal(miniRise(manual,'FumosLee'),0,'No gain stays flat on the common baseline.');
+}
+manual.periods[0].onclick();
+assert.ok(miniPoints(manual,'Stecher')[0].x>miniPoints(manual,'Roctopus')[0].x,'The shared time axis keeps Stecher’s later actual start.');
+assert.ok(miniRise(down,'NaminiLee')<0,'A loss descends.');
+assert.ok(Math.abs(miniRise(down,'NaminiLee')/miniRise(down,'JKLee')-(-10/146))<1e-10,'Losses and gains use the same units.');
+assert.equal(miniRise(hours,'JKLee'),0,'An entirely flat group stays flat.');
+assert.doesNotMatch(hours.el('chart-select').innerHTML,/NaN|Infinity/);
 console.log('PASS: 24-hour atlas, timestamp selection, daily archive, eight rank-effect tiers, unchanged IL ranking, feed refresh preserving view, profiles.');
