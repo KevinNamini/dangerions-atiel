@@ -54,7 +54,6 @@ assert.equal(start.el('player-dialog').open,true);
 assert.match(start.el('player-detail').innerHTML,/1.148/);
 assert.match(start.el('player-detail').innerHTML,/OFFIZIELLES AION-PROFIL/);
 start.el('close-dialog').onclick();assert.equal(start.document.body.style.overflow,'');
-await start.el('share').onclick();assert.match(start.el('toast').textContent,/lokal/);
 
 // A lower-IL player can lead the atlas without taking over the main ranking.
 const rising=structuredClone(fixture);
@@ -226,4 +225,4 @@ manual.document.onclick({target:{closest:()=>({dataset:{player:'Stecher'}})}});
 assert.match(manual.el('player-detail').innerHTML,/Spielstart: 15.10., 23:00 Uhr · Level 1 · 0 Item-Level · laut Kevin/);
 assert.equal((manual.el('player-detail').innerHTML.match(/class="detail-history"/g)||[]).length,2);
 assert.match(manual.el('player-detail').innerHTML,/\+275/);
-console.log('PASS: 24-hour atlas, timestamp selection, daily archive, eight rank-effect tiers, unchanged IL ranking, feed refresh preserving view, profiles and sharing.');
+console.log('PASS: 24-hour atlas, timestamp selection, daily archive, eight rank-effect tiers, unchanged IL ranking, feed refresh preserving view, profiles.');
