@@ -28,8 +28,12 @@ window.dangerionsProgress = function(data,now=Date.now()){
       }
     }
   }
-  const failed=new Set((data.failures||[]).map(f=>f.name));
-  const fresh=p=>valid(p.itemLevel)&&!failed.has(p.name)&&Number.isFinite(Date.parse(p.observedAt))&&Math.abs(at-Date.parse(p.observedAt))<=30*60000&&now-at<=2*HOUR;
+  // A failed retry does not invalidate the preceding verified observation.
+  // Age each player's actual observation, not the latest successful feed update.
+  const fresh=p=>{
+    const observed=Date.parse(p.observedAt);
+    return valid(p.itemLevel)&&Number.isFinite(observed)&&observed<=at&&at-observed<=2*HOUR&&now-observed<=2*HOUR;
+  };
   const before=name=>{
     const v=baseline?.values[name];
     return validObservation(v)&&(provisional&&reported(v)||!reported(v)&&Math.abs(Date.parse(baseline.capturedAt)-Date.parse(v.observedAt))<=30*60000)?v:null;

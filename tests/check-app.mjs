@@ -26,6 +26,7 @@ function mount(data,feed=null){
 const fixture=structuredClone(original);
 const values={JKLee:[1258,1404],NaminiLee:[1047,1148],LordSanchez2:[774,843],FumosLee:[684,684],BrouceLee:[615,663],SurfingLee:[559,559],Stecher:[null,250],Roctopus:[191,203]};
 fixture.updatedAt='2026-10-16T12:00:00Z';
+fixture.failures=[];
 fixture.players.forEach(p=>{p.itemLevel=values[p.name][1];p.observedAt=fixture.updatedAt});
 fixture.history=['2026-10-15','2026-10-16'].map((day,i)=>({day,values:Object.fromEntries(fixture.players.filter(p=>values[p.name][i]!==null).map(p=>[p.name,{itemLevel:values[p.name][i],level:p.level,observedAt:day+'T12:00:00Z'}]))}));
 fixture.snapshots=fixture.history.map(h=>({capturedAt:h.day+'T12:00:00Z',roster:Object.keys(h.values),values:structuredClone(h.values)}));
@@ -230,6 +231,29 @@ manual.document.onclick({target:{closest:()=>({dataset:{player:'Stecher'}})}});
 assert.match(manual.el('player-detail').innerHTML,/Spielstart: 15.10., 23:00 Uhr · Level 1 · 0 Item-Level · laut Kevin/);
 assert.equal((manual.el('player-detail').innerHTML.match(/class="detail-history"/g)||[]).length,2);
 assert.match(manual.el('player-detail').innerHTML,/\+275/);
+// Partial retries must not erase earlier verified gains across any view.
+const recovered=structuredClone(reported);
+const recoveredIL={JKLee:1415,NaminiLee:1209,FumosLee:919,LordSanchez2:843,BrouceLee:663,SurfingLee:636,Stecher:275,Roctopus:203};
+const failedNames=['FumosLee','BrouceLee','Stecher'];
+recovered.failures=failedNames.map(name=>({name,error:'Incomplete official response'}));
+recovered.players.forEach(p=>{p.itemLevel=recoveredIL[p.name];p.observedAt=failedNames.includes(p.name)?'2026-10-16T11:50:00Z':recovered.updatedAt;});
+recovered.history[1].values=Object.fromEntries(recovered.players.map(p=>[p.name,{itemLevel:p.itemLevel,level:p.level,observedAt:p.observedAt}]));
+recovered.snapshots=[{capturedAt:'2026-10-16T11:50:00Z',roster:recovered.players.map(p=>p.name),values:Object.fromEntries(recovered.players.filter(p=>failedNames.includes(p.name)).map(p=>[p.name,{itemLevel:p.itemLevel,level:p.level,observedAt:p.observedAt}]))},{capturedAt:recovered.updatedAt,roster:recovered.players.map(p=>p.name),values:Object.fromEntries(recovered.players.filter(p=>!failedNames.includes(p.name)).map(p=>[p.name,{itemLevel:p.itemLevel,level:p.level,observedAt:p.observedAt}]))}];
+const recoveredBefore=JSON.stringify(recovered),recoveredApp=mount(recovered);
+assert.deepEqual(pathOrder(recoveredApp),['Stecher','FumosLee','NaminiLee','JKLee','SurfingLee','LordSanchez2','BrouceLee','Roctopus']);
+for(const [name,gain] of [['FumosLee',235],['BrouceLee',48],['Stecher',275]]){
+  const row=recoveredApp.el('roster').innerHTML.split(`data-player="${name}"`)[1].split('<div role="button"')[0];
+  assert.match(row,new RegExp(`>\\+${gain}<`),`${name}'s confirmed gain remains visible in the ranking.`);
+  choose(recoveredApp,name);
+  assert.match(recoveredApp.el('chart').innerHTML,new RegExp(`<strong>\\+${gain}<\\/strong>`));
+  recoveredApp.document.onclick({target:{closest:()=>({dataset:{player:name}})}});
+  assert.match(recoveredApp.el('player-detail').innerHTML,new RegExp(`>\\+${gain}<`));
+}
+const recoveredFumos=recoveredApp.el('roster').innerHTML.split('data-player="FumosLee"')[1].split('<div role="button"')[0];
+assert.match(recoveredFumos,/rank-move rise impact-1/);
+assert.match(recoveredApp.el('daily-champion').innerHTML,/Stecher/);
+assert.match(recoveredApp.el('atlas-pulse').innerHTML,/<b>8<\/b>aufgestiegen/);
+assert.equal(JSON.stringify(recovered),recoveredBefore,'Rendering does not insert fabricated observations into partial snapshots.');
 // Small multiples must represent the amount gained, not stretch every gain to full height.
 const miniPoints=(app,name)=>[...app.el('chart-select').innerHTML.split(`data-chart="${name}"`)[1].split('</button>')[0].matchAll(/<circle cx="([^"]+)" cy="([^"]+)"/g)].map(m=>({x:Number(m[1]),y:Number(m[2])}));
 const miniRise=(app,name)=>{const points=miniPoints(app,name);return points[0].y-points.at(-1).y;};

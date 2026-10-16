@@ -18,6 +18,8 @@ Der bestehende Hintergrundlauf ist auf stündliche Erfassung jeweils um Minute 0
 
 Bei Teilausfällen bleiben die letzten bekannten Beobachtungen mit ihrem ursprünglichen Datum erhalten. Fehlende Tage werden als Lücken behandelt. Wiederholte Abrufe am selben Tag aktualisieren einen bestehenden Tagesstand. Ausrüstungswechsel können auch zu einem niedrigeren Item-Level führen.
 
+Ein fehlgeschlagener erneuter Abruf blendet bereits bestätigte Vergleichswerte nicht sofort aus. Die Anzeige verwendet die letzte verifizierte Beobachtung eines Spielers weiterhin, solange deren eigener Zeitstempel höchstens zwei Stunden alt ist. Das gilt gemeinsam für Rangliste, Chronik, Profile und Aufsteiger. Die Fehlerliste und unvollständigen Snapshots bleiben unverändert; alte Beobachtungen werden nicht als neue Abrufe gespeichert. Tatsächlich veraltete oder fehlende Werte verhindern weiterhin einen aktuellen Rangvergleich.
+
 ## Rangfolge
 
 Rangfolge ausschließlich nach Item-Level, bei Gleichstand gemeinsamer Rang (1, 1, 3). Charakterlevel und Kampfkraft werden getrennt dargestellt. Erfasst: JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus und Stecher. Das ist keine vollständige Mitgliederliste; keine Gildenleiter-Rolle wurde verifiziert. Alle acht Charakterporträts sind vorhanden. Ein eigens gezeichnetes Kantor-Symbol liegt zusätzlich als Ersatzgrafik vor.
