@@ -7,3 +7,63 @@
 
 .empty-chart{color:#939ea8;text-align:center;font-size:12px;padding:30px}.chart-area svg{min-width:380px}.chart-area{overflow-x:auto;justify-content:flex-start}.toast{max-width:calc(100% - 32px);width:max-content;text-align:center}
 @media(max-width:720px){.rank-name{font-size:12px}.rank-meta{font-size:8.5px}.delta.neutral{font-size:8px}.delta small{font-size:7px}.rank-il small{font-size:7px}.hero-overline{font-size:7px}.chart-area svg text{font-size:16px}.chart-area{height:195px}.player-chip{font-size:9px;min-height:30px}.chart-note{font-size:10px}.chart-head .eyebrow{font-size:8px}.chart-area svg{min-width:400px}.archive-status p{font-size:10px}.daily-champion p:not(.eyebrow){font-size:10px}.legion-copy>p:not(.eyebrow){font-size:11px}.guild-pills>span{font-size:8px}}
+
+/* A quiet entrance. The world, one crest, one name, three Daevas. */
+.world{height:1050px;background:linear-gradient(180deg,#06090d08 0%,#06090d0d 24%,#0b0d1166 53%,#0b0d11 94%),url('assets/ascension.webp') center top/cover no-repeat}
+.world:after{background:linear-gradient(90deg,#04070b33,transparent 30%,transparent 70%,#04070b33)}
+.hero{width:min(1060px,calc(100% - 40px));padding-top:65px}
+.hero-crest{height:88px;margin:0 auto}
+.hero-crest img{filter:drop-shadow(0 2px 18px #0009) drop-shadow(0 0 28px #e1b96855)}
+.hero h1{margin:28px 0 0;font-size:clamp(42px,7.8vw,98px);letter-spacing:7px;filter:drop-shadow(0 2px 15px #000c)}
+.podium{margin-top:86px;gap:24px;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,1fr)}
+.podium-card{min-width:0;min-height:298px;padding:34px 16px 25px;background:linear-gradient(180deg,#141a20b8,#0b0e13e8);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.podium-card.first{min-height:335px;padding-top:40px;background:radial-gradient(ellipse at 50% 0%,#b8904024,transparent 70%),linear-gradient(180deg,#171a20c7,#0b0e13f0)}
+.podium-card:after,.portrait-ring:before,.portrait-ring:after{display:none}
+.portrait-ring{width:104px;height:104px;margin-bottom:20px;padding:4px;box-shadow:0 0 24px #0004}
+.first .portrait-ring{width:124px;height:124px}
+.podium-name{margin:0;font-size:21px;letter-spacing:0}
+.first .podium-name{font-size:26px}
+.podium-level{color:#a8adb4;font-size:11px;line-height:1.4;margin:7px 0 0}
+.podium-value{margin:19px 0 4px;font-size:42px;letter-spacing:-1px}
+.first .podium-value{font-size:51px}
+.value-label{font-size:10px;letter-spacing:.3px;color:#a0a7b0}
+.hero-nav{display:flex;align-items:center;justify-content:center;gap:0;width:max-content;max-width:100%;margin:26px auto 0;padding:4px 10px;border:1px solid #bfa37024;border-radius:50px;background:#0c121abd;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-nav>a,.hero-nav>button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 23px;font-size:12px;letter-spacing:.1px;color:#c8c6bf;border-radius:30px;transition:background .2s,color .2s}
+.hero-nav>a:hover,.hero-nav>button:hover{color:#f0d296;background:#dac08d0d}
+.hero-nav>button{border-left:1px solid #b8a27626;border-radius:0 25px 25px 0;padding-left:22px}
+.hero-nav svg{width:15px;height:15px;flex-shrink:0}
+.roster-source{display:flex;flex-direction:column;gap:5px;align-items:end;text-align:right}
+.roster-source .data-status{color:#9da6af}
+.embers{display:none}
+@media(min-width:1500px){.world{background-size:100% auto}}
+@media(max-width:720px){
+  html{scroll-padding-top:24px}
+  .world{height:700px;background-size:auto 700px;background-image:linear-gradient(180deg,#06090d00 0%,#06090d00 23%,#0b0d1155 50%,#0b0d11 97%),url('assets/ascension.webp')}
+  .world:after{background:linear-gradient(90deg,#04070b12,transparent 35%,transparent 65%,#04070b12)}
+  .hero{width:calc(100% - 24px);padding-top:50px}
+  .hero-crest{height:66px;margin:0}
+  .hero h1{margin:26px 0 0;font-size:clamp(32px,10.3vw,65px);line-height:1.15;letter-spacing:2px}
+  .podium{width:100%;gap:7px;margin-top:77px;grid-template-columns:minmax(0,1fr) minmax(0,1.13fr) minmax(0,1fr)}
+  .podium-card{padding:27px 5px 19px;min-height:230px;background:linear-gradient(180deg,#10171e99,#0b0e13eb);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+  .podium-card.first{min-height:263px;padding:34px 5px 21px}
+  .top-rank{width:32px;height:35px;top:-18px;font-size:21px}
+  .first .top-rank{width:44px;height:49px;top:-26px;font-size:29px}
+  .portrait-ring{width:clamp(61px,18.2vw,98px);height:clamp(61px,18.2vw,98px);padding:3px;margin-bottom:15px}
+  .first .portrait-ring{width:clamp(77px,22.5vw,119px);height:clamp(77px,22.5vw,119px);margin-bottom:16px}
+  .podium-name,.first .podium-name{font:700 clamp(10px,2.9vw,16px)/1.35 var(--sans);letter-spacing:0;overflow-wrap:anywhere}
+  .first .podium-name{font-size:clamp(13px,3.6vw,20px)}
+  .podium-level{font-size:10px;line-height:1.4;margin-top:6px;color:#b0b4b9}
+  .podium-value{font-size:clamp(29px,8.2vw,46px);line-height:1.05;margin:17px 0 4px;letter-spacing:-1px}
+  .first .podium-value{font-size:clamp(37px,10.2vw,57px);margin-top:17px}
+  .value-label{font-size:9px;letter-spacing:.1px;color:#b0b5bb}
+  .hero-nav{margin-top:23px;padding:3px 8px;background:#0c121ada}
+  .hero-nav>a,.hero-nav>button{min-height:44px;padding:8px 20px;font-size:12px;gap:7px}
+  .hero-nav>button{padding-left:18px;padding-right:17px}
+  .hero-nav svg{width:14px;height:14px}
+  .rank-section{padding-top:55px}
+  .roster-source{align-items:start;text-align:left;gap:4px}.roster-source .data-status{font-size:10px}.roster-source #freshness{font-size:9px}
+}
+@media(max-width:360px){
+  .hero{width:calc(100% - 20px);padding-top:44px}.hero-crest{height:61px}.hero h1{letter-spacing:1.4px;margin-top:24px}.podium{gap:5px;margin-top:69px}.podium-card{padding-inline:3px;min-height:218px}.podium-card.first{padding-inline:3px;min-height:250px}.hero-nav>a,.hero-nav>button{padding-inline:17px;font-size:11px}
+}
+@media(hover:none){.podium-card:hover{transform:none}}

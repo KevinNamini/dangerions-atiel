@@ -12,23 +12,19 @@
 <body>
 <a class="skip" href="#rangliste">Zur Rangliste</a>
 <div class="world" aria-hidden="true"></div><div class="embers" aria-hidden="true"></div>
-<header class="site-header"><a class="brand" href="#"><img src="assets/crest.svg" alt=""><span>DANGERIONS<small>AION 2 · ATIEL</small></span></a><nav aria-label="Hauptnavigation"><a href="#rangliste">Rangliste</a><a href="#chronik">Chronik</a><a href="#legion">Die Legion</a></nav><button class="share-button" id="share"><span aria-hidden="true">↗</span> <span>Legion teilen</span></button></header>
 <main>
 <section class="hero" aria-labelledby="hero-title">
-<div class="hero-overline"><span></span> ASMODIER · EUROPA · ATIEL <span></span></div>
 <div class="hero-crest"><img src="assets/crest.svg" alt="Wappen der Dangerions: schwarze Schwingen und goldener Kristall"></div>
-<p class="eyebrow">HALL OF ASCENSION</p><h1 id="hero-title">DANGERIONS</h1><p class="hero-sub">Unsere Daevas. <em>Ein Vermächtnis.</em></p>
-<div class="hero-rule"><i></i><b>✦</b><i></i></div>
-<div class="podium-heading"><span>Die Spitze der Legion</span><small>NACH ITEM-LEVEL</small></div>
+<h1 id="hero-title">DANGERIONS</h1>
 <div id="podium" class="podium" aria-label="Die ersten drei Plätze nach Item-Level"></div>
-<div class="hero-foot"><span class="data-status"><i></i><span id="update-label">Charakterdaten werden geladen</span></span><a href="#rangliste">Die ganze Legion <span>↓</span></a></div>
+<nav class="hero-nav" aria-label="Hauptnavigation"><a href="#rangliste">Rangliste</a><a href="#chronik">Chronik</a><button id="share" aria-label="Dangerions-Link teilen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2"/></svg><span>Teilen</span></button></nav>
 </section>
 <section class="rank-section wrap" id="rangliste" aria-labelledby="rank-title">
 <div class="section-top"><div><p class="eyebrow">01 / DER WETTSTREIT</p><h2 id="rank-title">Jeder Aufstieg <em>zählt.</em></h2><p>Eine Legion. Gemeinsam nach oben.</p></div><div class="rank-tools"><button class="compact-toggle active" id="view-list" aria-pressed="true">☷ <span>Rangliste</span></button><button class="compact-toggle" id="view-cards" aria-pressed="false">▦ <span>Karten</span></button></div></div>
 <div class="rank-caption"><span><b>✦</b> DANGERIONS · ITEM-LEVEL</span><small>Gleicher Wert = gleicher Rang</small></div>
 <div class="rank-columns" aria-hidden="true"><span>RANG</span><span>DAEVA</span><span>ITEM-LEVEL</span><span>ZUM VORTAG</span><span>PROFIL</span></div>
 <div class="roster" id="roster"></div>
-<div class="roster-foot"><p><span>◇</span> Die Rangfolge basiert ausschließlich auf dem Item-Level.</p><span id="freshness"></span></div>
+<div class="roster-foot"><p><span>◇</span> Die Rangfolge basiert ausschließlich auf dem Item-Level.</p><div class="roster-source"><span class="data-status"><i></i><span id="update-label">Charakterdaten werden geladen</span></span><span id="freshness"></span></div></div>
 </section>
 <section class="chronicle-section" id="chronik" aria-labelledby="chronicle-title"><div class="wrap">
 <div class="section-top"><div><p class="eyebrow">02 / EURE GESCHICHTE</p><h2 id="chronicle-title">Euer Aufstieg.<br><em>In den Sternen verewigt.</em></h2><p>Jeder Daeva hat seinen Weg. Hier leuchtet eurer.</p></div><div class="period-tabs" role="group" aria-label="Zeitraum"><button class="active" data-period="7" aria-pressed="true">7 Tage</button><button data-period="30" aria-pressed="false">30 Tage</button><button data-period="all" aria-pressed="false">Alle</button></div></div>
