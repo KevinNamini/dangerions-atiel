@@ -5,7 +5,26 @@ window.dangerionsProgress = function(data,now=Date.now()){
   const at=Date.parse(data.updatedAt),target=at-DAY;
   const valid=v=>Number.isFinite(v)&&v>0;
   const snapshots=[...(data.snapshots||[])].filter(s=>Number.isFinite(Date.parse(s.capturedAt))&&s.values&&Array.isArray(s.roster)).sort((a,b)=>Date.parse(a.capturedAt)-Date.parse(b.capturedAt));
-  const baseline=snapshots.filter(s=>Date.parse(s.capturedAt)<at&&Math.abs(Date.parse(s.capturedAt)-target)<=TOLERANCE).sort((a,b)=>Math.abs(Date.parse(a.capturedAt)-target)-Math.abs(Date.parse(b.capturedAt)-target)||Date.parse(a.capturedAt)-Date.parse(b.capturedAt))[0]||null;
+  let baseline=snapshots.filter(s=>Date.parse(s.capturedAt)<at&&Math.abs(Date.parse(s.capturedAt)-target)<=TOLERANCE).sort((a,b)=>Math.abs(Date.parse(a.capturedAt)-target)-Math.abs(Date.parse(b.capturedAt)-target)||Date.parse(a.capturedAt)-Date.parse(b.capturedAt))[0]||null;
+  let provisional=false;
+  const calendar=ms=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin'}).format(new Date(ms));
+  const started=Date.parse(data.hourlyStartedAt||snapshots[0]?.capturedAt||data.updatedAt);
+  // Read the existing daily archive during startup; never turn it into hourly captures.
+  if(!baseline&&Number.isFinite(started)&&at>=started&&at-started<DAY){
+    const startDay=calendar(started),previous=new Date(startDay+'T12:00:00Z');
+    previous.setUTCDate(previous.getUTCDate()-1);
+    const history=data.history||[],daily=history.find(h=>h.day===previous.toISOString().slice(0,10));
+    if(daily?.values){
+      const values=Object.fromEntries(Object.entries(daily.values).filter(([,v])=>valid(v?.itemLevel)&&Number.isFinite(Date.parse(v.observedAt))&&calendar(Date.parse(v.observedAt))===daily.day&&Date.parse(v.observedAt)<started));
+      if(Object.keys(values).length){
+        // An established player missing from this day is incomplete, not a newcomer.
+        const known=new Set(data.players.map(p=>p.name));
+        const roster=[...new Set(history.filter(h=>h.day<=daily.day).flatMap(h=>Object.keys(h.values||{})))].filter(name=>known.has(name));
+        baseline={source:'daily',day:daily.day,capturedAt:new Date(Math.max(...Object.values(values).map(v=>Date.parse(v.observedAt)))).toISOString(),roster,values};
+        provisional=true;
+      }
+    }
+  }
   const failed=new Set((data.failures||[]).map(f=>f.name));
   const fresh=p=>valid(p.itemLevel)&&!failed.has(p.name)&&Number.isFinite(Date.parse(p.observedAt))&&Math.abs(at-Date.parse(p.observedAt))<=30*60000&&now-at<=2*HOUR;
   const before=name=>{
@@ -22,5 +41,6 @@ window.dangerionsProgress = function(data,now=Date.now()){
     const oldRank=1+baseline.roster.filter(name=>before(name).itemLevel>before(p.name).itemLevel).length;
     return {value:oldRank-rank(p),from:oldRank,to:rank(p),reason:null};
   }
-  return {at,target,snapshots,baseline,fresh,rank,delta,movement,complete,tolerance:TOLERANCE};
+  const startAt=baseline?Math.min(...Object.values(baseline.values).map(v=>Date.parse(v.observedAt)).filter(Number.isFinite)):target;
+  return {at,target,snapshots,baseline,provisional,startAt,fresh,rank,delta,movement,complete,tolerance:TOLERANCE};
 };

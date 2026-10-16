@@ -5,7 +5,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   const stamp=day=>Date.parse(day+'T12:00:00Z');
   const valid=v=>Number.isFinite(v)&&v>0;
   const signed=v=>(v>0?'+':v<0?'−':'±')+n(Math.abs(v));
-  // The atlas follows 24-hour gains; the main Item-Level ranking stays intact.
+  // The atlas follows the labelled comparison; the main IL ranking stays intact.
   const progressPlayers=[...players].sort((a,b)=>{
     const left=delta(a),right=delta(b);
     return left===null?(right===null?0:1):right===null?-1:right-left;
@@ -19,7 +19,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   const today=calendar(Date.now());
   const label=v=>hourly()?clock(v.observedAt):shortDay(v.day);
   const detail=v=>`${dateTime(v.observedAt)} Uhr · ${n(v.value)} Item-Level${!hourly()&&v.day===today?' · laufender Tag':''}`;
-  const range=()=>hourly()?[Math.min(progress.at-86400000,...Object.values(progress.baseline?.values||{}).map(v=>Date.parse(v.observedAt)).filter(Number.isFinite)),progress.at]:[stamp(days[0]?.day||currentDay),stamp(days.at(-1)?.day||currentDay)];
+  const range=()=>hourly()?[progress.provisional?progress.startAt:Math.min(progress.at-86400000,progress.startAt),progress.at]:[stamp(days[0]?.day||currentDay),stamp(days.at(-1)?.day||currentDay)];
 
   function observations(p){
     const seen=new Set();
@@ -29,7 +29,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
       const at=hourly()?Date.parse(v.observedAt):stamp(h.day);
       if(hourly()&&((at<progress.at-86400000&&h!==progress.baseline)||at>progress.at||seen.has(v.observedAt)))return [];
       seen.add(v.observedAt);
-      return [{day:h.day,id:hourly()?v.observedAt:h.day,at,value:v.itemLevel,observedAt:v.observedAt}];
+      return [{day:h.day,id:hourly()?v.observedAt:h.day,at,value:v.itemLevel,observedAt:v.observedAt,source:h.source}];
     }).sort((a,b)=>a.at-b.at);
   }
   function paths(points,x,y){
@@ -41,7 +41,11 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     if(run.length)runs.push(run);
     return runs;
   }
-  function trend(d,label='in 24 h'){
+  function startLink(points,x,y,cls){
+    if(!hourly()||!progress.provisional||points.length<2||points[0].source!=='daily'||points[1].at-points[0].at<=90*60000)return '';
+    return `<path class="${cls} atlas-start-link" d="M${x(points[0].at)},${y(points[0].value)} L${x(points[1].at)},${y(points[1].value)}"/>`;
+  }
+  function trend(d,label=progress.provisional?'seit Start':'in 24 h'){
     return d===null?'<span class="atlas-delta neutral">Kein Vergleich</span>':`<span class="atlas-delta ${d>0?'up':d<0?'down':'neutral'}">${d>0?'↗':d<0?'↘':'—'} ${d===0?'Unverändert':signed(d)} <small>${label}</small></span>`;
   }
   function miniChart(p){
@@ -52,7 +56,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const x=at=>span?8+(at-start)/span*164:90;
     const y=value=>hi===lo?26:42-(value-lo)/(hi-lo)*32;
     const runs=paths(points,x,y);
-    return `<svg class="path-mini" viewBox="0 0 180 56" preserveAspectRatio="none" aria-hidden="true"><line x1="8" y1="51" x2="172" y2="51" class="mini-base"/>${runs.map(run=>(run.length>1?`<path class="observed-line" d="${run.map((v,i)=>(i?'L':'M')+v.x+','+v.y).join(' ')}"/>`:'')+run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="2.5"/>`).join('')).join('')}</svg>`;
+    return `<svg class="path-mini" viewBox="0 0 180 56" preserveAspectRatio="none" aria-hidden="true"><line x1="8" y1="51" x2="172" y2="51" class="mini-base"/>${startLink(points,x,y,'observed-line')}${runs.map(run=>(run.length>1?`<path class="observed-line" d="${run.map((v,i)=>(i?'L':'M')+v.x+','+v.y).join(' ')}"/>`:'')+run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="2.5"/>`).join('')).join('')}</svg>`;
   }
   function renderPaths(){
     $('chart-select').innerHTML=progressPlayers.map(p=>{
@@ -94,6 +98,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const grid=[0,.5,1].map(t=>({value:min+(max-min)*t,y:y(min+(max-min)*t)}));
     let svg=`<svg class="atlas-plot" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="atlas-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${p.color}" stop-opacity=".24"/><stop offset="1" stop-color="${p.color}" stop-opacity="0"/></linearGradient></defs>`;
     grid.forEach(g=>{svg+=`<line x1="${left}" y1="${g.y}" x2="${w-right}" y2="${g.y}" class="atlas-gridline"/>`;});
+    svg+=startLink(points,x,y,'atlas-trail');
     runs.forEach(run=>{
       svg+=run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="2.5" fill="${p.color}"/>`).join('');
       if(run.length<2)return;
@@ -114,10 +119,11 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   function render(){
     state.period=period;state.selected=selected;
     const cutoff=stamp(currentDay)-(Number(period)-1)*86400000;
-    days=hourly()?progress.snapshots.filter(s=>s===progress.baseline||(Date.parse(s.capturedAt)>=progress.at-86400000&&Date.parse(s.capturedAt)<=progress.at)):history.filter(h=>period==='all'||stamp(h.day)>=cutoff);
+    days=hourly()?[...(progress.provisional?[progress.baseline]:[]),...progress.snapshots.filter(s=>s===progress.baseline||(Date.parse(s.capturedAt)>=(progress.provisional?progress.startAt:progress.at-86400000)&&Date.parse(s.capturedAt)<=progress.at))]:history.filter(h=>period==='all'||stamp(h.day)>=cutoff);
     $('days-tag').textContent=days.length+' '+(hourly()?(days.length===1?'Messpunkt':'Messpunkte'):days.length===1?'Tagesstand':'Tagesstände');
-    $('chart-note').textContent=hourly()?'Echte Abrufe · Berliner Zeit. Das Stundenarchiv wächst ab der Umstellung. Fehlende Abrufe bleiben Lücken. Jeder Pfad hat seine eigene Skala.':'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand. Fehlende Tage bleiben Lücken. Jeder Pfad hat seine eigene Skala.';
-    document.querySelectorAll('[data-period]').forEach(b=>{b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
+    $('chart-note').textContent=hourly()?(progress.provisional?'Vorläufiger Startvergleich · echte Messpunkte in Berliner Zeit. Die gestrichelte Linie verbindet den früheren Tagesstand mit dem Stundenarchiv. Wechselt automatisch auf 24 h. Jeder Pfad hat seine eigene Skala.':'Echte Abrufe · Berliner Zeit. Fehlende Abrufe bleiben Lücken. Jeder Pfad hat seine eigene Skala.'):'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand. Fehlende Tage bleiben Lücken. Jeder Pfad hat seine eigene Skala.';
+    $('atlas-order-label').textContent=progress.provisional?'NACH ZUWACHS · SEIT START':'NACH ZUWACHS · LETZTE 24 H';
+    document.querySelectorAll('[data-period]').forEach(b=>{if(b.dataset.period==='24h'){b.textContent=progress.provisional?'Seit Start':'24 h';b.title=progress.provisional?'Vorläufig: vorhandener Tagesstand und neue Stundenwerte':'Letzte 24 Stunden';}b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
     renderPaths();renderFocus();
   }
   $('chart-select').onclick=e=>{
@@ -144,6 +150,6 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     render();
   });
   const diffs=players.map(delta),count=test=>diffs.filter(test).length;
-  $('atlas-pulse').innerHTML=`<p class="eyebrow">PULS DER LEGION</p><h3>Eure letzten 24 Stunden.</h3><div class="pulse-counts"><span><b>${count(d=>d!==null&&d>0)}</b>aufgestiegen</span><span><b>${count(d=>d===0)}</b>unverändert</span><span><b>${count(d=>d!==null&&d<0)}</b>gesunken</span></div>${diffs.some(d=>d===null)?`<p class="pulse-note">${count(d=>d===null)} ohne 24-h-Vergleich</p>`:''}`;
+  $('atlas-pulse').innerHTML=`<p class="eyebrow">PULS DER LEGION</p><h3>${progress.provisional?'Euer Aufstieg seit Start.':'Eure letzten 24 Stunden.'}</h3><div class="pulse-counts"><span><b>${count(d=>d!==null&&d>0)}</b>aufgestiegen</span><span><b>${count(d=>d===0)}</b>unverändert</span><span><b>${count(d=>d!==null&&d<0)}</b>gesunken</span></div>${diffs.some(d=>d===null)?`<p class="pulse-note">${count(d=>d===null)} ${progress.provisional?'ohne Startvergleich':'ohne 24-h-Vergleich'}</p>`:''}`;
   render();
 };

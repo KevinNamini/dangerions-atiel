@@ -35,6 +35,35 @@ assert.equal(metrics(stale).delta(stale.players[1]),null);assert.equal(metrics(s
 assert.equal(context.window.dangerionsProgress(data(),Date.parse(at)+3*3600000).delta(data().players[0]),null,'Old current data must be labelled, not described as current.');
 const newcomer=data();newcomer.snapshots[0].roster=names.slice(0,-1);delete newcomer.snapshots[0].values.F;
 assert.equal(metrics(newcomer).movement(newcomer.players[5]).reason,'new');
+// Startup may use yesterday's recorded observations, explicitly as provisional.
+const warm=data([1000,900,800,700,1100,500]);
+warm.hourlyStartedAt=at;
+warm.history=[{day:'2026-10-15',values:Object.fromEntries(names.slice(0,-1).map((name,i)=>[name,{itemLevel:[1000,900,800,700,600][i],observedAt:'2026-10-15T17:37:00Z'}]))}];
+warm.snapshots=[{capturedAt:at,roster:names,values:Object.fromEntries(warm.players.map(p=>[p.name,{itemLevel:p.itemLevel,observedAt:at}]))}];
+const saved=JSON.stringify(warm),provisional=metrics(warm);
+assert.equal(provisional.provisional,true);
+assert.equal(provisional.delta(warm.players[4]),500);
+assert.equal(provisional.movement(warm.players[4]).value,4);
+assert.equal(provisional.movement(warm.players[5]).reason,'new');
+assert.equal(provisional.delta(warm.players[5]),null,'A newcomer has no invented prior-day value.');
+assert.equal(provisional.baseline.capturedAt,'2026-10-15T17:37:00.000Z');
+assert.equal(JSON.stringify(warm),saved,'Reading the archive never rewrites daily values or creates hourly captures.');
+const transition=structuredClone(warm);
+transition.updatedAt='2026-10-17T10:07:00Z';transition.players.forEach(p=>{p.observedAt=transition.updatedAt;p.itemLevel+=10});
+const full=context.window.dangerionsProgress(transition,Date.parse(transition.updatedAt));
+assert.equal(full.provisional,false);
+assert.equal(full.delta(transition.players[4]),10,'Automatically use the real 24-hour baseline instead of the provisional daily stand.');
+assert.equal(full.delta(transition.players[5]),10,'A newcomer becomes comparable once their own baseline exists.');
+const incomplete=structuredClone(warm);
+incomplete.history.unshift({day:'2026-10-14',values:{F:{itemLevel:400,observedAt:'2026-10-14T17:37:00Z'}}});
+assert.equal(metrics(incomplete).movement(incomplete.players[5]).reason,'incomplete','An older known player with a missing day is not labelled new.');
+assert.equal(metrics(incomplete).movement(incomplete.players[0]).value,null);
+const badDay=structuredClone(warm);badDay.history[0].day='2026-10-14';
+assert.equal(metrics(badDay).baseline,null,'No silent fallback across missing days.');
+const staleDay=structuredClone(warm);Object.values(staleDay.history[0].values).forEach(v=>v.observedAt='2026-10-14T17:37:00Z');
+assert.equal(metrics(staleDay).baseline,null,'Carried-forward values do not become fresh daily observations.');
+const expired=structuredClone(transition);expired.snapshots=[];
+assert.equal(context.window.dangerionsProgress(expired,Date.parse(expired.updatedAt)).baseline,null,'Do not reuse the startup fallback for later collection outages.');
 // 24 hours means elapsed time, even across Berlin's autumn DST change.
 const dst=data();dst.updatedAt='2026-10-25T10:00:00Z';dst.players.forEach(p=>p.observedAt=dst.updatedAt);
 dst.snapshots[0].capturedAt='2026-10-24T10:00:00Z';Object.values(dst.snapshots[0].values).forEach(v=>v.observedAt=dst.snapshots[0].capturedAt);

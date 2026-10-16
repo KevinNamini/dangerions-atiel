@@ -47,6 +47,7 @@
 .atlas-gridline{stroke:#a8b6c6;stroke-opacity:.12;stroke-dasharray:2 6;vector-effect:non-scaling-stroke}
 .atlas-trail{stroke:var(--focus-color);stroke-width:2.5;fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .atlas-trail-glow{stroke:var(--focus-color);stroke-width:10;stroke-opacity:.07;fill:none;vector-effect:non-scaling-stroke}
+.atlas-start-link{stroke-dasharray:6 7;opacity:.65}
 .atlas-y{position:absolute;left:0;transform:translateY(-50%);font-size:10px;color:#84909d;font-variant-numeric:tabular-nums}
 .atlas-x{position:absolute;bottom:-14px;transform:translateX(-50%);font-size:10px;color:#a4adba;white-space:nowrap}
 .atlas-x.last{transform:translateX(-70%)}
