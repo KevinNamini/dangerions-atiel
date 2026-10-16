@@ -14,12 +14,12 @@ def inline_css(filename):
     return re.sub(r'url\([\'\"]?([^\)\'\"]+)[\'\"]?\)',lambda m:'url("'+uri(m[1])+'")',css)
 def export(target):
     html=(DIST/'index.html').read_text()
-    for name in ['fonts.css','style.css']:
+    for name in ['fonts.css','style.css','chronicle.css']:
         html=html.replace('<link rel="stylesheet" href="'+name+'">','<style>'+inline_css(name)+'</style>')
     dataset=json.loads((ROOT/'data/history.json').read_text())
     for player in dataset['players']:player['avatar']=uri(player['avatar'])
-    script='window.DANGERIONS_DATA='+json.dumps(dataset,ensure_ascii=False).replace('<','\\u003c')+';\n'+(DIST/'app.js').read_text()
-    html=html.replace('<script src="data.js" defer></script>','').replace('<script src="app.js" defer></script>','')
+    script='window.DANGERIONS_DATA='+json.dumps(dataset,ensure_ascii=False).replace('<','\\u003c')+';\n'+(DIST/'chronicle.js').read_text()+';\n'+(DIST/'app.js').read_text()
+    html=html.replace('<script src="data.js" defer></script>','').replace('<script src="chronicle.js" defer></script>','').replace('<script src="app.js" defer></script>','')
     html=html.replace('src="assets/crest.svg"','src="'+uri('assets/crest.svg')+'"').replace('href="assets/crest.svg"','href="'+uri('assets/crest.svg')+'"')
     html=html.replace('</body>','<script>'+script.replace('</script','<\\/script')+'</script></body>')
     notices='\n\n'.join(path.read_text() for path in sorted((ROOT/'licenses').glob('*.txt')))

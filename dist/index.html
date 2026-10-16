@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#0b0d11"><meta name="color-scheme" content="dark">
 <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="style.css"><script src="data.js" defer></script><script src="app.js" defer></script>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chronicle.css"><script src="data.js" defer></script><script src="chronicle.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#rangliste">Zur Rangliste</a>
@@ -31,8 +31,15 @@
 <div class="roster-foot"><p><span>◇</span> Die Rangfolge basiert ausschließlich auf dem Item-Level.</p><span id="freshness"></span></div>
 </section>
 <section class="chronicle-section" id="chronik" aria-labelledby="chronicle-title"><div class="wrap">
-<div class="section-top"><div><p class="eyebrow">02 / EURE GESCHICHTE</p><h2 id="chronicle-title">Heute stärker.<br><em>Morgen legendär.</em></h2><p>Jeder Tag hinterlässt eine Spur. Hier wird sie sichtbar.</p></div><div class="period-tabs" role="group" aria-label="Zeitraum"><button class="active" data-period="7" aria-pressed="true">7 Tage</button><button data-period="30" aria-pressed="false">30 Tage</button><button data-period="365" aria-pressed="false">Alle</button></div></div>
-<div class="progress-layout"><article class="chart-panel"><div class="chart-head"><div><span class="eyebrow">AUFSTIEGSKURVE</span><h3>Item-Level im Zeitverlauf</h3></div><span class="small-tag" id="days-tag">TAG 01</span></div><div id="chart-select" class="chart-select" role="group" aria-label="Spieler im Verlauf auswählen"></div><div id="chart" class="chart-area"></div><p class="chart-note" id="chart-note"></p></article><aside class="chronicle-aside"><div class="daily-champion" id="daily-champion"></div><div class="archive-status"><span class="archive-icon">◷</span><div><h3>Das Archiv wächst mit euch.</h3><p id="archive-status-text"></p></div></div></aside></div>
+<div class="section-top"><div><p class="eyebrow">02 / EURE GESCHICHTE</p><h2 id="chronicle-title">Euer Aufstieg.<br><em>In den Sternen verewigt.</em></h2><p>Jeder Daeva hat seinen Weg. Hier leuchtet eurer.</p></div><div class="period-tabs" role="group" aria-label="Zeitraum"><button class="active" data-period="7" aria-pressed="true">7 Tage</button><button data-period="30" aria-pressed="false">30 Tage</button><button data-period="all" aria-pressed="false">Alle</button></div></div>
+<div class="ascension-atlas">
+<div class="atlas-masthead"><span><b aria-hidden="true">✦</b> AUFSTIEGSATLAS <i>/</i> DANGERIONS</span><span id="days-tag"></span></div>
+<div id="chart" class="atlas-focus" aria-live="polite" aria-atomic="false"></div>
+<div class="atlas-paths-heading"><div><span class="eyebrow">EINE LEGION. VIELE WEGE.</span><h3>Wähle deinen Daeva.</h3></div><span>Antippen &amp; Verlauf entdecken <b aria-hidden="true">↗</b></span></div>
+<div id="chart-select" class="atlas-paths" role="group" aria-label="Spieler im Verlauf auswählen"></div>
+<div class="atlas-footnote"><span aria-hidden="true">◇</span><p id="chart-note"></p></div>
+</div>
+<aside class="chronicle-recap"><div class="daily-champion" id="daily-champion"></div><div class="atlas-pulse" id="atlas-pulse"></div><div class="archive-status"><span class="archive-icon" aria-hidden="true">◷</span><div><h3>Das Archiv wächst mit euch.</h3><p id="archive-status-text"></p></div></div></aside>
 <div class="chronicle-bottom"><div><p class="eyebrow">DAS LEGIONSBUCH</p><h3>Die letzten Kapitel</h3></div><div class="timeline" id="timeline"></div></div>
 </div></section>
 <section class="legion-section wrap" id="legion" aria-labelledby="legion-title"><div class="legion-mark"><img src="assets/crest.svg" alt="Dangerions-Wappen"><span>EST. ATIEL</span></div><div class="legion-copy"><p class="eyebrow">03 / EIN BANNER. EINE LEGION.</p><h2 id="legion-title">Rivalen im Ranking.<br><em>Verbündete in Atreia.</em></h2><p>Vom ersten Flug bis zum nächsten Meilenstein: Wir steigen gemeinsam auf. Diese Halle gehört den Dangerions.</p><div class="guild-pills"><span>✦ Asmodier</span><span>⌖ Atiel · Europa</span><span>◇ <b id="roster-count">8</b> erfasste Daevas</span></div></div></section>
