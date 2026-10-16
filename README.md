@@ -26,7 +26,7 @@ Stecher wurde am **16. Oktober 2026** ergänzt: Assassine, Level 26, Item-Level 
 
 ## Prüfen und exportieren
 
-Die Chronik ist als **Aufstiegsatlas** gestaltet: ein großer Einzelverlauf mit auswählbaren Tagesständen und acht eigene Mini-Verläufe. Die Spielerkarten bleiben nach aktuellem Item-Level sortiert. Tagesänderungen beziehen sich auf den direkten Vortag; der Gewinn im großen Verlauf auf den ersten und letzten tatsächlich erfassten Wert des gewählten Zeitraums. Jeder Verlauf hat eine eigene, im Detail beschriftete Skala. Lücken werden nicht verbunden; neue Spieler erhalten keine rückwirkenden Punkte. Die Ansicht „Alle“ umfasst das vollständige vorhandene Archiv.
+Die Chronik ist als **Aufstiegsatlas** gestaltet: ein großer Einzelverlauf mit auswählbaren Tagesständen und acht eigene Mini-Verläufe. Die Spielerkarten und der anfängliche Fokus folgen dem absoluten Item-Level-Zuwachs zum direkten Vortag, absteigend; Spieler ohne Vergleich stehen am Ende. Bei gleichem Zuwachs bleibt die Item-Level-Reihenfolge erhalten. Diese Sortierung gilt für jeden gewählten Zeitraum ausschließlich im Aufstiegsatlas; Podest und Rangliste bleiben nach aktuellem Item-Level sortiert. Tagesänderungen beziehen sich auf den direkten Vortag; der Gewinn im großen Verlauf auf den ersten und letzten tatsächlich erfassten Wert des gewählten Zeitraums. Jeder Verlauf hat eine eigene, im Detail beschriftete Skala. Lücken werden nicht verbunden; neue Spieler erhalten keine rückwirkenden Punkte. Die Ansicht „Alle“ umfasst das vollständige vorhandene Archiv.
 
 `dist/chronicle.js` und `dist/chronicle.css` enthalten Darstellung und Bedienung des Atlas. Das bestehende Datenformat und die automatische Erfassung bleiben unverändert.
 

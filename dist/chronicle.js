@@ -5,7 +5,12 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   const stamp=day=>Date.parse(day+'T12:00:00Z');
   const valid=v=>Number.isFinite(v)&&v>0;
   const signed=v=>(v>0?'+':v<0?'−':'±')+n(Math.abs(v));
-  let period='7',selected=players[0].name,days=[],activePoints=[];
+  // Keep the main Item-Level ranking intact; only the atlas follows daily gains.
+  const progressPlayers=[...players].sort((a,b)=>{
+    const left=delta(a),right=delta(b);
+    return left===null?(right===null?0:1):right===null?-1:right-left;
+  });
+  let period='7',selected=progressPlayers[0].name,days=[],activePoints=[];
 
   function observations(p){
     return days.filter(h=>valid(h.values[p.name]?.itemLevel)).map(h=>({day:h.day,value:h.values[p.name].itemLevel}));
@@ -33,9 +38,9 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     return `<svg class="path-mini" viewBox="0 0 180 56" preserveAspectRatio="none" aria-hidden="true"><line x1="8" y1="51" x2="172" y2="51" class="mini-base"/>${runs.map(run=>(run.length>1?`<path class="observed-line" d="${run.map((v,i)=>(i?'L':'M')+v.x+','+v.y).join(' ')}"/>`:'')+run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="2.5"/>`).join('')).join('')}</svg>`;
   }
   function renderPaths(){
-    $('chart-select').innerHTML=players.map(p=>{
+    $('chart-select').innerHTML=progressPlayers.map(p=>{
       const d=delta(p),pts=observations(p);
-      return `<button class="atlas-path ${selected===p.name?'active':''}" data-chart="${esc(p.name)}" style="--path-color:${p.color}" aria-pressed="${selected===p.name}" aria-controls="chart" aria-label="Verlauf von ${esc(p.name)} anzeigen"><span class="path-identity">${image(p)}<span><strong>${esc(p.name)}</strong><small>RANG ${rank(p)} <i>·</i> LV. ${p.level}</small></span><span class="path-arrow" aria-hidden="true">↗</span></span><span class="path-stats"><span class="path-value">${n(p.itemLevel)}<small>ITEM-LEVEL</small></span>${trend(d,'zum Vortag')}</span>${miniChart(p)}<span class="path-caption">${pts.length>1?shortDay(pts[0].day)+' — '+shortDay(pts.at(-1).day):pts.length?'Erster Stand · '+shortDay(pts[0].day):'Keine Messung im Zeitraum'}<span aria-hidden="true">${selected===p.name?'IM FOKUS':'PFAD ANSEHEN'}</span></span></button>`;
+      return `<button class="atlas-path ${selected===p.name?'active':''}" data-chart="${esc(p.name)}" style="--path-color:${p.color}" aria-pressed="${selected===p.name}" aria-controls="chart" aria-label="Verlauf von ${esc(p.name)} anzeigen"><span class="path-identity">${image(p)}<span><strong>${esc(p.name)}</strong><small>IL-RANG ${rank(p)} <i>·</i> LV. ${p.level}</small></span><span class="path-arrow" aria-hidden="true">↗</span></span><span class="path-stats"><span class="path-value">${n(p.itemLevel)}<small>ITEM-LEVEL</small></span>${trend(d,'zum Vortag')}</span>${miniChart(p)}<span class="path-caption">${pts.length>1?shortDay(pts[0].day)+' — '+shortDay(pts.at(-1).day):pts.length?'Erster Stand · '+shortDay(pts[0].day):'Keine Messung im Zeitraum'}<span aria-hidden="true">${selected===p.name?'IM FOKUS':'PFAD ANSEHEN'}</span></span></button>`;
     }).join('');
   }
   function selectObservation(day){
@@ -55,7 +60,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const first=points[0],last=points.at(-1),gain=points.length>1?last.value-first.value:null;
     const pct=gain===null?null:(gain/first.value*100);
     const growth=gain===null?'Der erste Meilenstein.':gain>0?'Der Aufstieg geht weiter.':gain<0?'Ein neuer Kurs.':'Die Stärke bleibt.';
-    const profile=`<div class="atlas-daeva"><div class="atlas-orbit" aria-hidden="true"><span class="orbit-ring"></span><span class="orbit-cross">✦</span>${image(p)}</div><div class="atlas-daeva-name"><p class="eyebrow">IM FOKUS <span>· RANG ${rank(p)}</span></p><h3>${esc(p.name)}</h3><p>${esc(p.className)} <span>· Level ${p.level}</span></p></div><div class="atlas-current"><span>AKTUELLES ITEM-LEVEL</span><strong>${n(p.itemLevel)}</strong>${trend(delta(p))}</div><button class="atlas-profile-link" data-player="${esc(p.name)}">Charakterprofil <span aria-hidden="true">↗</span></button></div>`;
+    const profile=`<div class="atlas-daeva"><div class="atlas-orbit" aria-hidden="true"><span class="orbit-ring"></span><span class="orbit-cross">✦</span>${image(p)}</div><div class="atlas-daeva-name"><p class="eyebrow">IM FOKUS <span>· IL-RANG ${rank(p)}</span></p><h3>${esc(p.name)}</h3><p>${esc(p.className)} <span>· Level ${p.level}</span></p></div><div class="atlas-current"><span>AKTUELLES ITEM-LEVEL</span><strong>${n(p.itemLevel)}</strong>${trend(delta(p))}</div><button class="atlas-profile-link" data-player="${esc(p.name)}">Charakterprofil <span aria-hidden="true">↗</span></button></div>`;
     if(!points.length){
       $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-empty"><span aria-hidden="true">✧</span><h4>Dieser Pfad wartet noch.</h4><p>Für ${esc(p.name)} fehlen Messwerte im gewählten Zeitraum.</p></div></div>`;
       return;
