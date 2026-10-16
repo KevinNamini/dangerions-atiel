@@ -39,9 +39,12 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     if(run.length)runs.push(run);
     return runs;
   }
-  function startLink(points,x,y,cls){
+  function startLink(points,x,y,cls,fillTo=null){
     if(!hourly()||!progress.provisional||points.length<2||points[0].source!=='daily'||points[1].at-points[0].at<=90*60000)return '';
-    return `<path class="${cls} atlas-start-link" d="M${x(points[0].at)},${y(points[0].value)} L${x(points[1].at)},${y(points[1].value)}"/>`;
+    const firstX=x(points[0].at),lastX=x(points[1].at);
+    const path=`M${firstX},${y(points[0].value)} L${lastX},${y(points[1].value)}`;
+    const area=fillTo===null?'':`<path class="atlas-area atlas-start-area" d="${path} L${lastX},${fillTo} L${firstX},${fillTo} Z" fill="url(#atlas-fill)"/>`;
+    return area+`<path class="${cls} atlas-start-link" d="${path}"/>`;
   }
   function miniChart(p){
     const points=observations(p);
@@ -93,14 +96,14 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const y=value=>top+(max-value)/(max-min)*(h-top-bottom);
     const runs=paths(points,x,y);
     const grid=[0,.5,1].map(t=>({value:min+(max-min)*t,y:y(min+(max-min)*t)}));
-    let svg=`<svg class="atlas-plot" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="atlas-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${p.color}" stop-opacity=".24"/><stop offset="1" stop-color="${p.color}" stop-opacity="0"/></linearGradient></defs>`;
+    let svg=`<svg class="atlas-plot" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="atlas-fill" gradientUnits="userSpaceOnUse" x1="0" y1="${y(high)}" x2="0" y2="${h}"><stop stop-color="${p.color}" stop-opacity=".24"/><stop offset="1" stop-color="${p.color}" stop-opacity="0"/></linearGradient></defs>`;
     grid.forEach(g=>{svg+=`<line x1="${left}" y1="${g.y}" x2="${w-right}" y2="${g.y}" class="atlas-gridline"/>`;});
-    svg+=startLink(points,x,y,'atlas-trail');
+    svg+=startLink(points,x,y,'atlas-trail',h);
     runs.forEach(run=>{
       svg+=run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="1.6" fill="${p.color}" opacity=".5"/>`).join('');
       if(run.length<2)return;
       const path=run.map((v,i)=>(i?'L':'M')+v.x+','+v.y).join(' ');
-      svg+=`<path d="${path} L${run.at(-1).x},${h} L${run[0].x},${h} Z" fill="url(#atlas-fill)"/><path class="atlas-trail-glow" d="${path}"/><path class="atlas-trail observed-line" d="${path}"/>`;
+      svg+=`<path class="atlas-area" d="${path} L${run.at(-1).x},${h} L${run[0].x},${h} Z" fill="url(#atlas-fill)"/><path class="atlas-trail-glow" d="${path}"/><path class="atlas-trail observed-line" d="${path}"/>`;
     });
     svg+='</svg>';
     // Keep touch targets apart; every observation remains available in Messwerte.
