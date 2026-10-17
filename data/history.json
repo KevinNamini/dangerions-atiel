@@ -3,7 +3,7 @@
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-17T11:02:01.624574+00:00",
+  "updatedAt": "2026-10-17T11:07:47.036029+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -27,7 +27,7 @@
       "classKey": "gladiator",
       "className": "Gladiator",
       "level": 45,
-      "itemLevel": 1259,
+      "itemLevel": 1401,
       "combatPower": 67581,
       "guild": "Dangerions",
       "server": "Atiel",
@@ -36,7 +36,20 @@
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-17T10:05:59.590982+00:00"
+      "observedAt": "2026-10-17T11:07:47.036029+00:00",
+      "combatPowerObservedAt": "2026-10-17T10:05:59.590982+00:00",
+      "source": "user-authorized-override",
+      "verificationStatus": "provisional",
+      "timestampKind": "manual-entry",
+      "authorizedBy": "Kevin",
+      "authorizedAt": "2026-10-17T13:05:11+02:00",
+      "recordedAt": "2026-10-17T11:07:47.036029+00:00",
+      "note": "Kevin requested the previously browser-observed 1401 despite incomplete API responses. A subsequent official profile view showed 965 at 2026-10-17T11:06:36.979Z; the discrepancy remains unresolved. Replace the current value after the next complete verified fetch.",
+      "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
+      "observedFields": [
+        "itemLevel",
+        "level"
+      ]
     },
     {
       "name": "FumosLee",
@@ -55,6 +68,33 @@
       "observedAt": "2026-10-17T10:06:12.886250+00:00"
     },
     {
+      "name": "SurfingLee",
+      "classKey": "spiritmaster",
+      "className": "Beschwörer",
+      "level": 45,
+      "itemLevel": 875,
+      "combatPower": 44438,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#b5a0eb",
+      "avatar": "assets/SurfingLee.png",
+      "avatarType": "portrait",
+      "title": "Don't Be Blinded by Greed",
+      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
+      "observedAt": "2026-10-17T11:06:17.647Z",
+      "combatPowerObservedAt": "2026-10-17T10:06:25.336888+00:00",
+      "source": "official-profile-browser",
+      "verificationStatus": "browser-only",
+      "authorizedBy": "Kevin",
+      "recordedAt": "2026-10-17T11:07:47.036029+00:00",
+      "note": "Observed on the loaded official Europe/Atiel profile. API completeness check failed; browser-based fallback explicitly authorized by Kevin.",
+      "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
+      "observedFields": [
+        "itemLevel",
+        "level"
+      ]
+    },
+    {
       "name": "LordSanchez2",
       "classKey": "templar",
       "className": "Templer",
@@ -69,22 +109,6 @@
       "title": "Grasper of the Core",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
       "observedAt": "2026-10-17T11:01:30.827694+00:00"
-    },
-    {
-      "name": "SurfingLee",
-      "classKey": "spiritmaster",
-      "className": "Beschwörer",
-      "level": 45,
-      "itemLevel": 840,
-      "combatPower": 44438,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#b5a0eb",
-      "avatar": "assets/SurfingLee.png",
-      "avatarType": "portrait",
-      "title": "Don't Be Blinded by Greed",
-      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-17T10:06:25.336888+00:00"
     },
     {
       "name": "BrouceLee",
@@ -263,14 +287,28 @@
           "observedAt": "2026-10-17T10:06:12.886250+00:00"
         },
         "SurfingLee": {
-          "itemLevel": 840,
+          "itemLevel": 875,
           "level": 45,
-          "observedAt": "2026-10-17T10:06:25.336888+00:00"
+          "observedAt": "2026-10-17T11:06:17.647Z",
+          "source": "official-profile-browser",
+          "verificationStatus": "browser-only",
+          "authorizedBy": "Kevin",
+          "recordedAt": "2026-10-17T11:07:47.036029+00:00",
+          "note": "Observed on the loaded official Europe/Atiel profile. API completeness check failed; browser-based fallback explicitly authorized by Kevin.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu"
         },
         "NaminiLee": {
-          "itemLevel": 1259,
+          "itemLevel": 1401,
           "level": 45,
-          "observedAt": "2026-10-17T10:05:59.590982+00:00"
+          "observedAt": "2026-10-17T11:07:47.036029+00:00",
+          "source": "user-authorized-override",
+          "verificationStatus": "provisional",
+          "timestampKind": "manual-entry",
+          "authorizedBy": "Kevin",
+          "authorizedAt": "2026-10-17T13:05:11+02:00",
+          "recordedAt": "2026-10-17T11:07:47.036029+00:00",
+          "note": "Kevin requested the previously browser-observed 1401 despite incomplete API responses. A subsequent official profile view showed 965 at 2026-10-17T11:06:36.979Z; the discrepancy remains unresolved. Replace the current value after the next complete verified fetch.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu"
         }
       }
     }
@@ -282,7 +320,12 @@
     },
     {
       "name": "NaminiLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained.",
+      "fallback": {
+        "source": "user-authorized-override",
+        "appliedAt": "2026-10-17T11:07:47.036029+00:00",
+        "verificationStatus": "provisional"
+      }
     },
     {
       "name": "FumosLee",
@@ -294,7 +337,12 @@
     },
     {
       "name": "SurfingLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained.",
+      "fallback": {
+        "source": "official-profile-browser",
+        "appliedAt": "2026-10-17T11:07:47.036029+00:00",
+        "verificationStatus": "browser-only"
+      }
     },
     {
       "name": "Roctopus",
@@ -1834,6 +1882,50 @@
           "itemLevel": 414,
           "level": 37,
           "observedAt": "2026-10-17T11:02:01.623815+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-17T11:07:47.036029+00:00",
+      "source": "user-authorized-fallback",
+      "requestedRoster": [
+        "NaminiLee",
+        "SurfingLee"
+      ],
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "FumosLee",
+        "LordSanchez2",
+        "SurfingLee",
+        "BrouceLee",
+        "Stecher",
+        "Roctopus"
+      ],
+      "values": {
+        "NaminiLee": {
+          "itemLevel": 1401,
+          "level": 45,
+          "observedAt": "2026-10-17T11:07:47.036029+00:00",
+          "source": "user-authorized-override",
+          "verificationStatus": "provisional",
+          "timestampKind": "manual-entry",
+          "authorizedBy": "Kevin",
+          "authorizedAt": "2026-10-17T13:05:11+02:00",
+          "recordedAt": "2026-10-17T11:07:47.036029+00:00",
+          "note": "Kevin requested the previously browser-observed 1401 despite incomplete API responses. A subsequent official profile view showed 965 at 2026-10-17T11:06:36.979Z; the discrepancy remains unresolved. Replace the current value after the next complete verified fetch.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu"
+        },
+        "SurfingLee": {
+          "itemLevel": 875,
+          "level": 45,
+          "observedAt": "2026-10-17T11:06:17.647Z",
+          "source": "official-profile-browser",
+          "verificationStatus": "browser-only",
+          "authorizedBy": "Kevin",
+          "recordedAt": "2026-10-17T11:07:47.036029+00:00",
+          "note": "Observed on the loaded official Europe/Atiel profile. API completeness check failed; browser-based fallback explicitly authorized by Kevin.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu"
         }
       }
     }
