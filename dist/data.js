@@ -3,9 +3,25 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-17T15:11:31.640547+00:00",
+  "updatedAt": "2026-10-17T20:38:27.324689+00:00",
   "scheduleEnabled": true,
   "players": [
+    {
+      "name": "NaminiLee",
+      "classKey": "gladiator",
+      "className": "Gladiator",
+      "level": 45,
+      "itemLevel": 1432,
+      "combatPower": 70337,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#f0ce8c",
+      "avatar": "assets/NaminiLee.png",
+      "avatarType": "portrait",
+      "title": "Through Hell and Back",
+      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
+      "observedAt": "2026-10-17T20:35:03.646780+00:00"
+    },
     {
       "name": "JKLee",
       "classKey": "ranger",
@@ -23,28 +39,12 @@ window.DANGERIONS_DATA = {
       "observedAt": "2026-10-17T15:11:30.369967+00:00"
     },
     {
-      "name": "NaminiLee",
-      "classKey": "gladiator",
-      "className": "Gladiator",
-      "level": 45,
-      "itemLevel": 1401,
-      "combatPower": 70086,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#f0ce8c",
-      "avatar": "assets/NaminiLee.png",
-      "avatarType": "portrait",
-      "title": "Through Hell and Back",
-      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-17T14:09:40.408905+00:00"
-    },
-    {
       "name": "FumosLee",
       "classKey": "cleric",
       "className": "Kleriker",
       "level": 45,
-      "itemLevel": 929,
-      "combatPower": 41974,
+      "itemLevel": 948,
+      "combatPower": 44661,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#e9adba",
@@ -52,7 +52,20 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-17T15:10:37.840397+00:00"
+      "observedAt": "2026-10-17T20:38:27.324689+00:00",
+      "source": "user-authorized-override",
+      "verificationStatus": "provisional",
+      "timestampKind": "manual-entry",
+      "authorizedBy": "Kevin",
+      "authorizedAt": "2026-10-17T22:37:18+02:00",
+      "recordedAt": "2026-10-17T20:38:27.324689+00:00",
+      "note": "Kevin explicitly requested the higher API value, 948. The complete en-US/de-DE API responses agreed, but the visible official profile showed 760 on both browser checks. This is a manual selection, not a fully verified public observation. Replace after the next complete API/browser agreement.",
+      "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
+      "sourceValues": {
+        "apiItemLevel": 948,
+        "browserItemLevel": 760,
+        "apiRunCapturedAt": "2026-10-17T20:34:36.087633+00:00"
+      }
     },
     {
       "name": "SurfingLee",
@@ -258,9 +271,22 @@ window.DANGERIONS_DATA = {
           "observedAt": "2026-10-17T14:10:24.721291+00:00"
         },
         "FumosLee": {
-          "itemLevel": 929,
+          "itemLevel": 948,
           "level": 45,
-          "observedAt": "2026-10-17T15:10:37.840397+00:00"
+          "observedAt": "2026-10-17T20:38:27.324689+00:00",
+          "source": "user-authorized-override",
+          "verificationStatus": "provisional",
+          "timestampKind": "manual-entry",
+          "authorizedBy": "Kevin",
+          "authorizedAt": "2026-10-17T22:37:18+02:00",
+          "recordedAt": "2026-10-17T20:38:27.324689+00:00",
+          "note": "Kevin explicitly requested the higher API value, 948. The complete en-US/de-DE API responses agreed, but the visible official profile showed 760 on both browser checks. This is a manual selection, not a fully verified public observation. Replace after the next complete API/browser agreement.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
+          "sourceValues": {
+            "apiItemLevel": 948,
+            "browserItemLevel": 760,
+            "apiRunCapturedAt": "2026-10-17T20:34:36.087633+00:00"
+          }
         },
         "SurfingLee": {
           "itemLevel": 875,
@@ -268,21 +294,45 @@ window.DANGERIONS_DATA = {
           "observedAt": "2026-10-17T15:10:51.445903+00:00"
         },
         "NaminiLee": {
-          "itemLevel": 1401,
+          "itemLevel": 1432,
           "level": 45,
-          "observedAt": "2026-10-17T14:09:40.408905+00:00"
+          "observedAt": "2026-10-17T20:35:03.646780+00:00",
+          "source": "official-profile-api-browser",
+          "verificationStatus": "verified",
+          "recordedAt": "2026-10-17T20:38:27.324689+00:00",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu"
         }
       }
     }
   ],
   "failures": [
     {
-      "name": "NaminiLee",
+      "name": "JKLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "SurfingLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "LordSanchez2",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "BrouceLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "Stecher",
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
     },
     {
       "name": "Roctopus",
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "FumosLee",
+      "error": "API/browser item-level conflict (948 vs 760); Kevin explicitly selected 948 as a provisional manual override."
     }
   ],
   "schemaVersion": 2,
@@ -2112,6 +2162,53 @@ window.DANGERIONS_DATA = {
           "itemLevel": 1422,
           "level": 45,
           "observedAt": "2026-10-17T15:11:30.369967+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-17T20:38:27.324689+00:00",
+      "source": "user-authorized-fallback",
+      "requestedRoster": [
+        "NaminiLee",
+        "FumosLee"
+      ],
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "FumosLee",
+        "SurfingLee",
+        "LordSanchez2",
+        "BrouceLee",
+        "Stecher",
+        "Roctopus"
+      ],
+      "values": {
+        "NaminiLee": {
+          "itemLevel": 1432,
+          "level": 45,
+          "observedAt": "2026-10-17T20:35:03.646780+00:00",
+          "source": "official-profile-api-browser",
+          "verificationStatus": "verified",
+          "recordedAt": "2026-10-17T20:38:27.324689+00:00",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-17T20:38:27.324689+00:00",
+          "source": "user-authorized-override",
+          "verificationStatus": "provisional",
+          "timestampKind": "manual-entry",
+          "authorizedBy": "Kevin",
+          "authorizedAt": "2026-10-17T22:37:18+02:00",
+          "recordedAt": "2026-10-17T20:38:27.324689+00:00",
+          "note": "Kevin explicitly requested the higher API value, 948. The complete en-US/de-DE API responses agreed, but the visible official profile showed 760 on both browser checks. This is a manual selection, not a fully verified public observation. Replace after the next complete API/browser agreement.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
+          "sourceValues": {
+            "apiItemLevel": 948,
+            "browserItemLevel": 760,
+            "apiRunCapturedAt": "2026-10-17T20:34:36.087633+00:00"
+          }
         }
       }
     }
