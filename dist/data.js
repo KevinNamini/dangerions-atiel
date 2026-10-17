@@ -3,7 +3,7 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-17T10:06:38.562520+00:00",
+  "updatedAt": "2026-10-17T11:02:01.624574+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -68,7 +68,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Grasper of the Core",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-17T10:06:12.996599+00:00"
+      "observedAt": "2026-10-17T11:01:30.827694+00:00"
     },
     {
       "name": "SurfingLee",
@@ -116,7 +116,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-17T10:06:38.561740+00:00"
+      "observedAt": "2026-10-17T11:02:01.623815+00:00"
     },
     {
       "name": "Roctopus",
@@ -240,7 +240,7 @@ window.DANGERIONS_DATA = {
         "LordSanchez2": {
           "itemLevel": 843,
           "level": 45,
-          "observedAt": "2026-10-17T10:06:12.996599+00:00"
+          "observedAt": "2026-10-17T11:01:30.827694+00:00"
         },
         "BrouceLee": {
           "itemLevel": 663,
@@ -250,7 +250,7 @@ window.DANGERIONS_DATA = {
         "Stecher": {
           "itemLevel": 414,
           "level": 37,
-          "observedAt": "2026-10-17T10:06:38.561740+00:00"
+          "observedAt": "2026-10-17T11:02:01.623815+00:00"
         },
         "Roctopus": {
           "itemLevel": 203,
@@ -275,7 +275,32 @@ window.DANGERIONS_DATA = {
       }
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "name": "JKLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "NaminiLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "FumosLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "BrouceLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "SurfingLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "Roctopus",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    }
+  ],
   "schemaVersion": 2,
   "hourlyStartedAt": "2026-10-16T08:37:08.560686+00:00",
   "snapshots": [
@@ -1784,6 +1809,31 @@ window.DANGERIONS_DATA = {
           "itemLevel": 203,
           "level": 22,
           "observedAt": "2026-10-17T10:06:38.472502+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-17T11:02:01.624574+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "LordSanchez2": {
+          "itemLevel": 843,
+          "level": 45,
+          "observedAt": "2026-10-17T11:01:30.827694+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 414,
+          "level": 37,
+          "observedAt": "2026-10-17T11:02:01.623815+00:00"
         }
       }
     }
