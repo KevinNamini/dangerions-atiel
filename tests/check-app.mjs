@@ -28,6 +28,7 @@ const values={JKLee:[1258,1404],NaminiLee:[1047,1148],LordSanchez2:[774,843],Fum
 fixture.updatedAt='2026-10-16T12:00:00Z';
 fixture.failures=[];
 fixture.players.forEach(p=>{p.itemLevel=values[p.name][1];p.observedAt=fixture.updatedAt});
+fixture.players.find(p=>p.name==='Stecher').guild=''; // Fixed historical no-guild scenario, independent of today's profile.
 fixture.history=['2026-10-15','2026-10-16'].map((day,i)=>({day,values:Object.fromEntries(fixture.players.filter(p=>values[p.name][i]!==null).map(p=>[p.name,{itemLevel:values[p.name][i],level:p.level,observedAt:day+'T12:00:00Z'}]))}));
 fixture.snapshots=fixture.history.map(h=>({capturedAt:h.day+'T12:00:00Z',roster:Object.keys(h.values),values:structuredClone(h.values)}));
 const start=mount(fixture);
@@ -122,7 +123,7 @@ const tie=mount(tied);assert.match(tie.el('roster').innerHTML,/Rang 1: NaminiLee
 
 const gap=structuredClone(fixture);gap.history[0].day='2026-10-14';gap.snapshots[0].capturedAt='2026-10-14T12:00:00Z';
 const missing=mount(gap);
-assert.doesNotMatch(missing.el('chart').innerHTML,/class="atlas-trail observed-line"/,'Never connect observations across a missing calendar day.');
+assert.doesNotMatch(missing.el('chart').innerHTML,/class="atlas-trail observed-line"/,'A single in-window reading must not become an invented trend.');
 assert.doesNotMatch(missing.el('chart-select').innerHTML,/class="observed-line"/);
 assert.match(missing.el('daily-champion').innerHTML,/Krone wartet/);
 assert.deepEqual(pathOrder(missing),fixture.players.toSorted((a,b)=>b.itemLevel-a.itemLevel).map(p=>p.name),'Do not substitute an older observation for the direct previous day.');
@@ -186,7 +187,7 @@ assert.match(startup.el('roster').innerHTML,/NEU/);
 assert.equal(startup.periods[0].textContent,'Seit Start');
 assert.equal(startup.el('days-tag').textContent,'2 Messpunkte');
 assert.equal((startup.el('chart').innerHTML.match(/data-observation=/g)||[]).length,2);
-assert.match(startup.el('chart').innerHTML,/class="atlas-trail atlas-start-link"/);
+assert.match(startup.el('chart').innerHTML,/class="atlas-trail observed-line"/);
 assert.match(startup.el('chart').innerHTML,/<strong>\+146<\/strong>/);
 assert.match(startup.el('daily-champion').innerHTML,/AUFSTEIGER · SEIT START/);
 assert.match(startup.el('atlas-pulse').innerHTML,/1 ohne Startvergleich/);
@@ -269,4 +270,67 @@ assert.ok(miniRise(down,'NaminiLee')<0,'A loss descends.');
 assert.ok(Math.abs(miniRise(down,'NaminiLee')/miniRise(down,'JKLee')-(-10/146))<1e-10,'Losses and gains use the same units.');
 assert.equal(miniRise(hours,'JKLee'),0,'An entirely flat group stays flat.');
 assert.doesNotMatch(hours.el('chart-select').innerHTML,/NaN|Infinity/);
-console.log('PASS: 24-hour atlas, timestamp selection, daily archive, eight rank-effect tiers, unchanged IL ranking, feed refresh preserving view, profiles.');
+
+// Every trace and its fill remain continuous, without fabricating observations.
+const svgPaths=(html,cls)=>[...html.matchAll(new RegExp(`<path class="${cls}" d="([^"]+)"`,'g'))].map(m=>m[1]);
+const coords=path=>[...path.matchAll(/[ML]([^ ,]+),([^ ]+)/g)].map(m=>({x:Number(m[1]),y:Number(m[2])}));
+const circles=html=>[...html.matchAll(/<circle cx="([^"]+)" cy="([^"]+)"/g)].map(m=>({x:Number(m[1]),y:Number(m[2])}));
+function connectedTrace(app,name,count){
+  choose(app,name);
+  const focus=app.el('chart').innerHTML;
+  const mini=app.el('chart-select').innerHTML.split(`data-chart="${name}"`)[1].split('</button>')[0];
+  const trails=svgPaths(focus,'atlas-trail observed-line'),areas=svgPaths(focus,'atlas-area'),glow=svgPaths(focus,'atlas-trail-glow'),previews=svgPaths(mini,'observed-line');
+  for(const paths of [trails,areas,glow,previews])assert.equal(paths.length,1,`${name}: one continuous trace, glow and fill, with no overlapping start segment.`);
+  assert.equal((trails[0].match(/M/g)||[]).length,1,'No invisible move command may introduce a break.');
+  assert.equal((trails[0].match(/L/g)||[]).length,count-1,'Join only the recorded points.');
+  assert.deepEqual(coords(trails[0]),circles(focus),'The large line passes through every real point, in timestamp order.');
+  assert.deepEqual(coords(previews[0]),circles(mini),'The mini line passes through the same real observations.');
+  assert.ok(areas[0].startsWith(trails[0]+' L'),'The fill follows the entire line before closing at its baseline.');
+  assert.equal((areas[0].match(/M/g)||[]).length,1);
+  assert.ok(areas[0].endsWith(' Z'));
+  assert.equal(glow[0],trails[0]);
+  assert.equal((focus.match(/<option /g)||[]).length,count,'Only real readings appear in the inspector.');
+  assert.equal(circles(focus).length,count);
+  assert.equal(circles(mini).length,count);
+  assert.doesNotMatch(focus+mini,/NaN|Infinity|atlas-start-link|atlas-start-area/);
+  assert.match(app.el('chart-note').textContent,/Zwischenzeiten sind keine zusätzlichen Messungen/);
+}
+// Missing captures and player-specific failures across a 17-hour gap.
+const sparse=structuredClone(dense);
+sparse.snapshots=sparse.snapshots.filter((s,i)=>i<3||i>18);
+delete sparse.snapshots[5].values.NaminiLee;
+sparse.snapshots[6].values.Roctopus.itemLevel=null;
+const sparseBefore=JSON.stringify(sparse),sparseApp=mount(sparse);
+for(const p of sparse.players)connectedTrace(sparseApp,p.name,sparse.snapshots.filter(s=>Number.isFinite(s.values[p.name]?.itemLevel)&&s.values[p.name].itemLevel>0).length);
+const sparsePoints=miniPoints(sparseApp,'JKLee');
+assert.ok(sparsePoints[3].x-sparsePoints[2].x>10*(sparsePoints[1].x-sparsePoints[0].x),'Elapsed time stays proportional; gaps are not compressed.');
+assert.equal(JSON.stringify(sparse),sparseBefore,'Connecting a gap never rewrites the source archive.');
+// Whole missing calendar days, an empty day and a declining player.
+const skippedDays=structuredClone(fixture);
+skippedDays.history[0].day='2026-10-13';
+Object.values(skippedDays.history[0].values).forEach(v=>v.observedAt='2026-10-13T12:00:00Z');
+skippedDays.history[0].values.NaminiLee.itemLevel=1200;
+skippedDays.history.splice(1,0,{day:'2026-10-14',values:{}});
+const skippedBefore=JSON.stringify(skippedDays),dailyGaps=mount(skippedDays);
+for(const period of dailyGaps.periods.slice(1)){
+  period.onclick();
+  connectedTrace(dailyGaps,'JKLee',2);
+  connectedTrace(dailyGaps,'NaminiLee',2);
+  assert.ok(miniRise(dailyGaps,'NaminiLee')<0,'A connected decline must not be flattened or made upward.');
+}
+assert.equal(JSON.stringify(skippedDays),skippedBefore);
+// The attributed start uses the same line and fill, not a duplicate overlay.
+manual.periods[0].onclick();connectedTrace(manual,'Stecher',2);
+connectedTrace(startup,'NaminiLee',2);
+// Exercise all eight production histories and every period without modifying them.
+const liveBefore=JSON.stringify(original);
+for(const period of live.periods){
+  period.onclick();
+  for(const p of original.players){
+    choose(live,p.name);
+    const count=(live.el('chart').innerHTML.match(/<option /g)||[]).length;
+    if(count>1)connectedTrace(live,p.name,count);
+  }
+}
+assert.equal(JSON.stringify(original),liveBefore);
+console.log('PASS: continuous traces and fills across missing hours/days, real readings only, common mini scales, unchanged rankings and archive, profiles and live feed.');

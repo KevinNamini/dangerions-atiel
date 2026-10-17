@@ -31,20 +31,9 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     }).sort((a,b)=>a.at-b.at);
   }
   function paths(points,x,y){
-    const runs=[];let run=[];
-    points.forEach((point,i)=>{
-      if(i&&(hourly()?point.at-points[i-1].at>90*60000:point.at-points[i-1].at!==86400000)){if(run.length)runs.push(run);run=[];}
-      run.push({x:x(point.at),y:y(point.value),...point});
-    });
-    if(run.length)runs.push(run);
-    return runs;
-  }
-  function startLink(points,x,y,cls,fillTo=null){
-    if(!hourly()||!progress.provisional||points.length<2||points[0].source!=='daily'||points[1].at-points[0].at<=90*60000)return '';
-    const firstX=x(points[0].at),lastX=x(points[1].at);
-    const path=`M${firstX},${y(points[0].value)} L${lastX},${y(points[1].value)}`;
-    const area=fillTo===null?'':`<path class="atlas-area atlas-start-area" d="${path} L${lastX},${fillTo} L${firstX},${fillTo} Z" fill="url(#atlas-fill)"/>`;
-    return area+`<path class="${cls} atlas-start-link" d="${path}"/>`;
+    // Connect the recorded points visually, even across missed hours or days.
+    // Do not insert readings, move timestamps or extrapolate beyond real endpoints.
+    return points.length?[points.map(point=>({x:x(point.at),y:y(point.value),...point}))]:[];
   }
   function miniChart(points,changeY){
     if(!points.length)return '<span class="path-empty">Noch kein Verlauf</span>';
@@ -52,7 +41,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const x=at=>span?8+(at-start)/span*164:90;
     const y=value=>changeY(value-points[0].value);
     const runs=paths(points,x,y);
-    return `<svg class="path-mini" viewBox="0 0 180 56" preserveAspectRatio="none" aria-hidden="true"><line x1="8" y1="${changeY(0)}" x2="172" y2="${changeY(0)}" class="mini-base"/>${startLink(points,x,y,'observed-line')}${runs.map(run=>(run.length>1?`<path class="observed-line" d="${run.map((v,i)=>(i?'L':'M')+v.x+','+v.y).join(' ')}"/>`:'')+run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="2.5"/>`).join('')).join('')}</svg>`;
+    return `<svg class="path-mini" viewBox="0 0 180 56" preserveAspectRatio="none" aria-hidden="true"><line x1="8" y1="${changeY(0)}" x2="172" y2="${changeY(0)}" class="mini-base"/>${runs.map(run=>(run.length>1?`<path class="observed-line" d="${run.map((v,i)=>(i?'L':'M')+v.x+','+v.y).join(' ')}"/>`:'')+run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="2.5"/>`).join('')).join('')}</svg>`;
   }
   function renderPaths(){
     // Compare absolute IL gains from each player's first real point on one scale.
@@ -101,7 +90,6 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const grid=[0,.5,1].map(t=>({value:min+(max-min)*t,y:y(min+(max-min)*t)}));
     let svg=`<svg class="atlas-plot" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="atlas-fill" gradientUnits="userSpaceOnUse" x1="0" y1="${y(high)}" x2="0" y2="${h}"><stop stop-color="${p.color}" stop-opacity=".24"/><stop offset="1" stop-color="${p.color}" stop-opacity="0"/></linearGradient></defs>`;
     grid.forEach(g=>{svg+=`<line x1="${left}" y1="${g.y}" x2="${w-right}" y2="${g.y}" class="atlas-gridline"/>`;});
-    svg+=startLink(points,x,y,'atlas-trail',h);
     runs.forEach(run=>{
       svg+=run.map(v=>`<circle cx="${v.x}" cy="${v.y}" r="1.6" fill="${p.color}" opacity=".5"/>`).join('');
       if(run.length<2)return;
@@ -127,7 +115,8 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const cutoff=stamp(currentDay)-(Number(period)-1)*86400000;
     days=hourly()?[...(progress.provisional?[progress.baseline]:[]),...progress.snapshots.filter(s=>s===progress.baseline||(Date.parse(s.capturedAt)>=(progress.provisional?progress.startAt:progress.at-86400000)&&Date.parse(s.capturedAt)<=progress.at))]:history.filter(h=>period==='all'||stamp(h.day)>=cutoff);
     $('days-tag').textContent=days.length+' '+(hourly()?(days.length===1?'Messpunkt':'Messpunkte'):days.length===1?'Tagesstand':'Tagesstände');
-    $('chart-note').textContent=hourly()?(progress.provisional?'Vorläufiger Startvergleich · echte Messpunkte in Berliner Zeit. Die Linie verbindet den früheren Tagesstand mit dem Stundenarchiv. Wechselt automatisch auf 24 h.':'Echte Abrufe · Berliner Zeit. Fehlende Abrufe bleiben Lücken.'):'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand. Fehlende Tage bleiben Lücken.';
+    $('chart-note').textContent=hourly()?(progress.provisional?'Vorläufiger Startvergleich · echte Messpunkte in Berliner Zeit. Wechselt automatisch auf 24 h.':'Echte Abrufe · Berliner Zeit.'):'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand.';
+    $('chart-note').textContent+=' Die Linie verbindet vorhandene Messpunkte durchgehend. Zwischenzeiten sind keine zusätzlichen Messungen.';
     $('chart-note').textContent+=' Die kleinen Verläufe zeigen den Zuwachs mit gemeinsamer Skala. Das große Diagramm zeigt das Item-Level mit eigener Skala.';
     const reportedNotes=days.flatMap(h=>Object.entries(h.values).filter(([,v])=>progress.reported(v)).map(([name,v])=>`${name}: Startwert am ${dateTime(v.observedAt)} Uhr laut ${v.reportedBy}.`));
     if(reportedNotes.length)$('chart-note').textContent+=' '+[...new Set(reportedNotes)].join(' ');
