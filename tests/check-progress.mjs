@@ -3,6 +3,9 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 const context={window:{}};
 vm.runInNewContext(fs.readFileSync(new URL('../dist/progress.js',import.meta.url),'utf8'),context);
+const weekly=context.window.dangerionsProgress;
+// The explicit 24-hour chart retains its original, bounded observation window.
+context.window.dangerionsProgress=context.window.dangerionsDailyProgress;
 const at='2026-10-16T10:07:00Z',old='2026-10-15T10:07:00Z';
 const names=['A','B','C','D','E','F'];
 function data(current=[1000,900,800,700,600,500],previous=[1000,900,800,700,600,500]){
@@ -101,3 +104,38 @@ const dst=data();dst.updatedAt='2026-10-25T10:00:00Z';dst.players.forEach(p=>p.o
 dst.snapshots[0].capturedAt='2026-10-24T10:00:00Z';Object.values(dst.snapshots[0].values).forEach(v=>v.observedAt=dst.snapshots[0].capturedAt);
 assert.equal(context.window.dangerionsProgress(dst,Date.parse(dst.updatedAt)).delta(dst.players[0]),0);
 console.log('PASS: rank rises/falls/ties/newcomers, independent IL gain, missing/partial/stale captures, bounded 24-hour comparison and DST.');
+
+const week=structuredClone(reportedStart);
+week.updatedAt='2026-10-17T15:07:00Z';
+week.players.forEach(p=>p.observedAt='2026-10-17T11:07:00Z');
+week.failures=[{name:'F',error:'Incomplete response'}];
+const unchangedWeek=JSON.stringify(week);
+const weekMetrics=weekly(week,Date.parse('2026-10-17T19:00:00Z'));
+assert.equal(weekMetrics.delta(week.players[5]),750,'Confirmed weekly gains survive a failed fetch and more than two hours of age.');
+assert.equal(weekMetrics.movement(week.players[5]).value,1);
+assert.equal(weekMetrics.provisional,true);
+assert.equal(JSON.stringify(week),unchangedWeek,'Weekly comparisons never write synthetic captures or retimestamp observations.');
+const later=structuredClone(week);
+later.updatedAt='2026-10-22T15:07:00Z';later.players.forEach(p=>{p.observedAt=later.updatedAt;p.itemLevel+=20;});
+const laterMetrics=weekly(later,Date.parse(later.updatedAt));
+assert.equal(laterMetrics.startDay,'2026-10-16');
+assert.equal(laterMetrics.provisional,false,'The manual start falls out of the week naturally.');
+assert.equal(laterMetrics.delta(later.players[5]),270,'Use the first real reading still inside the week instead of the historical zero.');
+assert.equal(laterMetrics.baseline.capturedAt,at);
+const noWeeklyBaseline=structuredClone(later);noWeeklyBaseline.snapshots=[];
+assert.equal(weekly(noWeeklyBaseline).delta(noWeeklyBaseline.players[0]),null,'Never reuse a value older than the seven-day window.');
+const partialWeek=structuredClone(week);delete partialWeek.history[0].values.C;partialWeek.snapshots=[];
+partialWeek.history.unshift({day:'2026-10-10',values:{C:{itemLevel:800,observedAt:'2026-10-10T12:00:00Z'}}});
+assert.equal(weekly(partialWeek).delta(partialWeek.players[4]),500);
+assert.equal(weekly(partialWeek).movement(partialWeek.players[0]).value,null,'An established missing player prevents a false rank comparison.');
+assert.equal(weekly(partialWeek).movement(partialWeek.players[2]).reason,'incomplete');
+const weekTie=structuredClone(week);weekTie.players[0].itemLevel=1100;
+assert.equal(weekly(weekTie).rank(weekTie.players[0]),1);assert.equal(weekly(weekTie).rank(weekTie.players[4]),1);assert.equal(weekly(weekTie).rank(weekTie.players[1]),3);
+const weekLoss=structuredClone(week);weekLoss.players[1].itemLevel=850;
+assert.equal(weekly(weekLoss).delta(weekLoss.players[1]),-50);
+const weekFuture=structuredClone(week);weekFuture.players[0].observedAt='2026-10-18T00:00:00Z';
+assert.equal(weekly(weekFuture).delta(weekFuture.players[0]),null);
+assert.equal(weekly(weekFuture).movement(weekFuture.players[1]).value,null);
+const weekDST=structuredClone(week);weekDST.updatedAt='2026-10-25T23:30:00Z';weekDST.players.forEach(p=>p.observedAt=weekDST.updatedAt);
+assert.equal(weekly(weekDST).startDay,'2026-10-20','Use seven Berlin calendar days across the clock change.');
+console.log('PASS: weekly gains and rank moves persist, attributed starts expire, incomplete cohorts stay honest, and archives remain unchanged.');

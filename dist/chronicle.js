@@ -9,7 +9,8 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const left=delta(a),right=delta(b);
     return left===null?(right===null?0:1):right===null?-1:right-left;
   });
-  let period=state.period||'24h',selected=state.selected||progressPlayers[0].name,days=[],activePoints=[];
+  const hourlyProgress=window.dangerionsDailyProgress(data);
+  let period=state.period||'7',selected=state.selected||progressPlayers[0].name,days=[],activePoints=[];
   if(!players.some(p=>p.name===selected))selected=progressPlayers[0].name;
   const hourly=()=>period==='24h';
   const clock=iso=>new Date(iso).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Berlin'});
@@ -17,7 +18,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   const calendar=iso=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin'}).format(new Date(iso));
   const today=calendar(Date.now());
   const detail=v=>`${dateTime(v.observedAt)} Uhr · ${n(v.value)} Item-Level${v.reportedBy?' · Level '+v.level+' · Startwert laut '+v.reportedBy:!hourly()&&v.day===today?' · laufender Tag':''}`;
-  const range=()=>hourly()?[progress.provisional?progress.startAt:Math.min(progress.at-86400000,progress.startAt),progress.at]:[stamp(days[0]?.day||currentDay),stamp(days.at(-1)?.day||currentDay)];
+  const range=()=>hourly()?[hourlyProgress.provisional?hourlyProgress.startAt:Math.min(progress.at-86400000,hourlyProgress.startAt),progress.at]:[stamp(days[0]?.day||currentDay),stamp(days.at(-1)?.day||currentDay)];
 
   function observations(p){
     const seen=new Set();
@@ -25,7 +26,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
       const v=h.values[p.name];
       if(!progress.validObservation(v))return [];
       const at=hourly()?Date.parse(v.observedAt):stamp(h.day);
-      if(hourly()&&((at<progress.at-86400000&&h!==progress.baseline)||at>progress.at||seen.has(v.observedAt)))return [];
+      if(hourly()&&((at<progress.at-86400000&&h!==hourlyProgress.baseline)||at>progress.at||seen.has(v.observedAt)))return [];
       seen.add(v.observedAt);
       return [{day:h.day,id:hourly()?v.observedAt:h.day,at,value:v.itemLevel,level:v.level,observedAt:v.observedAt,source:h.source,reportedBy:progress.reported(v)?v.reportedBy:null}];
     }).sort((a,b)=>a.at-b.at);
@@ -51,7 +52,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const changeY=value=>high===low?28:44-(value-low)/(high-low)*34;
     $('chart-select').innerHTML=progressPlayers.map(p=>{
       const d=delta(p);
-      return `<button class="atlas-path ${selected===p.name?'active':''}" data-chart="${esc(p.name)}" style="--path-color:${p.color}" aria-pressed="${selected===p.name}" aria-controls="chart" aria-label="Verlauf von ${esc(p.name)} anzeigen. ${d===null?'Kein Vergleich':signed(d)+' Item-Level '+(progress.provisional?'seit Start':'in 24 Stunden')}"><span class="path-identity">${image(p)}<strong>${esc(p.name)}</strong><span class="path-selection" aria-hidden="true"></span></span><span class="path-preview">${miniChart(previews.get(p.name),changeY)}<strong class="path-gain ${d===null||d===0?'neutral':d<0?'down':'up'}">${d===null?'—':signed(d)}</strong></span></button>`;
+      return `<button class="atlas-path ${selected===p.name?'active':''}" data-chart="${esc(p.name)}" style="--path-color:${p.color}" aria-pressed="${selected===p.name}" aria-controls="chart" aria-label="Verlauf von ${esc(p.name)} anzeigen. ${d===null?'Kein Vergleich':signed(d)+' Item-Level '+(progress.provisional?'seit Start':'in 7 Tagen')}"><span class="path-identity">${image(p)}<strong>${esc(p.name)}</strong><span class="path-selection" aria-hidden="true"></span></span><span class="path-preview">${miniChart(previews.get(p.name),changeY)}<strong class="path-gain ${d===null||d===0?'neutral':d<0?'down':'up'}">${d===null?'—':signed(d)}</strong></span></button>`;
     }).join('');
   }
   function selectObservation(day,reveal=true){
@@ -70,8 +71,8 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const p=players.find(q=>q.name===selected),points=observations(p);
     activePoints=points;
     const first=points[0],last=points.at(-1),gain=points.length>1?last.value-first.value:null;
-    const change=hourly()?delta(p):gain;
-    const changeLabel=change===null?'Kein Vergleich':hourly()?(progress.provisional?'seit Start':'in 24 h'):'im Zeitraum';
+    const change=period==='7'?delta(p):gain;
+    const changeLabel=change===null?'Kein Vergleich':period==='7'?(progress.provisional?'seit Start':'in 7 Tagen'):hourly()?(hourlyProgress.provisional?'seit Start':'in 24 h'):'im Zeitraum';
     const profile=`<div class="atlas-daeva"><button class="atlas-profile-link" data-player="${esc(p.name)}" aria-label="Profil von ${esc(p.name)} öffnen" title="Spielerprofil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M10 5H5v14h14v-5"/></svg></button><div class="atlas-orbit" aria-hidden="true"><span class="orbit-ring"></span><span class="orbit-cross">✦</span>${image(p)}</div><div class="atlas-daeva-name"><h3>${esc(p.name)}</h3><p>${esc(p.className)} · Level ${p.level}</p></div><div class="atlas-metrics"><div class="atlas-current"><strong>${n(p.itemLevel)}</strong><span>Item-Level</span></div><div class="atlas-change ${change===null||change===0?'neutral':change<0?'down':'up'}"><strong>${change===null?'—':signed(change)}</strong><span>${changeLabel}</span></div></div></div>`;
     if(!points.length){
       $('chart').innerHTML=`<div class="atlas-stage" style="--focus-color:${p.color}">${profile}<div class="atlas-empty"><span aria-hidden="true">✧</span><p>Noch kein Verlauf in diesem Zeitraum.</p></div></div>`;
@@ -113,15 +114,21 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
   function render(){
     state.period=period;state.selected=selected;
     const cutoff=stamp(currentDay)-(Number(period)-1)*86400000;
-    days=hourly()?[...(progress.provisional?[progress.baseline]:[]),...progress.snapshots.filter(s=>s===progress.baseline||(Date.parse(s.capturedAt)>=(progress.provisional?progress.startAt:progress.at-86400000)&&Date.parse(s.capturedAt)<=progress.at))]:history.filter(h=>period==='all'||stamp(h.day)>=cutoff);
+    days=hourly()?[...(hourlyProgress.provisional?[hourlyProgress.baseline]:[]),...progress.snapshots.filter(s=>s===hourlyProgress.baseline||(Date.parse(s.capturedAt)>=(hourlyProgress.provisional?hourlyProgress.startAt:progress.at-86400000)&&Date.parse(s.capturedAt)<=progress.at))]:history.filter(h=>period==='all'||stamp(h.day)>=cutoff);
+    if(period==='7'&&progress.baseline){
+      const baseDay=calendar(progress.baseline.capturedAt);
+      const base={day:baseDay,values:progress.baseline.values};
+      const firstDay=days.find(h=>h.day===baseDay);
+      days=[{...base,values:{...firstDay?.values,...base.values}},...days.filter(h=>h.day>baseDay)];
+    }
     $('days-tag').textContent=days.length+' '+(hourly()?(days.length===1?'Messpunkt':'Messpunkte'):days.length===1?'Tagesstand':'Tagesstände');
-    $('chart-note').textContent=hourly()?(progress.provisional?'Vorläufiger Startvergleich · echte Messpunkte in Berliner Zeit. Wechselt automatisch auf 24 h.':'Echte Abrufe · Berliner Zeit.'):'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand.';
+    $('chart-note').textContent=hourly()?(hourlyProgress.provisional?'Vorläufiger Startvergleich · echte Messpunkte in Berliner Zeit. Wechselt automatisch auf 24 h.':'Echte Abrufe · Berliner Zeit.'):'Tagesstände · Berliner Zeit. Heute zeigt den laufenden Tag, abgeschlossene Tage ihren letzten erfassten Stand.';
     $('chart-note').textContent+=' Die Linie verbindet vorhandene Messpunkte durchgehend. Zwischenzeiten sind keine zusätzlichen Messungen.';
     $('chart-note').textContent+=' Die kleinen Verläufe zeigen den Zuwachs mit gemeinsamer Skala. Das große Diagramm zeigt das Item-Level mit eigener Skala.';
     const reportedNotes=days.flatMap(h=>Object.entries(h.values).filter(([,v])=>progress.reported(v)).map(([name,v])=>`${name}: Startwert am ${dateTime(v.observedAt)} Uhr laut ${v.reportedBy}.`));
     if(reportedNotes.length)$('chart-note').textContent+=' '+[...new Set(reportedNotes)].join(' ');
-    $('atlas-order-label').textContent=progress.provisional?'Zuwachs · seit Start':'Zuwachs · 24 h';
-    document.querySelectorAll('[data-period]').forEach(b=>{if(b.dataset.period==='24h'){b.textContent=progress.provisional?'Seit Start':'24 h';b.title=progress.provisional?'Vorläufig: vorhandener Tagesstand und neue Stundenwerte':'Letzte 24 Stunden';}b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
+    $('atlas-order-label').textContent=progress.provisional?'Zuwachs · seit Start':'Zuwachs · 7 Tage';
+    document.querySelectorAll('[data-period]').forEach(b=>{if(b.dataset.period==='24h'){b.textContent=hourlyProgress.provisional?'Seit Start':'24 h';b.title=hourlyProgress.provisional?'Vorläufig: vorhandener Tagesstand und neue Stundenwerte':'Letzte 24 Stunden';}b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
     renderPaths();renderFocus();
   }
   $('chart-select').onclick=e=>{
@@ -147,6 +154,6 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     render();
   });
   const diffs=players.map(delta),count=test=>diffs.filter(test).length;
-  $('atlas-pulse').innerHTML=`<p class="eyebrow">PULS DER LEGION</p><h3>${progress.provisional?'Euer Aufstieg seit Start.':'Eure letzten 24 Stunden.'}</h3><div class="pulse-counts"><span><b>${count(d=>d!==null&&d>0)}</b>aufgestiegen</span><span><b>${count(d=>d===0)}</b>unverändert</span><span><b>${count(d=>d!==null&&d<0)}</b>gesunken</span></div>${diffs.some(d=>d===null)?`<p class="pulse-note">${count(d=>d===null)} ${progress.provisional?'ohne Startvergleich':'ohne 24-h-Vergleich'}</p>`:''}`;
+  $('atlas-pulse').innerHTML=`<p class="eyebrow">PULS DER LEGION</p><h3>${progress.provisional?'Euer Aufstieg seit Start.':'Eure letzten 7 Tage.'}</h3><div class="pulse-counts"><span><b>${count(d=>d!==null&&d>0)}</b>aufgestiegen</span><span><b>${count(d=>d===0)}</b>unverändert</span><span><b>${count(d=>d!==null&&d<0)}</b>gesunken</span></div>${diffs.some(d=>d===null)?`<p class="pulse-note">${count(d=>d===null)} ohne Wochenvergleich</p>`:''}`;
   render();
 };

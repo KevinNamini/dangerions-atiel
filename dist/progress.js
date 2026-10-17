@@ -1,6 +1,6 @@
 /* Timestamped observations, never reconstructed hourly history. */
 'use strict';
-window.dangerionsProgress = function(data,now=Date.now()){
+window.dangerionsDailyProgress = function(data,now=Date.now()){
   const HOUR=3600000,DAY=24*HOUR,TOLERANCE=65*60000;
   const at=Date.parse(data.updatedAt),target=at-DAY;
   const valid=v=>Number.isFinite(v)&&v>0;
@@ -50,4 +50,48 @@ window.dangerionsProgress = function(data,now=Date.now()){
   }
   const startAt=baseline?Math.min(...Object.values(baseline.values).map(v=>Date.parse(v.observedAt)).filter(Number.isFinite)):target;
   return {at,target,snapshots,baseline,provisional,startAt,reported,validObservation,fresh,rank,delta,movement,complete,tolerance:TOLERANCE};
+};
+
+// Compare the saved standings within seven Berlin calendar days. Retrieval
+// failures do not erase an already recorded gain or turn old readings into new ones.
+window.dangerionsProgress = function(data,now=Date.now()){
+  const daily=window.dangerionsDailyProgress(data,now);
+  const {at,reported,validObservation,snapshots,rank}=daily;
+  const calendar=ms=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin'}).format(new Date(ms));
+  const endDay=calendar(at),start=new Date(endDay+'T12:00:00Z');
+  start.setUTCDate(start.getUTCDate()-6);
+  const startDay=start.toISOString().slice(0,10);
+  const names=new Set(data.players.map(p=>p.name));
+  const history=[...(data.history||[])].sort((a,b)=>a.day.localeCompare(b.day));
+  const recorded=v=>validObservation(v)&&Date.parse(v.observedAt)<=at&&v.source!=='user-authorized-fallback';
+  const inWindow=v=>recorded(v)&&calendar(Date.parse(v.observedAt))>=startDay;
+  const candidates=history.filter(h=>h.day>=startDay&&h.day<=endDay).map(h=>{
+    const values=Object.fromEntries(Object.entries(h.values||{}).filter(([name,v])=>names.has(name)&&inWindow(v)&&calendar(Date.parse(v.observedAt))===h.day));
+    const roster=[...new Set(history.filter(q=>q.day<=h.day).flatMap(q=>Object.keys(q.values||{})))].filter(name=>names.has(name));
+    const official=Object.values(values).filter(v=>!reported(v));
+    const times=(official.length?official:Object.values(values)).map(v=>Date.parse(v.observedAt));
+    return {source:'daily',day:h.day,roster,values,capturedAt:times.length?new Date(Math.max(...times)).toISOString():null};
+  }).concat(snapshots.filter(s=>Date.parse(s.capturedAt)<=at&&s.source!=='user-authorized-fallback').map(s=>({
+    ...s,roster:s.roster.filter(name=>names.has(name)),
+    values:Object.fromEntries(Object.entries(s.values).filter(([name,v])=>names.has(name)&&inWindow(v)&&Date.parse(v.observedAt)<=Date.parse(s.capturedAt)&&Date.parse(s.capturedAt)-Date.parse(v.observedAt)<=30*60000))
+  }))).filter(s=>s.capturedAt&&Object.keys(s.values).length).sort((a,b)=>Date.parse(a.capturedAt)-Date.parse(b.capturedAt));
+  // Prefer a complete historical group, so one missing reading cannot invent a rank move.
+  const baseline=candidates.find(s=>s.roster.length&&s.roster.every(name=>s.values[name]))||candidates[0]||null;
+  const before=name=>baseline?.values[name]||null;
+  const current=p=>inWindow(p)&&!reported(p)&&p.itemLevel>0;
+  const hasProgress=!!baseline&&data.players.some(p=>current(p)&&before(p.name)&&Date.parse(p.observedAt)>Date.parse(before(p.name).observedAt));
+  const comparable=p=>hasProgress&&current(p)&&before(p.name)&&Date.parse(p.observedAt)>=Date.parse(before(p.name).observedAt);
+  const delta=p=>comparable(p)?p.itemLevel-before(p.name).itemLevel:null;
+  const complete=hasProgress&&baseline.roster.every(name=>before(name)&&data.players.some(p=>p.name===name&&comparable(p)))&&data.players.every(current);
+  function movement(p){
+    if(!baseline)return {value:null,reason:'collecting'};
+    if(!baseline.roster.includes(p.name))return {value:null,reason:'new'};
+    if(!complete)return {value:null,reason:'incomplete'};
+    const oldRank=1+baseline.roster.filter(name=>before(name).itemLevel>before(p.name).itemLevel).length;
+    return {value:oldRank-rank(p),from:oldRank,to:rank(p),reason:null};
+  }
+  const startAt=baseline?Math.min(...Object.values(baseline.values).map(v=>Date.parse(v.observedAt))):at;
+  const recordedTimes=[...history.flatMap(h=>Object.values(h.values||{}).filter(v=>recorded(v)&&calendar(Date.parse(v.observedAt))===h.day)),...snapshots.flatMap(s=>Object.values(s.values).filter(recorded))].map(v=>Date.parse(v.observedAt));
+  const provisional=!!baseline&&calendar(Math.min(...recordedTimes))>startDay;
+  return {...daily,baseline,provisional,startAt,startDay,endDay,delta,movement,complete,period:'week'};
 };
