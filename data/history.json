@@ -3,7 +3,7 @@
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-17T02:14:13.570513+00:00",
+  "updatedAt": "2026-10-17T03:02:19.984466+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -106,9 +106,9 @@
       "name": "Stecher",
       "classKey": "assassin",
       "className": "Assassine",
-      "level": 36,
+      "level": 37,
       "itemLevel": 414,
-      "combatPower": 21714,
+      "combatPower": 21744,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#d6b0d8",
@@ -116,7 +116,7 @@
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-17T02:14:13.569498+00:00"
+      "observedAt": "2026-10-17T03:01:39.987315+00:00"
     },
     {
       "name": "Roctopus",
@@ -249,8 +249,8 @@
         },
         "Stecher": {
           "itemLevel": 414,
-          "level": 36,
-          "observedAt": "2026-10-17T02:14:13.569498+00:00"
+          "level": 37,
+          "observedAt": "2026-10-17T03:01:39.987315+00:00"
         },
         "Roctopus": {
           "itemLevel": 203,
@@ -1266,6 +1266,29 @@
           "itemLevel": 203,
           "level": 22,
           "observedAt": "2026-10-17T02:14:13.406051+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-17T03:02:19.984466+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "requestedRoster": [
+        "Stecher"
+      ],
+      "values": {
+        "Stecher": {
+          "itemLevel": 414,
+          "level": 37,
+          "observedAt": "2026-10-17T03:01:39.987315+00:00"
         }
       }
     }
