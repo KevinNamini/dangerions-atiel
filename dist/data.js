@@ -3,7 +3,7 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-18T12:15:02.696565+00:00",
+  "updatedAt": "2026-10-18T14:07:21.854202+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -20,7 +20,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-18T12:14:33.885928+00:00"
+      "observedAt": "2026-10-18T14:06:06.307634+00:00"
     },
     {
       "name": "NaminiLee",
@@ -52,7 +52,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Can I Go to the Bathroom?",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-18T10:08:20.949612+00:00"
+      "observedAt": "2026-10-18T14:05:28.428952+00:00"
     },
     {
       "name": "LordSanchez2",
@@ -132,7 +132,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-18T10:08:33.748737+00:00"
+      "observedAt": "2026-10-18T14:05:35.140886+00:00"
     }
   ],
   "history": [
@@ -297,7 +297,7 @@ window.DANGERIONS_DATA = {
         "JKLee": {
           "itemLevel": 1537,
           "level": 45,
-          "observedAt": "2026-10-18T12:14:33.885928+00:00"
+          "observedAt": "2026-10-18T14:06:06.307634+00:00"
         },
         "NaminiLee": {
           "itemLevel": 1463,
@@ -307,7 +307,7 @@ window.DANGERIONS_DATA = {
         "SurfingLee": {
           "itemLevel": 1032,
           "level": 45,
-          "observedAt": "2026-10-18T10:08:20.949612+00:00"
+          "observedAt": "2026-10-18T14:05:28.428952+00:00"
         },
         "FumosLee": {
           "itemLevel": 948,
@@ -332,7 +332,7 @@ window.DANGERIONS_DATA = {
         "Roctopus": {
           "itemLevel": 203,
           "level": 22,
-          "observedAt": "2026-10-18T10:08:33.748737+00:00"
+          "observedAt": "2026-10-18T14:05:35.140886+00:00"
         }
       }
     }
@@ -352,14 +352,6 @@ window.DANGERIONS_DATA = {
     },
     {
       "name": "BrouceLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "SurfingLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "Roctopus",
       "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
     },
     {
@@ -2921,6 +2913,36 @@ window.DANGERIONS_DATA = {
           "itemLevel": 1537,
           "level": 45,
           "observedAt": "2026-10-18T12:14:33.885928+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-18T14:07:21.854202+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "SurfingLee": {
+          "itemLevel": 1032,
+          "level": 45,
+          "observedAt": "2026-10-18T14:05:28.428952+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 203,
+          "level": 22,
+          "observedAt": "2026-10-18T14:05:35.140886+00:00"
+        },
+        "JKLee": {
+          "itemLevel": 1537,
+          "level": 45,
+          "observedAt": "2026-10-18T14:06:06.307634+00:00"
         }
       }
     }
