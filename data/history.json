@@ -3,7 +3,7 @@
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-18T09:40:50.889029+00:00",
+  "updatedAt": "2026-10-18T10:08:33.749504+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -20,7 +20,7 @@
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:06.985859+00:00"
+      "observedAt": "2026-10-18T10:07:56.285487+00:00"
     },
     {
       "name": "NaminiLee",
@@ -36,7 +36,7 @@
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:06.965728+00:00"
+      "observedAt": "2026-10-18T10:07:56.415142+00:00"
     },
     {
       "name": "SurfingLee",
@@ -52,7 +52,7 @@
       "avatarType": "portrait",
       "title": "Can I Go to the Bathroom?",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:36.185575+00:00"
+      "observedAt": "2026-10-18T10:08:20.949612+00:00"
     },
     {
       "name": "LordSanchez2",
@@ -68,7 +68,7 @@
       "avatarType": "portrait",
       "title": "Grasper of the Core",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:21.758906+00:00"
+      "observedAt": "2026-10-18T10:08:08.475881+00:00"
     },
     {
       "name": "FumosLee",
@@ -84,7 +84,7 @@
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:21.586155+00:00"
+      "observedAt": "2026-10-18T10:08:08.549182+00:00"
     },
     {
       "name": "Stecher",
@@ -100,7 +100,7 @@
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:50.887894+00:00"
+      "observedAt": "2026-10-18T10:08:33.690704+00:00"
     },
     {
       "name": "BrouceLee",
@@ -116,7 +116,7 @@
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:36.128965+00:00"
+      "observedAt": "2026-10-18T10:08:21.059350+00:00"
     },
     {
       "name": "Roctopus",
@@ -132,7 +132,7 @@
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-18T09:40:50.718391+00:00"
+      "observedAt": "2026-10-18T10:08:33.748737+00:00"
     }
   ],
   "history": [
@@ -297,42 +297,42 @@
         "JKLee": {
           "itemLevel": 1537,
           "level": 45,
-          "observedAt": "2026-10-18T09:40:06.985859+00:00"
+          "observedAt": "2026-10-18T10:07:56.285487+00:00"
         },
         "NaminiLee": {
           "itemLevel": 1463,
           "level": 45,
-          "observedAt": "2026-10-18T09:40:06.965728+00:00"
+          "observedAt": "2026-10-18T10:07:56.415142+00:00"
         },
         "SurfingLee": {
           "itemLevel": 1032,
           "level": 45,
-          "observedAt": "2026-10-18T09:40:36.185575+00:00"
+          "observedAt": "2026-10-18T10:08:20.949612+00:00"
         },
         "FumosLee": {
           "itemLevel": 948,
           "level": 45,
-          "observedAt": "2026-10-18T09:40:21.586155+00:00"
+          "observedAt": "2026-10-18T10:08:08.549182+00:00"
         },
         "LordSanchez2": {
           "itemLevel": 1011,
           "level": 45,
-          "observedAt": "2026-10-18T09:40:21.758906+00:00"
+          "observedAt": "2026-10-18T10:08:08.475881+00:00"
         },
         "BrouceLee": {
           "itemLevel": 663,
           "level": 45,
-          "observedAt": "2026-10-18T09:40:36.128965+00:00"
+          "observedAt": "2026-10-18T10:08:21.059350+00:00"
         },
         "Stecher": {
           "itemLevel": 855,
           "level": 45,
-          "observedAt": "2026-10-18T09:40:50.887894+00:00"
+          "observedAt": "2026-10-18T10:08:33.690704+00:00"
         },
         "Roctopus": {
           "itemLevel": 203,
           "level": 22,
-          "observedAt": "2026-10-18T09:40:50.718391+00:00"
+          "observedAt": "2026-10-18T10:08:33.748737+00:00"
         }
       }
     }
@@ -2817,6 +2817,61 @@
           "itemLevel": 203,
           "level": 22,
           "observedAt": "2026-10-18T09:40:50.718391+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-18T10:08:33.749504+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "JKLee": {
+          "itemLevel": 1537,
+          "level": 45,
+          "observedAt": "2026-10-18T10:07:56.285487+00:00"
+        },
+        "NaminiLee": {
+          "itemLevel": 1463,
+          "level": 45,
+          "observedAt": "2026-10-18T10:07:56.415142+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 1032,
+          "level": 45,
+          "observedAt": "2026-10-18T10:08:20.949612+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 1011,
+          "level": 45,
+          "observedAt": "2026-10-18T10:08:08.475881+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-18T10:08:08.549182+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 855,
+          "level": 45,
+          "observedAt": "2026-10-18T10:08:33.690704+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 663,
+          "level": 45,
+          "observedAt": "2026-10-18T10:08:21.059350+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 203,
+          "level": 22,
+          "observedAt": "2026-10-18T10:08:33.748737+00:00"
         }
       }
     }
