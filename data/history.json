@@ -3,7 +3,7 @@
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-18T10:08:33.749504+00:00",
+  "updatedAt": "2026-10-18T12:15:02.696565+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -20,7 +20,7 @@
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-18T10:07:56.285487+00:00"
+      "observedAt": "2026-10-18T12:14:33.885928+00:00"
     },
     {
       "name": "NaminiLee",
@@ -297,7 +297,7 @@
         "JKLee": {
           "itemLevel": 1537,
           "level": 45,
-          "observedAt": "2026-10-18T10:07:56.285487+00:00"
+          "observedAt": "2026-10-18T12:14:33.885928+00:00"
         },
         "NaminiLee": {
           "itemLevel": 1463,
@@ -337,7 +337,36 @@
       }
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "name": "NaminiLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "LordSanchez2",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "FumosLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "BrouceLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "SurfingLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "Roctopus",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "Stecher",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    }
+  ],
   "schemaVersion": 2,
   "hourlyStartedAt": "2026-10-16T08:37:08.560686+00:00",
   "snapshots": [
@@ -2872,6 +2901,26 @@
           "itemLevel": 203,
           "level": 22,
           "observedAt": "2026-10-18T10:08:33.748737+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-18T12:15:02.696565+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "JKLee": {
+          "itemLevel": 1537,
+          "level": 45,
+          "observedAt": "2026-10-18T12:14:33.885928+00:00"
         }
       }
     }
