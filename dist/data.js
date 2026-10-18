@@ -3,32 +3,16 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-17T20:38:27.324689+00:00",
+  "updatedAt": "2026-10-18T00:07:27.435962+00:00",
   "scheduleEnabled": true,
   "players": [
-    {
-      "name": "NaminiLee",
-      "classKey": "gladiator",
-      "className": "Gladiator",
-      "level": 45,
-      "itemLevel": 1432,
-      "combatPower": 70337,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#f0ce8c",
-      "avatar": "assets/NaminiLee.png",
-      "avatarType": "portrait",
-      "title": "Through Hell and Back",
-      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-17T20:35:03.646780+00:00"
-    },
     {
       "name": "JKLee",
       "classKey": "ranger",
       "className": "Waldläufer",
       "level": 45,
-      "itemLevel": 1422,
-      "combatPower": 70437,
+      "itemLevel": 1487,
+      "combatPower": 71772,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#a9d6b3",
@@ -36,7 +20,39 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-17T15:11:30.369967+00:00"
+      "observedAt": "2026-10-18T00:06:49.250931+00:00"
+    },
+    {
+      "name": "NaminiLee",
+      "classKey": "gladiator",
+      "className": "Gladiator",
+      "level": 45,
+      "itemLevel": 1458,
+      "combatPower": 71005,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#f0ce8c",
+      "avatar": "assets/NaminiLee.png",
+      "avatarType": "portrait",
+      "title": "Through Hell and Back",
+      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
+      "observedAt": "2026-10-18T00:06:52.112543+00:00"
+    },
+    {
+      "name": "SurfingLee",
+      "classKey": "spiritmaster",
+      "className": "Beschwörer",
+      "level": 45,
+      "itemLevel": 965,
+      "combatPower": 49939,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#b5a0eb",
+      "avatar": "assets/SurfingLee.png",
+      "avatarType": "portrait",
+      "title": "I Only Wanted You",
+      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
+      "observedAt": "2026-10-18T00:07:14.535630+00:00"
     },
     {
       "name": "FumosLee",
@@ -52,44 +68,15 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-17T20:38:27.324689+00:00",
-      "source": "user-authorized-override",
-      "verificationStatus": "provisional",
-      "timestampKind": "manual-entry",
-      "authorizedBy": "Kevin",
-      "authorizedAt": "2026-10-17T22:37:18+02:00",
-      "recordedAt": "2026-10-17T20:38:27.324689+00:00",
-      "note": "Kevin explicitly requested the higher API value, 948. The complete en-US/de-DE API responses agreed, but the visible official profile showed 760 on both browser checks. This is a manual selection, not a fully verified public observation. Replace after the next complete API/browser agreement.",
-      "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "sourceValues": {
-        "apiItemLevel": 948,
-        "browserItemLevel": 760,
-        "apiRunCapturedAt": "2026-10-17T20:34:36.087633+00:00"
-      }
-    },
-    {
-      "name": "SurfingLee",
-      "classKey": "spiritmaster",
-      "className": "Beschwörer",
-      "level": 45,
-      "itemLevel": 875,
-      "combatPower": 46457,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#b5a0eb",
-      "avatar": "assets/SurfingLee.png",
-      "avatarType": "portrait",
-      "title": "I Only Wanted You",
-      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-17T15:10:51.445903+00:00"
+      "observedAt": "2026-10-18T00:07:02.340020+00:00"
     },
     {
       "name": "LordSanchez2",
       "classKey": "templar",
       "className": "Templer",
       "level": 45,
-      "itemLevel": 843,
-      "combatPower": 32843,
+      "itemLevel": 738,
+      "combatPower": 28865,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#8db7e6",
@@ -97,7 +84,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Grasper of the Core",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-17T15:10:37.152662+00:00"
+      "observedAt": "2026-10-18T00:07:02.350736+00:00"
     },
     {
       "name": "BrouceLee",
@@ -113,15 +100,15 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I%3D?region=eu",
-      "observedAt": "2026-10-17T15:10:51.442809+00:00"
+      "observedAt": "2026-10-18T00:07:14.434408+00:00"
     },
     {
       "name": "Stecher",
       "classKey": "assassin",
       "className": "Assassine",
       "level": 37,
-      "itemLevel": 414,
-      "combatPower": 21744,
+      "itemLevel": 415,
+      "combatPower": 23793,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#d6b0d8",
@@ -129,7 +116,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-17T15:11:05.682625+00:00"
+      "observedAt": "2026-10-18T00:07:26.614683+00:00"
     },
     {
       "name": "Roctopus",
@@ -145,7 +132,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-17T14:10:24.721291+00:00"
+      "observedAt": "2026-10-18T00:07:27.434995+00:00"
     }
   ],
   "history": [
@@ -303,38 +290,54 @@ window.DANGERIONS_DATA = {
           "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu"
         }
       }
+    },
+    {
+      "day": "2026-10-18",
+      "values": {
+        "JKLee": {
+          "itemLevel": 1487,
+          "level": 45,
+          "observedAt": "2026-10-18T00:06:49.250931+00:00"
+        },
+        "NaminiLee": {
+          "itemLevel": 1458,
+          "level": 45,
+          "observedAt": "2026-10-18T00:06:52.112543+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 965,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:14.535630+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:02.340020+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 738,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:02.350736+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 663,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:14.434408+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 415,
+          "level": 37,
+          "observedAt": "2026-10-18T00:07:26.614683+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 203,
+          "level": 22,
+          "observedAt": "2026-10-18T00:07:27.434995+00:00"
+        }
+      }
     }
   ],
-  "failures": [
-    {
-      "name": "JKLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "SurfingLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "LordSanchez2",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "BrouceLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "Stecher",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "Roctopus",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "FumosLee",
-      "error": "API/browser item-level conflict (948 vs 760); Kevin explicitly selected 948 as a provisional manual override."
-    }
-  ],
+  "failures": [],
   "schemaVersion": 2,
   "hourlyStartedAt": "2026-10-16T08:37:08.560686+00:00",
   "snapshots": [
@@ -2209,6 +2212,61 @@ window.DANGERIONS_DATA = {
             "browserItemLevel": 760,
             "apiRunCapturedAt": "2026-10-17T20:34:36.087633+00:00"
           }
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-18T00:07:27.435962+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "JKLee": {
+          "itemLevel": 1487,
+          "level": 45,
+          "observedAt": "2026-10-18T00:06:49.250931+00:00"
+        },
+        "NaminiLee": {
+          "itemLevel": 1458,
+          "level": 45,
+          "observedAt": "2026-10-18T00:06:52.112543+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 965,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:14.535630+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:02.340020+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 738,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:02.350736+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 663,
+          "level": 45,
+          "observedAt": "2026-10-18T00:07:14.434408+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 415,
+          "level": 37,
+          "observedAt": "2026-10-18T00:07:26.614683+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 203,
+          "level": 22,
+          "observedAt": "2026-10-18T00:07:27.434995+00:00"
         }
       }
     }
