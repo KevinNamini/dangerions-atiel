@@ -3,7 +3,7 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-18T22:10:09.007370+00:00",
+  "updatedAt": "2026-10-18T23:05:58.471363+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -12,7 +12,7 @@ window.DANGERIONS_DATA = {
       "className": "Gladiator",
       "level": 45,
       "itemLevel": 1563,
-      "combatPower": 75920,
+      "combatPower": 76020,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#f0ce8c",
@@ -20,15 +20,15 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-18T22:09:15.209565+00:00"
+      "observedAt": "2026-10-18T23:05:20.363163+00:00"
     },
     {
       "name": "JKLee",
       "classKey": "ranger",
       "className": "Waldläufer",
       "level": 45,
-      "itemLevel": 1554,
-      "combatPower": 77577,
+      "itemLevel": 1558,
+      "combatPower": 77668,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#a9d6b3",
@@ -36,15 +36,15 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-18T22:09:15.207692+00:00"
+      "observedAt": "2026-10-18T23:05:20.602012+00:00"
     },
     {
       "name": "SurfingLee",
       "classKey": "spiritmaster",
       "className": "Beschwörer",
       "level": 45,
-      "itemLevel": 1116,
-      "combatPower": 59984,
+      "itemLevel": 1124,
+      "combatPower": 61070,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#b5a0eb",
@@ -52,7 +52,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Can I Go to the Bathroom?",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-18T22:09:49.799333+00:00"
+      "observedAt": "2026-10-18T23:05:46.061669+00:00"
     },
     {
       "name": "Stecher",
@@ -68,15 +68,15 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-18T22:10:09.006309+00:00"
+      "observedAt": "2026-10-18T23:05:58.470406+00:00"
     },
     {
       "name": "LordSanchez2",
       "classKey": "templar",
       "className": "Templer",
       "level": 45,
-      "itemLevel": 1027,
-      "combatPower": 49401,
+      "itemLevel": 1060,
+      "combatPower": 50494,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#8db7e6",
@@ -84,7 +84,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Stomach Filling",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-18T22:09:33.994869+00:00"
+      "observedAt": "2026-10-18T23:05:33.582646+00:00"
     },
     {
       "name": "FumosLee",
@@ -100,7 +100,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-18T22:09:33.991237+00:00"
+      "observedAt": "2026-10-18T23:05:34.214897+00:00"
     },
     {
       "name": "BrouceLee",
@@ -116,7 +116,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I%3D?region=eu",
-      "observedAt": "2026-10-18T22:09:49.834979+00:00"
+      "observedAt": "2026-10-18T23:05:45.972432+00:00"
     },
     {
       "name": "Roctopus",
@@ -132,7 +132,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-18T22:10:08.917926+00:00"
+      "observedAt": "2026-10-18T23:05:58.363970+00:00"
     }
   ],
   "history": [
@@ -342,42 +342,42 @@ window.DANGERIONS_DATA = {
         "NaminiLee": {
           "itemLevel": 1563,
           "level": 45,
-          "observedAt": "2026-10-18T22:09:15.209565+00:00"
+          "observedAt": "2026-10-18T23:05:20.363163+00:00"
         },
         "JKLee": {
-          "itemLevel": 1554,
+          "itemLevel": 1558,
           "level": 45,
-          "observedAt": "2026-10-18T22:09:15.207692+00:00"
+          "observedAt": "2026-10-18T23:05:20.602012+00:00"
         },
         "SurfingLee": {
-          "itemLevel": 1116,
+          "itemLevel": 1124,
           "level": 45,
-          "observedAt": "2026-10-18T22:09:49.799333+00:00"
+          "observedAt": "2026-10-18T23:05:46.061669+00:00"
         },
         "Stecher": {
           "itemLevel": 1068,
           "level": 45,
-          "observedAt": "2026-10-18T22:10:09.006309+00:00"
+          "observedAt": "2026-10-18T23:05:58.470406+00:00"
         },
         "LordSanchez2": {
-          "itemLevel": 1027,
+          "itemLevel": 1060,
           "level": 45,
-          "observedAt": "2026-10-18T22:09:33.994869+00:00"
+          "observedAt": "2026-10-18T23:05:33.582646+00:00"
         },
         "FumosLee": {
           "itemLevel": 948,
           "level": 45,
-          "observedAt": "2026-10-18T22:09:33.991237+00:00"
+          "observedAt": "2026-10-18T23:05:34.214897+00:00"
         },
         "BrouceLee": {
           "itemLevel": 663,
           "level": 45,
-          "observedAt": "2026-10-18T22:09:49.834979+00:00"
+          "observedAt": "2026-10-18T23:05:45.972432+00:00"
         },
         "Roctopus": {
           "itemLevel": 259,
           "level": 28,
-          "observedAt": "2026-10-18T22:10:08.917926+00:00"
+          "observedAt": "2026-10-18T23:05:58.363970+00:00"
         }
       }
     }
@@ -3113,6 +3113,61 @@ window.DANGERIONS_DATA = {
           "itemLevel": 259,
           "level": 28,
           "observedAt": "2026-10-18T22:10:08.917926+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-18T23:05:58.471363+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "NaminiLee": {
+          "itemLevel": 1563,
+          "level": 45,
+          "observedAt": "2026-10-18T23:05:20.363163+00:00"
+        },
+        "JKLee": {
+          "itemLevel": 1558,
+          "level": 45,
+          "observedAt": "2026-10-18T23:05:20.602012+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 1124,
+          "level": 45,
+          "observedAt": "2026-10-18T23:05:46.061669+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 1068,
+          "level": 45,
+          "observedAt": "2026-10-18T23:05:58.470406+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 1060,
+          "level": 45,
+          "observedAt": "2026-10-18T23:05:33.582646+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-18T23:05:34.214897+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 663,
+          "level": 45,
+          "observedAt": "2026-10-18T23:05:45.972432+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 259,
+          "level": 28,
+          "observedAt": "2026-10-18T23:05:58.363970+00:00"
         }
       }
     }
