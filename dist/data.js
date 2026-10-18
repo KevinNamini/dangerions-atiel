@@ -3,32 +3,16 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-18T14:16:34.767765+00:00",
+  "updatedAt": "2026-10-18T21:58:37.683886+00:00",
   "scheduleEnabled": true,
   "players": [
-    {
-      "name": "JKLee",
-      "classKey": "ranger",
-      "className": "Waldläufer",
-      "level": 45,
-      "itemLevel": 1537,
-      "combatPower": 75229,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#a9d6b3",
-      "avatar": "assets/JKLee.png",
-      "avatarType": "portrait",
-      "title": "Through Hell and Back",
-      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-18T14:06:06.307634+00:00"
-    },
     {
       "name": "NaminiLee",
       "classKey": "gladiator",
       "className": "Gladiator",
       "level": 45,
-      "itemLevel": 1500,
-      "combatPower": 72304,
+      "itemLevel": 1563,
+      "combatPower": 75786,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#f0ce8c",
@@ -36,27 +20,31 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-18T14:13:22.767124+00:00",
-      "source": "user-authorized-override",
-      "verificationStatus": "provisional",
-      "authorizedBy": "Kevin",
-      "authorizedAt": "2026-10-18T16:15:35+02:00",
-      "recordedAt": "2026-10-18T14:16:34.767765+00:00",
-      "note": "Kevin confirmed that 1500 item level is correct. The complete en-US/de-DE API responses agreed at 1500 (level 45, combat power 72304), but the visible profile showed 1048 on both checks. The selected API observation is user-confirmed, not API/browser verified. Replace after the next complete API/browser agreement.",
-      "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "sourceValues": {
-        "apiItemLevel": 1500,
-        "browserItemLevel": 1048,
-        "apiObservedAt": "2026-10-18T14:13:22.767124+00:00"
-      }
+      "observedAt": "2026-10-18T21:57:41.990772+00:00"
+    },
+    {
+      "name": "JKLee",
+      "classKey": "ranger",
+      "className": "Waldläufer",
+      "level": 45,
+      "itemLevel": 1554,
+      "combatPower": 77317,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#a9d6b3",
+      "avatar": "assets/JKLee.png",
+      "avatarType": "portrait",
+      "title": "Through Hell and Back",
+      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
+      "observedAt": "2026-10-18T21:57:41.861989+00:00"
     },
     {
       "name": "SurfingLee",
       "classKey": "spiritmaster",
       "className": "Beschwörer",
       "level": 45,
-      "itemLevel": 1032,
-      "combatPower": 54788,
+      "itemLevel": 1096,
+      "combatPower": 59340,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#b5a0eb",
@@ -64,23 +52,39 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Can I Go to the Bathroom?",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-18T14:05:28.428952+00:00"
+      "observedAt": "2026-10-18T21:58:19.231992+00:00"
+    },
+    {
+      "name": "Stecher",
+      "classKey": "assassin",
+      "className": "Assassine",
+      "level": 45,
+      "itemLevel": 1068,
+      "combatPower": 48725,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#d6b0d8",
+      "avatar": "assets/Stecher.png",
+      "avatarType": "portrait",
+      "title": "",
+      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
+      "observedAt": "2026-10-18T21:58:37.683388+00:00"
     },
     {
       "name": "LordSanchez2",
       "classKey": "templar",
       "className": "Templer",
       "level": 45,
-      "itemLevel": 1011,
-      "combatPower": 49255,
+      "itemLevel": 1027,
+      "combatPower": 49401,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#8db7e6",
       "avatar": "assets/LordSanchez2.png",
       "avatarType": "portrait",
-      "title": "Grasper of the Core",
+      "title": "Stomach Filling",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-18T10:08:08.475881+00:00"
+      "observedAt": "2026-10-18T21:58:01.709135+00:00"
     },
     {
       "name": "FumosLee",
@@ -96,23 +100,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-18T10:08:08.549182+00:00"
-    },
-    {
-      "name": "Stecher",
-      "classKey": "assassin",
-      "className": "Assassine",
-      "level": 45,
-      "itemLevel": 855,
-      "combatPower": 43469,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#d6b0d8",
-      "avatar": "assets/Stecher.png",
-      "avatarType": "portrait",
-      "title": "",
-      "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-18T10:08:33.690704+00:00"
+      "observedAt": "2026-10-18T21:58:00.707948+00:00"
     },
     {
       "name": "BrouceLee",
@@ -128,15 +116,15 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I%3D?region=eu",
-      "observedAt": "2026-10-18T10:08:21.059350+00:00"
+      "observedAt": "2026-10-18T21:58:19.257564+00:00"
     },
     {
       "name": "Roctopus",
       "classKey": "chanter",
       "className": "Kantor",
-      "level": 22,
-      "itemLevel": 203,
-      "combatPower": 9831,
+      "level": 28,
+      "itemLevel": 259,
+      "combatPower": 12617,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#8dcecf",
@@ -144,7 +132,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-18T14:05:35.140886+00:00"
+      "observedAt": "2026-10-18T21:58:37.673700+00:00"
     }
   ],
   "history": [
@@ -307,82 +295,49 @@ window.DANGERIONS_DATA = {
       "day": "2026-10-18",
       "values": {
         "JKLee": {
-          "itemLevel": 1537,
+          "itemLevel": 1554,
           "level": 45,
-          "observedAt": "2026-10-18T14:06:06.307634+00:00"
+          "observedAt": "2026-10-18T21:57:41.861989+00:00"
         },
         "NaminiLee": {
-          "itemLevel": 1500,
+          "itemLevel": 1563,
           "level": 45,
-          "observedAt": "2026-10-18T14:13:22.767124+00:00",
-          "source": "user-authorized-override",
-          "verificationStatus": "provisional",
-          "authorizedBy": "Kevin",
-          "authorizedAt": "2026-10-18T16:15:35+02:00",
-          "recordedAt": "2026-10-18T14:16:34.767765+00:00",
-          "note": "Kevin confirmed that 1500 item level is correct. The complete en-US/de-DE API responses agreed at 1500 (level 45, combat power 72304), but the visible profile showed 1048 on both checks. The selected API observation is user-confirmed, not API/browser verified. Replace after the next complete API/browser agreement.",
-          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-          "sourceValues": {
-            "apiItemLevel": 1500,
-            "browserItemLevel": 1048,
-            "apiObservedAt": "2026-10-18T14:13:22.767124+00:00"
-          }
+          "observedAt": "2026-10-18T21:57:41.990772+00:00"
         },
         "SurfingLee": {
-          "itemLevel": 1032,
+          "itemLevel": 1096,
           "level": 45,
-          "observedAt": "2026-10-18T14:05:28.428952+00:00"
+          "observedAt": "2026-10-18T21:58:19.231992+00:00"
         },
         "FumosLee": {
           "itemLevel": 948,
           "level": 45,
-          "observedAt": "2026-10-18T10:08:08.549182+00:00"
+          "observedAt": "2026-10-18T21:58:00.707948+00:00"
         },
         "LordSanchez2": {
-          "itemLevel": 1011,
+          "itemLevel": 1027,
           "level": 45,
-          "observedAt": "2026-10-18T10:08:08.475881+00:00"
+          "observedAt": "2026-10-18T21:58:01.709135+00:00"
         },
         "BrouceLee": {
           "itemLevel": 663,
           "level": 45,
-          "observedAt": "2026-10-18T10:08:21.059350+00:00"
+          "observedAt": "2026-10-18T21:58:19.257564+00:00"
         },
         "Stecher": {
-          "itemLevel": 855,
+          "itemLevel": 1068,
           "level": 45,
-          "observedAt": "2026-10-18T10:08:33.690704+00:00"
+          "observedAt": "2026-10-18T21:58:37.683388+00:00"
         },
         "Roctopus": {
-          "itemLevel": 203,
-          "level": 22,
-          "observedAt": "2026-10-18T14:05:35.140886+00:00"
+          "itemLevel": 259,
+          "level": 28,
+          "observedAt": "2026-10-18T21:58:37.673700+00:00"
         }
       }
     }
   ],
-  "failures": [
-    {
-      "name": "NaminiLee",
-      "error": "API/browser mismatch (1500 vs 1048 item level); 1500 explicitly confirmed by Kevin on 2026-10-18. Manual override retained pending complete API/browser agreement."
-    },
-    {
-      "name": "LordSanchez2",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "FumosLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "BrouceLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    },
-    {
-      "name": "Stecher",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
-    }
-  ],
+  "failures": [],
   "schemaVersion": 2,
   "hourlyStartedAt": "2026-10-16T08:37:08.560686+00:00",
   "snapshots": [
@@ -3003,6 +2958,61 @@ window.DANGERIONS_DATA = {
             "browserItemLevel": 1048,
             "apiObservedAt": "2026-10-18T14:13:22.767124+00:00"
           }
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-18T21:58:37.683886+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "NaminiLee": {
+          "itemLevel": 1563,
+          "level": 45,
+          "observedAt": "2026-10-18T21:57:41.990772+00:00"
+        },
+        "JKLee": {
+          "itemLevel": 1554,
+          "level": 45,
+          "observedAt": "2026-10-18T21:57:41.861989+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 1096,
+          "level": 45,
+          "observedAt": "2026-10-18T21:58:19.231992+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 1068,
+          "level": 45,
+          "observedAt": "2026-10-18T21:58:37.683388+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 1027,
+          "level": 45,
+          "observedAt": "2026-10-18T21:58:01.709135+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-18T21:58:00.707948+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 663,
+          "level": 45,
+          "observedAt": "2026-10-18T21:58:19.257564+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 259,
+          "level": 28,
+          "observedAt": "2026-10-18T21:58:37.673700+00:00"
         }
       }
     }
