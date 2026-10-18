@@ -3,7 +3,7 @@
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-18T14:07:21.854202+00:00",
+  "updatedAt": "2026-10-18T14:16:34.767765+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -27,8 +27,8 @@
       "classKey": "gladiator",
       "className": "Gladiator",
       "level": 45,
-      "itemLevel": 1463,
-      "combatPower": 72518,
+      "itemLevel": 1500,
+      "combatPower": 72304,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#f0ce8c",
@@ -36,7 +36,19 @@
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-18T10:07:56.415142+00:00"
+      "observedAt": "2026-10-18T14:13:22.767124+00:00",
+      "source": "user-authorized-override",
+      "verificationStatus": "provisional",
+      "authorizedBy": "Kevin",
+      "authorizedAt": "2026-10-18T16:15:35+02:00",
+      "recordedAt": "2026-10-18T14:16:34.767765+00:00",
+      "note": "Kevin confirmed that 1500 item level is correct. The complete en-US/de-DE API responses agreed at 1500 (level 45, combat power 72304), but the visible profile showed 1048 on both checks. The selected API observation is user-confirmed, not API/browser verified. Replace after the next complete API/browser agreement.",
+      "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
+      "sourceValues": {
+        "apiItemLevel": 1500,
+        "browserItemLevel": 1048,
+        "apiObservedAt": "2026-10-18T14:13:22.767124+00:00"
+      }
     },
     {
       "name": "SurfingLee",
@@ -300,9 +312,21 @@
           "observedAt": "2026-10-18T14:06:06.307634+00:00"
         },
         "NaminiLee": {
-          "itemLevel": 1463,
+          "itemLevel": 1500,
           "level": 45,
-          "observedAt": "2026-10-18T10:07:56.415142+00:00"
+          "observedAt": "2026-10-18T14:13:22.767124+00:00",
+          "source": "user-authorized-override",
+          "verificationStatus": "provisional",
+          "authorizedBy": "Kevin",
+          "authorizedAt": "2026-10-18T16:15:35+02:00",
+          "recordedAt": "2026-10-18T14:16:34.767765+00:00",
+          "note": "Kevin confirmed that 1500 item level is correct. The complete en-US/de-DE API responses agreed at 1500 (level 45, combat power 72304), but the visible profile showed 1048 on both checks. The selected API observation is user-confirmed, not API/browser verified. Replace after the next complete API/browser agreement.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
+          "sourceValues": {
+            "apiItemLevel": 1500,
+            "browserItemLevel": 1048,
+            "apiObservedAt": "2026-10-18T14:13:22.767124+00:00"
+          }
         },
         "SurfingLee": {
           "itemLevel": 1032,
@@ -340,7 +364,7 @@
   "failures": [
     {
       "name": "NaminiLee",
-      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+      "error": "API/browser mismatch (1500 vs 1048 item level); 1500 explicitly confirmed by Kevin on 2026-10-18. Manual override retained pending complete API/browser agreement."
     },
     {
       "name": "LordSanchez2",
@@ -2943,6 +2967,42 @@
           "itemLevel": 1537,
           "level": 45,
           "observedAt": "2026-10-18T14:06:06.307634+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-18T14:16:34.767765+00:00",
+      "source": "user-authorized-fallback",
+      "requestedRoster": [
+        "NaminiLee"
+      ],
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "SurfingLee",
+        "LordSanchez2",
+        "FumosLee",
+        "Stecher",
+        "BrouceLee",
+        "Roctopus"
+      ],
+      "values": {
+        "NaminiLee": {
+          "itemLevel": 1500,
+          "level": 45,
+          "observedAt": "2026-10-18T14:13:22.767124+00:00",
+          "source": "user-authorized-override",
+          "verificationStatus": "provisional",
+          "authorizedBy": "Kevin",
+          "authorizedAt": "2026-10-18T16:15:35+02:00",
+          "recordedAt": "2026-10-18T14:16:34.767765+00:00",
+          "note": "Kevin confirmed that 1500 item level is correct. The complete en-US/de-DE API responses agreed at 1500 (level 45, combat power 72304), but the visible profile showed 1048 on both checks. The selected API observation is user-confirmed, not API/browser verified. Replace after the next complete API/browser agreement.",
+          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
+          "sourceValues": {
+            "apiItemLevel": 1500,
+            "browserItemLevel": 1048,
+            "apiObservedAt": "2026-10-18T14:13:22.767124+00:00"
+          }
         }
       }
     }
