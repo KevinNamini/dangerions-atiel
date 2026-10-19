@@ -3,7 +3,7 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-19T18:09:45.037520+00:00",
+  "updatedAt": "2026-10-19T19:12:10.723801+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -52,7 +52,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Can I Go to the Bathroom?",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-19T18:09:28.017547+00:00"
+      "observedAt": "2026-10-19T19:12:02.571445+00:00"
     },
     {
       "name": "LordSanchez2",
@@ -68,7 +68,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Encountering Zikel's Core",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-19T18:09:12.144816+00:00"
+      "observedAt": "2026-10-19T19:11:41.808690+00:00"
     },
     {
       "name": "Stecher",
@@ -84,7 +84,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-19T18:09:44.774757+00:00"
+      "observedAt": "2026-10-19T19:12:10.720921+00:00"
     },
     {
       "name": "FumosLee",
@@ -100,7 +100,7 @@ window.DANGERIONS_DATA = {
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-19T18:09:11.974985+00:00"
+      "observedAt": "2026-10-19T19:11:49.332730+00:00"
     },
     {
       "name": "BrouceLee",
@@ -352,22 +352,22 @@ window.DANGERIONS_DATA = {
         "SurfingLee": {
           "itemLevel": 1124,
           "level": 45,
-          "observedAt": "2026-10-19T18:09:28.017547+00:00"
+          "observedAt": "2026-10-19T19:12:02.571445+00:00"
         },
         "Stecher": {
           "itemLevel": 1071,
           "level": 45,
-          "observedAt": "2026-10-19T18:09:44.774757+00:00"
+          "observedAt": "2026-10-19T19:12:10.720921+00:00"
         },
         "LordSanchez2": {
           "itemLevel": 1080,
           "level": 45,
-          "observedAt": "2026-10-19T18:09:12.144816+00:00"
+          "observedAt": "2026-10-19T19:11:41.808690+00:00"
         },
         "FumosLee": {
           "itemLevel": 948,
           "level": 45,
-          "observedAt": "2026-10-19T18:09:11.974985+00:00"
+          "observedAt": "2026-10-19T19:11:49.332730+00:00"
         },
         "BrouceLee": {
           "itemLevel": 663,
@@ -382,7 +382,24 @@ window.DANGERIONS_DATA = {
       }
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "name": "JKLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "NaminiLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "BrouceLee",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    },
+    {
+      "name": "Roctopus",
+      "error": "Incomplete official stat response: all descriptions for positive stats are missing; previous observation retained."
+    }
+  ],
   "schemaVersion": 2,
   "hourlyStartedAt": "2026-10-16T08:37:08.560686+00:00",
   "snapshots": [
@@ -4213,6 +4230,41 @@ window.DANGERIONS_DATA = {
           "itemLevel": 259,
           "level": 28,
           "observedAt": "2026-10-19T18:09:45.036677+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-19T19:12:10.723801+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "SurfingLee": {
+          "itemLevel": 1124,
+          "level": 45,
+          "observedAt": "2026-10-19T19:12:02.571445+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 1080,
+          "level": 45,
+          "observedAt": "2026-10-19T19:11:41.808690+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 1071,
+          "level": 45,
+          "observedAt": "2026-10-19T19:12:10.720921+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-19T19:11:49.332730+00:00"
         }
       }
     }
