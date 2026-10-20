@@ -1,6 +1,6 @@
 # Dangerions · Hall of Ascension
 
-Öffentliche AION-2-Legionsrangliste für acht Charaktere auf **Atiel · Europa · Asmodier**. Eigene Fantasy-Gestaltung, Siegerpodest, Charakterprofile und Stunden- sowie Tageschronik. Besucher benötigen keinen Login.
+Öffentliche AION-2-Legionsrangliste für neun Charaktere auf **Atiel · Europa · Asmodier**. Eigene Fantasy-Gestaltung, Siegerpodest, Charakterprofile und Stunden- sowie Tageschronik. Besucher benötigen keinen Login.
 
 Website: https://dangerions-atiel.onrender.com/
 
@@ -22,7 +22,7 @@ Ein fehlgeschlagener erneuter Abruf blendet bestätigte Wochenveränderungen nic
 
 ## Rangfolge
 
-Rangfolge ausschließlich nach Item-Level, bei Gleichstand gemeinsamer Rang (1, 1, 3). Charakterlevel und Kampfkraft werden getrennt dargestellt. Erfasst: JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus und Stecher. Das ist keine vollständige Mitgliederliste; keine Gildenleiter-Rolle wurde verifiziert. Alle acht Charakterporträts sind vorhanden. Ein eigens gezeichnetes Kantor-Symbol liegt zusätzlich als Ersatzgrafik vor.
+Rangfolge ausschließlich nach Item-Level, bei Gleichstand gemeinsamer Rang (1, 1, 3). Charakterlevel und Kampfkraft werden getrennt dargestellt. Erfasst: JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus, Stecher und Mocro (Stechers Zweitcharakter). Das ist keine vollständige Mitgliederliste; keine Gildenleiter-Rolle wurde verifiziert. Alle acht Charakterporträts sind vorhanden. Ein eigens gezeichnetes Kantor-Symbol liegt zusätzlich als Ersatzgrafik vor.
 
 Stecher wurde am **16. Oktober 2026** ergänzt: Assassine, Level 26, Item-Level 249, bestätigt in beiden API-Sprachen und im sichtbaren Profil. Sein öffentliches Profil zeigt derzeit keine Legion an; die Aufnahme in diese Rangliste erfolgte auf Kevins Wunsch. Kevin hat anschließend den Spielstart vom **15.10.2026 um 23:00 Uhr (Europe/Berlin)** mit **Level 1 / Item-Level 0** ergänzt. Dieser historische Tageswert ist ausdrücklich als `user-reported` mit Kevin als Quelle und eigenem Erfassungszeitpunkt gekennzeichnet. Er zählt im Startvergleich, den Rangänderungen, dem Aufstiegsatlas, dem Legionsbuch und den Profilen; es wird kein öffentlicher Profilabruf und kein rückwirkender Stunden-Snapshot vorgetäuscht. Bei einem Startwert null entfällt die Prozentangabe. Stündliche Aktualisierungen erhalten diesen Eintrag.
 

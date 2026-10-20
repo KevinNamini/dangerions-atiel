@@ -34,7 +34,7 @@ Die Anzeige berücksichtigt diesen gekennzeichneten Nullpunkt in der Tageschroni
 
 ## Regeln
 
-- Ausschließlich JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus und Stecher auf Atiel erfassen. Stecher wurde auf Kevins Wunsch am 16.10.2026 ergänzt; sein öffentliches Profil zeigte bei der Aufnahme keine Legion an. Eine fehlende Gildenanzeige nicht als falsche Identität behandeln und keine Gilde ergänzen.
+- Ausschließlich JKLee, NaminiLee, LordSanchez2, FumosLee, BrouceLee, SurfingLee, Roctopus, Stecher und Mocro auf Atiel erfassen. Mocro ist laut Kevin Stechers Zweitcharakter und wird seit dem 20.10.2026 als eigener Charakter erfasst; keine früheren Werte oder Stunden-Snapshots für ihn ergänzen. Eine fehlende Gildenanzeige ist bei Mocro zulässig. Stecher wurde auf Kevins Wunsch am 16.10.2026 ergänzt; sein öffentliches Profil zeigte bei der Aufnahme keine Legion an. Eine fehlende Gildenanzeige nicht als falsche Identität behandeln und keine Gilde ergänzen.
 - Ausschließlich Item-Level bestimmt den Rang. Charakterlevel und Kampfkraft nicht vermischen.
 - `scheduleEnabled` und sonstige Konfiguration beibehalten. Keine Gildenleiter-Rolle erfinden und keine vollständige Mitgliederliste behaupten.
 - Bei einem erfolgreichen Routine-Lauf ist keine Nachricht an Kevin erforderlich. Bei blockiertem Zugriff oder fehlgeschlagener Speicherung den konkreten Fehler knapp melden. Keine E-Mails, Nachrichten an Gildenmitglieder oder externen Mitteilungen versenden.

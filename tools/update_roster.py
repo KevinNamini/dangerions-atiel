@@ -15,10 +15,11 @@ ROSTER=[
  ('BrouceLee','NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I='),
  ('SurfingLee','NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE='),
  ('Roctopus','NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc='),
- ('Stecher','NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo=')]
+ ('Stecher','NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo='),
+ ('Mocro','NGez0OkmLm4ARHzxujw-ixmETJ6gsmfI9UvsyyFr2CQ=')]
 CLASSES={'Ranger':'Waldläufer','Gladiator':'Gladiator','Templar':'Templer','Cleric':'Kleriker','Spiritmaster':'Beschwörer','SpiritMaster':'Beschwörer','Chanter':'Kantor','Assassin':'Assassine'}
 COLORS={'Ranger':'#a9d6b3','Gladiator':'#efae73','Templar':'#8db7e6','Cleric':'#e6d5ab','Spiritmaster':'#b5a0eb','SpiritMaster':'#b5a0eb','Chanter':'#8dcecf','Assassin':'#d6b0d8'}
-TRACES={'JKLee': '#a9d6b3', 'NaminiLee': '#f0ce8c', 'LordSanchez2': '#8db7e6', 'FumosLee': '#e9adba', 'BrouceLee': '#ef986d', 'SurfingLee': '#b5a0eb', 'Roctopus': '#8dcecf', 'Stecher': '#d6b0d8'}
+TRACES={'JKLee': '#a9d6b3', 'NaminiLee': '#f0ce8c', 'LordSanchez2': '#8db7e6', 'FumosLee': '#e9adba', 'BrouceLee': '#ef986d', 'SurfingLee': '#b5a0eb', 'Roctopus': '#8dcecf', 'Stecher': '#d6b0d8', 'Mocro': '#9bc7b1'}
 def fetch_profile(entry,lang):
  name,cid=entry
  # Match the public character page's canonical query and language context.

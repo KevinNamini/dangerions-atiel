@@ -25,6 +25,7 @@ function mount(data,feed=null){
 // Fixed observations make regressions independent of future live data updates.
 const fixture=structuredClone(original);
 const values={JKLee:[1258,1404],NaminiLee:[1047,1148],LordSanchez2:[774,843],FumosLee:[684,684],BrouceLee:[615,663],SurfingLee:[559,559],Stecher:[null,250],Roctopus:[191,203]};
+fixture.players=fixture.players.filter(p=>Object.hasOwn(values,p.name));
 fixture.updatedAt='2026-10-16T12:00:00Z';
 fixture.failures=[];
 fixture.players.forEach(p=>{p.itemLevel=values[p.name][1];p.observedAt=fixture.updatedAt});

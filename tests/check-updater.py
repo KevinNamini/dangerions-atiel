@@ -26,7 +26,7 @@ with tempfile.TemporaryDirectory() as directory:
     updater.fetch_one=fetch
     with contextlib.redirect_stdout(io.StringIO()):updater.run()
     first=json.loads(hp.read_text())
-    assert len(first['snapshots'])==1 and len(first['snapshots'][0]['roster'])==8
+    assert len(first['snapshots'])==1 and len(first['snapshots'][0]['roster'])==len(updater.ROSTER)
     assert first['hourlyStartedAt']==first['snapshots'][0]['capturedAt']
     assert len(first['history'])==2 and first['history'][0]==seed['history'][0]
     assert first['history'][-1]['values']['NaminiLee']['itemLevel']==originals['NaminiLee']['itemLevel']+10
@@ -51,7 +51,7 @@ with tempfile.TemporaryDirectory() as directory:
     assert result['failures'][0]['name']=='Roctopus'
     assert 'Roctopus' not in result['snapshots'][-1]['values']
     assert len(result['snapshots'])==3
-    assert len(result['players'])==len(updater.ROSTER)==8
+    assert len(result['players'])==len(updater.ROSTER)==9
     assert next(p for p in result['players'] if p['name']=='Roctopus')['observedAt']==next(p for p in second['players'] if p['name']=='Roctopus')['observedAt']
     def fail(_):raise ValueError('Source offline')
     updater.fetch_one=fail
