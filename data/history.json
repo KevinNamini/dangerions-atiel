@@ -1,9 +1,12 @@
+Warning: truncated output (original token count: 31553)
+Total output lines: 4725
+
 {
   "guild": "Dangerions",
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-20T01:12:53.117729+00:00",
+  "updatedAt": "2026-10-20T02:13:33.349594+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -20,15 +23,15 @@
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:15.346587+00:00"
+      "observedAt": "2026-10-20T02:12:49.968742+00:00"
     },
     {
       "name": "JKLee",
       "classKey": "ranger",
       "className": "Waldläufer",
       "level": 45,
-      "itemLevel": 1653,
-      "combatPower": 79373,
+      "itemLevel": 1654,
+      "combatPower": 80046,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#a9d6b3",
@@ -36,7 +39,7 @@
       "avatarType": "portrait",
       "title": "Through Hell and Back",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:15.452690+00:00"
+      "observedAt": "2026-10-20T02:12:49.748747+00:00"
     },
     {
       "name": "SurfingLee",
@@ -52,7 +55,7 @@
       "avatarType": "portrait",
       "title": "Can I Go to the Bathroom?",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:41.694014+00:00"
+      "observedAt": "2026-10-20T02:13:19.141343+00:00"
     },
     {
       "name": "LordSanchez2",
@@ -68,7 +71,7 @@
       "avatarType": "portrait",
       "title": "Encountering Zikel's Core",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:28.280700+00:00"
+      "observedAt": "2026-10-20T02:13:05.572595+00:00"
     },
     {
       "name": "Stecher",
@@ -84,7 +87,7 @@
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:53.116945+00:00"
+      "observedAt": "2026-10-20T02:13:33.236664+00:00"
     },
     {
       "name": "FumosLee",
@@ -100,7 +103,7 @@
       "avatarType": "portrait",
       "title": "Betrayer and Survivor",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:28.056777+00:00"
+      "observedAt": "2026-10-20T02:13:05.489951+00:00"
     },
     {
       "name": "BrouceLee",
@@ -116,7 +119,7 @@
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:41.884828+00:00"
+      "observedAt": "2026-10-20T02:13:19.353126+00:00"
     },
     {
       "name": "Roctopus",
@@ -132,7 +135,7 @@
       "avatarType": "portrait",
       "title": "",
       "url": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-20T01:12:53.116744+00:00"
+      "observedAt": "2026-10-20T02:13:33.348651+00:00"
     }
   ],
   "history": [
@@ -387,42 +390,42 @@
         "NaminiLee": {
           "itemLevel": 1662,
           "level": 45,
-          "observedAt": "2026-10-20T01:12:15.346587+00:00"
+          "observedAt": "2026-10-20T02:12:49.968742+00:00"
         },
         "JKLee": {
-          "itemLevel": 1653,
+          "itemLevel": 1654,
           "level": 45,
-          "observedAt": "2026-10-20T01:12:15.452690+00:00"
+          "observedAt": "2026-10-20T02:12:49.748747+00:00"
         },
         "SurfingLee": {
           "itemLevel": 1236,
           "level": 45,
-          "observedAt": "2026-10-20T01:12:41.694014+00:00"
+          "observedAt": "2026-10-20T02:13:19.141343+00:00"
         },
         "LordSanchez2": {
           "itemLevel": 1226,
           "level": 45,
-          "observedAt": "2026-10-20T01:12:28.280700+00:00"
+          "observedAt": "2026-10-20T02:13:05.572595+00:00"
         },
         "Stecher": {
           "itemLevel": 1071,
           "level": 45,
-          "observedAt": "2026-10-20T01:12:53.116945+00:00"
+          "observedAt": "2026-10-20T02:13:33.236664+00:00"
         },
         "FumosLee": {
           "itemLevel": 948,
           "level": 45,
-          "observedAt": "2026-10-20T01:12:28.056777+00:00"
+          "observedAt": "2026-10-20T02:13:05.489951+00:00"
         },
         "BrouceLee": {
           "itemLevel": 663,
           "level": 45,
-          "observedAt": "2026-10-20T01:12:41.884828+00:00"
+          "observedAt": "2026-10-20T02:13:19.353126+00:00"
         },
         "Roctopus": {
           "itemLevel": 259,
           "level": 28,
-          "observedAt": "2026-10-20T01:12:53.116744+00:00"
+          "observedAt": "2026-10-20T02:13:33.348651+00:00"
         }
       }
     }
@@ -2219,222 +2222,7 @@
         "JKLee",
         "NaminiLee",
         "LordSanchez2",
-        "FumosLee",
-        "BrouceLee",
-        "SurfingLee",
-        "Roctopus",
-        "Stecher"
-      ],
-      "values": {
-        "FumosLee": {
-          "itemLevel": 929,
-          "level": 45,
-          "observedAt": "2026-10-17T15:10:37.840397+00:00"
-        },
-        "SurfingLee": {
-          "itemLevel": 875,
-          "level": 45,
-          "observedAt": "2026-10-17T15:10:51.445903+00:00"
-        },
-        "LordSanchez2": {
-          "itemLevel": 843,
-          "level": 45,
-          "observedAt": "2026-10-17T15:10:37.152662+00:00"
-        },
-        "BrouceLee": {
-          "itemLevel": 663,
-          "level": 45,
-          "observedAt": "2026-10-17T15:10:51.442809+00:00"
-        },
-        "Stecher": {
-          "itemLevel": 414,
-          "level": 37,
-          "observedAt": "2026-10-17T15:11:05.682625+00:00"
-        },
-        "JKLee": {
-          "itemLevel": 1422,
-          "level": 45,
-          "observedAt": "2026-10-17T15:11:30.369967+00:00"
-        }
-      }
-    },
-    {
-      "capturedAt": "2026-10-17T20:38:27.324689+00:00",
-      "source": "user-authorized-fallback",
-      "requestedRoster": [
-        "NaminiLee",
-        "FumosLee"
-      ],
-      "roster": [
-        "JKLee",
-        "NaminiLee",
-        "FumosLee",
-        "SurfingLee",
-        "LordSanchez2",
-        "BrouceLee",
-        "Stecher",
-        "Roctopus"
-      ],
-      "values": {
-        "NaminiLee": {
-          "itemLevel": 1432,
-          "level": 45,
-          "observedAt": "2026-10-17T20:35:03.646780+00:00",
-          "source": "official-profile-api-browser",
-          "verificationStatus": "verified",
-          "recordedAt": "2026-10-17T20:38:27.324689+00:00",
-          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu"
-        },
-        "FumosLee": {
-          "itemLevel": 948,
-          "level": 45,
-          "observedAt": "2026-10-17T20:38:27.324689+00:00",
-          "source": "user-authorized-override",
-          "verificationStatus": "provisional",
-          "timestampKind": "manual-entry",
-          "authorizedBy": "Kevin",
-          "authorizedAt": "2026-10-17T22:37:18+02:00",
-          "recordedAt": "2026-10-17T20:38:27.324689+00:00",
-          "note": "Kevin explicitly requested the higher API value, 948. The complete en-US/de-DE API responses agreed, but the visible official profile showed 760 on both browser checks. This is a manual selection, not a fully verified public observation. Replace after the next complete API/browser agreement.",
-          "sourceUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-          "sourceValues": {
-            "apiItemLevel": 948,
-            "browserItemLevel": 760,
-            "apiRunCapturedAt": "2026-10-17T20:34:36.087633+00:00"
-          }
-        }
-      }
-    },
-    {
-      "capturedAt": "2026-10-18T00:07:27.435962+00:00",
-      "roster": [
-        "JKLee",
-        "NaminiLee",
-        "LordSanchez2",
-        "FumosLee",
-        "BrouceLee",
-        "SurfingLee",
-        "Roctopus",
-        "Stecher"
-      ],
-      "values": {
-        "JKLee": {
-          "itemLevel": 1487,
-          "level": 45,
-          "observedAt": "2026-10-18T00:06:49.250931+00:00"
-        },
-        "NaminiLee": {
-          "itemLevel": 1458,
-          "level": 45,
-          "observedAt": "2026-10-18T00:06:52.112543+00:00"
-        },
-        "SurfingLee": {
-          "itemLevel": 965,
-          "level": 45,
-          "observedAt": "2026-10-18T00:07:14.535630+00:00"
-        },
-        "FumosLee": {
-          "itemLevel": 948,
-          "level": 45,
-          "observedAt": "2026-10-18T00:07:02.340020+00:00"
-        },
-        "LordSanchez2": {
-          "itemLevel": 738,
-          "level": 45,
-          "observedAt": "2026-10-18T00:07:02.350736+00:00"
-        },
-        "BrouceLee": {
-          "itemLevel": 663,
-          "level": 45,
-          "observedAt": "2026-10-18T00:07:14.434408+00:00"
-        },
-        "Stecher": {
-          "itemLevel": 415,
-          "level": 37,
-          "observedAt": "2026-10-18T00:07:26.614683+00:00"
-        },
-        "Roctopus": {
-          "itemLevel": 203,
-          "level": 22,
-          "observedAt": "2026-10-18T00:07:27.434995+00:00"
-        }
-      }
-    },
-    {
-      "capturedAt": "2026-10-18T01:11:07.059711+00:00",
-      "roster": [
-        "JKLee",
-        "NaminiLee",
-        "LordSanchez2",
-        "FumosLee",
-        "BrouceLee",
-        "SurfingLee",
-        "Roctopus",
-        "Stecher"
-      ],
-      "values": {
-        "JKLee": {
-          "itemLevel": 1537,
-          "level": 45,
-          "observedAt": "2026-10-18T01:10:29.591257+00:00"
-        },
-        "NaminiLee": {
-          "itemLevel": 1458,
-          "level": 45,
-          "observedAt": "2026-10-18T01:10:29.589196+00:00"
-        },
-        "SurfingLee": {
-          "itemLevel": 1032,
-          "level": 45,
-          "observedAt": "2026-10-18T01:10:55.148157+00:00"
-        },
-        "LordSanchez2": {
-          "itemLevel": 1006,
-          "level": 45,
-          "observedAt": "2026-10-18T01:10:42.703840+00:00"
-        },
-        "FumosLee": {
-          "itemLevel": 948,
-          "level": 45,
-          "observedAt": "2026-10-18T01:10:42.839405+00:00"
-        },
-        "BrouceLee": {
-          "itemLevel": 663,
-          "level": 45,
-          "observedAt": "2026-10-18T01:10:55.200821+00:00"
-        },
-        "Stecher": {
-          "itemLevel": 560,
-          "level": 39,
-          "observedAt": "2026-10-18T01:11:07.059080+00:00"
-        },
-        "Roctopus": {
-          "itemLevel": 203,
-          "level": 22,
-          "observedAt": "2026-10-18T01:11:06.955183+00:00"
-        }
-      }
-    },
-    {
-      "capturedAt": "2026-10-18T02:09:02.691885+00:00",
-      "roster": [
-        "JKLee",
-        "NaminiLee",
-        "LordSanchez2",
-        "FumosLee",
-        "BrouceLee",
-        "SurfingLee",
-        "Roctopus",
-        "Stecher"
-      ],
-      "values": {
-        "JKLee": {
-          "itemLevel": 1537,
-          "level": 45,
-          "observedAt": "2026-10-18T02:05:44.816233+00:00"
-        },
-        "NaminiLee": {
-          "itemLevel": 1463,
+        "F…1553 tokens truncated…3,
           "level": 45,
           "observedAt": "2026-10-18T02:05:45.062133+00:00"
         },
@@ -4663,6 +4451,61 @@
           "itemLevel": 259,
           "level": 28,
           "observedAt": "2026-10-20T01:12:53.116744+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-20T02:13:33.349594+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher"
+      ],
+      "values": {
+        "NaminiLee": {
+          "itemLevel": 1662,
+          "level": 45,
+          "observedAt": "2026-10-20T02:12:49.968742+00:00"
+        },
+        "JKLee": {
+          "itemLevel": 1654,
+          "level": 45,
+          "observedAt": "2026-10-20T02:12:49.748747+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 1236,
+          "level": 45,
+          "observedAt": "2026-10-20T02:13:19.141343+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 1226,
+          "level": 45,
+          "observedAt": "2026-10-20T02:13:05.572595+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 1071,
+          "level": 45,
+          "observedAt": "2026-10-20T02:13:33.236664+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-20T02:13:05.489951+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 663,
+          "level": 45,
+          "observedAt": "2026-10-20T02:13:19.353126+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 259,
+          "level": 28,
+          "observedAt": "2026-10-20T02:13:33.348651+00:00"
         }
       }
     }
