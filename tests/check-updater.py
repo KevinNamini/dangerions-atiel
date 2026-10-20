@@ -51,7 +51,7 @@ with tempfile.TemporaryDirectory() as directory:
     assert result['failures'][0]['name']=='Roctopus'
     assert 'Roctopus' not in result['snapshots'][-1]['values']
     assert len(result['snapshots'])==3
-    assert len(result['players'])==len(updater.ROSTER)==9
+    assert len(result['players'])==len(updater.ROSTER)==10
     assert next(p for p in result['players'] if p['name']=='Roctopus')['observedAt']==next(p for p in second['players'] if p['name']=='Roctopus')['observedAt']
     def fail(_):raise ValueError('Source offline')
     updater.fetch_one=fail
