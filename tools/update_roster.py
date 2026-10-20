@@ -55,7 +55,7 @@ def fetch_one(entry):
   try:
    with urlopen(p['profileImage'],timeout=30) as r: avatar.write_bytes(r.read())
   except Exception as e:print('Avatar unavailable:',name,str(e),file=sys.stderr)
- return {'name':name,'classKey':p['className'].lower(),'className':CLASSES.get(p['className'],p['className']),'level':p['characterLevel'],'itemLevel':il,'combatPower':p['combatPower'],'guild':p.get('regionName',''),'server':'Atiel','color':TRACES.get(name,COLORS.get(p['className'],'#c5a7ef')),'avatar':f'assets/{name}.png' if avatar.exists() else 'assets/'+name+'.svg','avatarType':'portrait' if avatar.exists() else 'class','title':p.get('titleName',''),'url':'https://aion2.plaync.com/en-us/characters/2322/'+quote(cid,safe='')+'?region=eu','observedAt':now}
+ return {'name':name,'classKey':p['className'].lower(),'className':CLASSES.get(p['className'],p['className']),'level':p['characterLevel'],'itemLevel':il,'combatPower':p['combatPower'],'guild':p.get('regionName',''),'server':'Atiel','color':TRACES.get(name,COLORS.get(p['className'],'#c5a7ef')),'avatar':f'assets/{name}.png' if avatar.exists() else 'assets/'+name+'.svg','avatarType':'portrait' if avatar.exists() else 'class','title':p.get('titleName',''),'url':'https://siel.tools/eu/atiel/'+quote(name,safe=''),'officialUrl':'https://aion2.plaync.com/en-us/characters/2322/'+quote(cid,safe='')+'?region=eu','observedAt':now}
 def run():
  history_path=ROOT/'data'/'history.json'
  old=json.loads(history_path.read_text()) if history_path.exists() else {'players':[], 'history':[], 'scheduleEnabled':False}
