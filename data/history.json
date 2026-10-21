@@ -3,9 +3,26 @@
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-21T01:05:58.649575+00:00",
+  "updatedAt": "2026-10-21T01:41:06.668792+00:00",
   "scheduleEnabled": true,
   "players": [
+    {
+      "name": "JKLee",
+      "classKey": "ranger",
+      "className": "Waldläufer",
+      "level": 45,
+      "itemLevel": 1740,
+      "combatPower": 83584,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#a9d6b3",
+      "avatar": "assets/JKLee.png",
+      "avatarType": "portrait",
+      "title": "Through Hell and Back",
+      "url": "https://siel.tools/eu/atiel/JKLee",
+      "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
+      "observedAt": "2026-10-21T01:40:05.514839+00:00"
+    },
     {
       "name": "NaminiLee",
       "classKey": "gladiator",
@@ -22,23 +39,6 @@
       "url": "https://siel.tools/eu/atiel/NaminiLee",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
       "observedAt": "2026-10-21T01:05:22.026999+00:00"
-    },
-    {
-      "name": "JKLee",
-      "classKey": "ranger",
-      "className": "Waldläufer",
-      "level": 45,
-      "itemLevel": 1738,
-      "combatPower": 82910,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#a9d6b3",
-      "avatar": "assets/JKLee.png",
-      "avatarType": "portrait",
-      "title": "Through Hell and Back",
-      "url": "https://siel.tools/eu/atiel/JKLee",
-      "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-21T01:05:22.027986+00:00"
     },
     {
       "name": "SurfingLee",
@@ -487,9 +487,9 @@
           "observedAt": "2026-10-21T01:05:22.026999+00:00"
         },
         "JKLee": {
-          "itemLevel": 1738,
+          "itemLevel": 1740,
           "level": 45,
-          "observedAt": "2026-10-21T01:05:22.027986+00:00"
+          "observedAt": "2026-10-21T01:40:05.514839+00:00"
         },
         "SurfingLee": {
           "itemLevel": 1417,
@@ -6311,6 +6311,19 @@
           "itemLevel": 259,
           "level": 28,
           "observedAt": "2026-10-21T01:05:45.514880+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-21T01:41:06.668792+00:00",
+      "roster": [
+        "JKLee"
+      ],
+      "values": {
+        "JKLee": {
+          "itemLevel": 1740,
+          "level": 45,
+          "observedAt": "2026-10-21T01:40:05.514839+00:00"
         }
       }
     }
