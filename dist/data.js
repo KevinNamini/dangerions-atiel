@@ -3,7 +3,7 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-22T23:06:23.643966+00:00",
+  "updatedAt": "2026-10-22T23:34:12.402770+00:00",
   "scheduleEnabled": true,
   "players": [
     {
@@ -11,8 +11,8 @@ window.DANGERIONS_DATA = {
       "classKey": "gladiator",
       "className": "Gladiator",
       "level": 45,
-      "itemLevel": 1975,
-      "combatPower": 87349,
+      "itemLevel": 2001,
+      "combatPower": 90128,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#f0ce8c",
@@ -21,7 +21,7 @@ window.DANGERIONS_DATA = {
       "title": "Through Hell and Back",
       "url": "https://siel.tools/eu/atiel/NaminiLee",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-22T23:05:40.830597+00:00"
+      "observedAt": "2026-10-22T23:33:44.654437+00:00"
     },
     {
       "name": "JKLee",
@@ -592,9 +592,9 @@ window.DANGERIONS_DATA = {
       "day": "2026-10-23",
       "values": {
         "NaminiLee": {
-          "itemLevel": 1975,
+          "itemLevel": 2001,
           "level": 45,
-          "observedAt": "2026-10-22T23:05:40.830597+00:00"
+          "observedAt": "2026-10-22T23:33:44.654437+00:00"
         },
         "JKLee": {
           "itemLevel": 1753,
@@ -8980,6 +8980,19 @@ window.DANGERIONS_DATA = {
           "itemLevel": 321,
           "level": 31,
           "observedAt": "2026-10-22T23:06:07.843251+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-22T23:34:12.402770+00:00",
+      "roster": [
+        "NaminiLee"
+      ],
+      "values": {
+        "NaminiLee": {
+          "itemLevel": 2001,
+          "level": 45,
+          "observedAt": "2026-10-22T23:33:44.654437+00:00"
         }
       }
     }
