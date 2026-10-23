@@ -1,4 +1,4 @@
-/* Enamel medallions sit in the card frame rather than floating above it. */
+/* Crystal medallions sit in the card frame rather than floating above it. */
 .podium{aspect-ratio:921/680}
 .top-rank,.first .top-rank,.third .top-rank{top:0;left:50%;width:37%;height:auto;aspect-ratio:1;transform:translate(-50%,-65%);margin:0;z-index:8;background:none;border:0;border-radius:0;box-shadow:none;filter:drop-shadow(0 .7cqw .5cqw #000b)}
 .first .top-rank{width:36%}
@@ -26,7 +26,7 @@
 /* A little room behind the mounted jewel keeps the portrait unobstructed. */
 .podium-card.first{padding-top:4.2cqw}
 .podium-card.second,.podium-card.third{padding-top:3.6cqw}
-.gem-reflection{inset:19% 28% 23%}
+.gem-reflection{inset:25% 24% 27%}
 .rank-avatar{border-radius:10px;border:1px solid #b19a6c8c;box-shadow:0 2px 7px #0006,inset 0 0 0 2px #0a1813;isolation:isolate}
 .rank-avatar::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 2px #061a1655}
 .rank-avatar .character-art{object-position:50% 24%;transform:scale(1.35);transform-origin:50% 27%}

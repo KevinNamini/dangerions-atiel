@@ -52,7 +52,7 @@ function image(p,cls='portrait'){
  const src=p.name==='Mocro'?(window.DANGERIONS_PORTRAITS?.Mocro||p.avatar):`assets/${esc(p.name)}.png`;
  return `<img class="${cls} official-portrait" src="${esc(src)}" data-fallback="${esc(p.avatar)}" alt="${esc(p.name)} – Aion-Charakterporträt" loading="lazy" decoding="async">`;
 }
-function medal(r){return `<span class="crystal-medal"><img class="medal-art" src="assets/crystal-medal-${r}.svg?v=2" alt="" draggable="false"><span class="gem-reflection"></span></span>`;}
+function medal(r){return `<span class="crystal-medal"><img class="medal-art" src="assets/jewel-medal-${r}.webp" alt="" draggable="false"><span class="gem-reflection"></span></span>`;}
 
 const top=[players[1],players[0],players[2]].filter(Boolean);
 $('podium').innerHTML=top.map((p,slot)=>{const r=rank(p),style=['second','first','third'][slot],gain=delta(p);return `<button class="podium-card ${style}" data-player="${esc(p.name)}" aria-label="${esc(p.name)}, Rang ${r}, ${esc(p.className)}, Level ${p.level}, Item-Level ${p.itemLevel}. Profil öffnen"><span class="card-engraving" aria-hidden="true"></span><div class="card-inner"><div class="card-picture">${image(p)}</div><h2 class="podium-name">${esc(p.name)}</h2><div class="card-stat"><span class="podium-value">${n(p.itemLevel)}</span>${gain!==null&&gain!==0?`<span class="podium-gain ${gain<0?'negative':''}">${gain>0?'+':'−'}${n(Math.abs(gain))}</span>`:''}</div></div><div class="top-rank" aria-hidden="true">${medal(Math.min(r,3))}</div><span class="card-spark tl" aria-hidden="true">✧</span><span class="card-spark tr" aria-hidden="true">✧</span><span class="card-spark bl" aria-hidden="true">✧</span><span class="card-spark br" aria-hidden="true">✧</span></button>`}).join('');
