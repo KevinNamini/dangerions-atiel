@@ -1,0 +1,24 @@
+/* Lift the entire setting above the frame; its lower tip only touches the rim. */
+.podium{aspect-ratio:921/728}
+.top-rank,.first .top-rank,.third .top-rank{top:0;left:50%;width:40%;height:auto;aspect-ratio:1;transform:translate(-50%,-97%);margin:0;z-index:8;background:none;border:0;border-radius:0;box-shadow:none;filter:drop-shadow(0 .7cqw .5cqw #000b)}
+.first .top-rank{width:38%}
+.crystal-medal{position:relative;display:block;width:100%;height:100%;animation:gem-suspend 7s ease-in-out infinite;animation-play-state:var(--hero-motion-state,running)}
+.second .crystal-medal{animation-delay:-2.3s}.third .crystal-medal{animation-delay:-4.7s}
+.crystal-medal .medal-art{display:block;position:static;width:100%;height:100%;max-width:none;object-fit:contain;border:0;border-radius:0;transform:none;background:none}
+.gem-reflection{position:absolute;inset:23% 27% 25%;border-radius:48%;overflow:hidden;pointer-events:none;mix-blend-mode:screen}
+.gem-reflection::after{content:'';position:absolute;inset:-50% -200%;background:linear-gradient(113deg,transparent 43%,#fff8db00 45%,#fff8db80 49%,#fffef2be 50%,#fff8db15 54%,transparent 57%);transform:translateX(-45%);opacity:0;animation:gem-reflect 10s ease-in-out infinite;animation-play-state:var(--hero-motion-state,running)}
+.second .gem-reflection::after{animation-delay:-3s}.third .gem-reflection::after{animation-delay:-6s}
+.card-picture .character-art{object-fit:cover;object-position:50% 12%;filter:none}
+.rank-avatar .character-art{object-fit:cover;object-position:50% 28%;transform:none;filter:none}
+.rank-avatar .official-portrait{object-fit:cover;object-position:center 25%;filter:none;transform:none;background:#12251e}
+.world-motes{display:block;position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.world-motes i{position:absolute;left:var(--x);top:var(--y);width:2px;height:2px;border-radius:50%;background:#e8d4a0;box-shadow:0 0 6px #e8d4a088;opacity:0;animation:velvet-dust 11s ease-in-out infinite;animation-delay:var(--delay);animation-play-state:var(--hero-motion-state,running)}
+.world-motes i:nth-child(1){--x:12%;--y:12%;--delay:-2s}.world-motes i:nth-child(2){--x:25%;--y:6%;--delay:-5s}.world-motes i:nth-child(3){--x:39%;--y:16%;--delay:-8s}.world-motes i:nth-child(4){--x:64%;--y:8%;--delay:-3s}.world-motes i:nth-child(5){--x:80%;--y:21%;--delay:-6s}.world-motes i:nth-child(6){--x:93%;--y:34%;--delay:-9s}.world-motes i:nth-child(7){--x:8%;--y:55%;--delay:-4s}.world-motes i:nth-child(8){--x:72%;--y:66%;--delay:-7s}.world-motes i:nth-child(n+9){display:none}
+@keyframes gem-suspend{0%,100%{translate:0 0;rotate:-.5deg}50%{translate:0 -.4cqw;rotate:.5deg}}
+@keyframes gem-reflect{0%,68%,100%{transform:translateX(-45%);opacity:0}73%{opacity:.18}86%{transform:translateX(45%);opacity:0}}
+@keyframes velvet-dust{0%,100%{opacity:0;translate:0 9px}45%{opacity:.5}85%{opacity:0;translate:4px -14px}}
+@media(max-width:720px){.podium{aspect-ratio:921/728;margin-top:12px}}
+@media(prefers-reduced-motion:reduce){.crystal-medal,.gem-reflection::after,.world-motes i{animation:none!important}.world-motes{display:none}}
+
+.podium-card[data-player="LordSanchez2"] .podium-name{font-size:3.15cqw;letter-spacing:-.08cqw}
+.podium-card.first[data-player="LordSanchez2"] .podium-name{font-size:3.7cqw}

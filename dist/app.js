@@ -43,15 +43,16 @@ function deltaHTML(p){const d=delta(p);if(d===null)return '<span class="delta ne
 const glyphs={assassin:'<path d="m3 2 6 3 9 12-3 2L6 7 3 2ZM21 2l-6 3-4 5M9 14l-3 5-3-2 4-6M13 16l6 5M5 21l6-5M14 20l6-5M4 15l6 5"/>',ranger:'<path d="M5 3c10 1 13 7 14 16M5 3l14 16M5 3c-2 8 3 16 14 16M3 21 21 3M14 3h7v7"/>',gladiator:'<path d="m5 19 2-4L17 3l4-1-1 4L9 17l-4 2ZM4 14l6 6M3 21l3-3M15 14l5 6M17 17l4 4"/>',templar:'<path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5l8-3ZM12 5v13M8 9h8"/>',cleric:'<path d="M12 2v20M2 12h20M6 6l12 12M6 18 18 6M9 9h6v6H9Z"/>',spiritmaster:'<path d="M12 2c-5 5 2 8-2 11-2-2-3-3-3-6-6 5-3 14 5 15 8-1 12-11 3-16 1 4-2 6-2 6 1-4-2-6-1-10Z"/>',chanter:'<path d="M12 8v14M7 5l5-3 5 3-5 5-5-5ZM5 12h14M8 17h8"/>'};
 glyphs.sorcerer='<path d="m5 21 11-14M15 3l1 4 4 1-4 1-1 4-1-4-4-1 4-1 1-4ZM5 4v4M3 6h4M19 16v4M17 18h4"/>';
 function icon(p){return `<svg class="class-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="${esc(p.color)}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${glyphs[p.classKey]||glyphs.gladiator}</svg>`;}
-const referenceCrops={
- NaminiLee:[52,301,228,341], JKLee:[333,264,278,379], SurfingLee:[656,346,227,309],
- Stecher:[135,995,65,68], LordSanchez2:[135,1093,65,68], FumosLee:[135,1193,65,69],
- Mocro:[135,1292,65,69], BrouceLee:[135,1392,65,68]
-};
-function referenceCrop(box,cls,label){const [x,y,w,h]=box;return `<span class="${cls} reference-crop" role="img" aria-label="${esc(label)}" style="--crop-ratio:${w}/${h}"><img src="assets/velvet-reference.jpg" alt="" style="width:${921/w*100}%;height:${1536/h*100}%;left:${-x/w*100}%;top:${-y/h*100}%" draggable="false"></span>`;}
+// Portraits belong to characters, not podium slots. New leaders keep their own artwork.
 const portraitPanels={NaminiLee:0,JKLee:50,SurfingLee:100};
-function image(p,cls='portrait'){if(Object.hasOwn(portraitPanels,p.name))return `<span class="${cls} hd-portrait" role="img" aria-label="${esc(p.name)} – Charakterillustration aus der Designvorlage" style="--portrait-x:${portraitPanels[p.name]}%"></span>`;const box=referenceCrops[p.name];if(box)return referenceCrop(box,cls,p.name+' – Charakterillustration aus der Designvorlage');return `<img class="${cls}" src="assets/${esc(p.name)}.png" data-fallback="${esc(p.avatar)}" alt="${esc(p.name)} – Aion-Charakterporträt" loading="lazy">`;}
-function medal(r){return referenceCrop(r===1?[410,152,123,125]:r===2?[129,214,109,105]:[698,249,103,108],'medal-art','');}
+const heroPortraits={Stecher:'Stecher-hero.webp',LordSanchez2:'LordSanchez2-hero.webp'};
+function image(p,cls='portrait'){
+ if(Object.hasOwn(portraitPanels,p.name))return `<span class="${cls} hd-portrait" role="img" aria-label="${esc(p.name)} – Charakterillustration aus der Designvorlage" style="--portrait-x:${portraitPanels[p.name]}%"></span>`;
+ if(Object.hasOwn(heroPortraits,p.name))return `<img class="${cls} character-art" src="assets/${heroPortraits[p.name]}" data-fallback="assets/${esc(p.name)}.png" alt="${esc(p.name)} – Illustration nach dem Charakterprofil" loading="lazy" decoding="async">`;
+ const src=p.name==='Mocro'?(window.DANGERIONS_PORTRAITS?.Mocro||p.avatar):`assets/${esc(p.name)}.png`;
+ return `<img class="${cls} official-portrait" src="${esc(src)}" data-fallback="${esc(p.avatar)}" alt="${esc(p.name)} – Aion-Charakterporträt" loading="lazy" decoding="async">`;
+}
+function medal(r){return `<span class="crystal-medal"><img class="medal-art" src="assets/crystal-medal-${r}.svg" alt="" draggable="false"><span class="gem-reflection"></span></span>`;}
 
 const top=[players[1],players[0],players[2]].filter(Boolean);
 $('podium').innerHTML=top.map((p,slot)=>{const r=rank(p),style=['second','first','third'][slot],gain=delta(p);return `<button class="podium-card ${style}" data-player="${esc(p.name)}" aria-label="${esc(p.name)}, Rang ${r}, ${esc(p.className)}, Level ${p.level}, Item-Level ${p.itemLevel}. Profil öffnen"><span class="card-engraving" aria-hidden="true"></span><div class="card-inner"><div class="card-picture">${image(p)}</div><h2 class="podium-name">${esc(p.name)}</h2><div class="card-stat"><span class="podium-value">${n(p.itemLevel)}</span>${gain!==null&&gain!==0?`<span class="podium-gain ${gain<0?'negative':''}">${gain>0?'+':'−'}${n(Math.abs(gain))}</span>`:''}</div></div><div class="top-rank" aria-hidden="true">${medal(Math.min(r,3))}</div><span class="card-spark tl" aria-hidden="true">✧</span><span class="card-spark tr" aria-hidden="true">✧</span><span class="card-spark bl" aria-hidden="true">✧</span><span class="card-spark br" aria-hidden="true">✧</span></button>`}).join('');
