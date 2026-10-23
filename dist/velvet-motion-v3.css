@@ -1,0 +1,140 @@
+/* Light moves around the artwork; portrait crops and card geometry stay untouched. */
+:root{--hero-motion-state:paused;--chronicle-motion-state:paused;--entrance-motion-state:running}
+
+/* A soft change in the existing velvet's light, with no moving background texture. */
+.world::before{
+  content:"";display:block;position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 48% 32%,#d2ba73 0%,transparent 54%);
+  opacity:.025;animation:velvet-breathe 13s ease-in-out infinite;
+  animation-play-state:var(--hero-motion-state);
+}
+@keyframes velvet-breathe{0%,100%{opacity:.025}50%{opacity:.13}}
+
+/* The mask restricts the reflection to a two-pixel frame, never over a face. */
+@supports ((mask-composite:exclude) or (-webkit-mask-composite:xor)){
+  .card-engraving::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;
+    background:linear-gradient(125deg,transparent 35%,#f6e4b64d 45%,#fff4d8b3 50%,#f6e4b64d 55%,transparent 65%);
+    background-size:300% 300%;background-position:100% 100%;opacity:0;
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+    animation:velvet-frame-light 9s ease-in-out infinite;
+    animation-play-state:var(--hero-motion-state);
+  }
+  .second .card-engraving::after{animation-delay:-4.5s}
+  .third .card-engraving::after{animation-delay:-9s}
+}
+@keyframes velvet-frame-light{
+  0%,48%,100%{background-position:100% 100%;opacity:0}
+  58%{opacity:.9}
+  88%{background-position:0% 0%;opacity:0}
+}
+
+/* A tiny highlight adds depth to each existing gemstone without moving its badge. */
+.gem-reflection::before{
+  content:"";position:absolute;left:22%;top:18%;width:25%;height:25%;
+  background:radial-gradient(ellipse at center,#fff8e9b3 0%,#fff8e933 20%,transparent 65%);
+  opacity:0;animation:velvet-gem-glow 8s ease-in-out infinite;
+  animation-play-state:var(--hero-motion-state);
+}
+.second .gem-reflection::before{animation-delay:-4s}
+.third .gem-reflection::before{animation-delay:-8s}
+@keyframes velvet-gem-glow{0%,66%,100%{opacity:0}77%{opacity:.8}87%{opacity:0}}
+
+/* Entrances run once per player and surface, not on each background data refresh. */
+.podium-card{animation:none}
+.podium-card.motion-arrive{animation:velvet-card-enter .85s cubic-bezier(.2,.65,.3,1) both;animation-play-state:var(--entrance-motion-state)}
+.podium-card.second.motion-arrive{animation-delay:.1s}
+.podium-card.third.motion-arrive{animation-delay:.2s}
+.rank-row.motion-arrive{animation:velvet-row-enter .6s ease-out both;animation-play-state:var(--entrance-motion-state)}
+@keyframes velvet-card-enter{from{opacity:.35;translate:0 8px}to{opacity:1;translate:0 0}}
+@keyframes velvet-row-enter{from{opacity:.45;translate:0 6px}to{opacity:1;translate:0 0}}
+
+.velvet-nav a{transition:color .25s ease,text-shadow .25s ease}
+.velvet-nav a:hover,.velvet-nav a:focus-visible{text-shadow:0 0 15px #e2c78355}
+@media(hover:hover) and (pointer:fine){
+  .rank-row{transition:background-color .25s ease}
+  .rank-row:hover{background-color:#c7ab5710}
+}
+@media(prefers-reduced-motion:reduce){
+  .world::before,.card-engraving::after,.gem-reflection::before{display:none}
+  .podium-card.motion-arrive,.rank-row.motion-arrive{animation:none!important}
+  .velvet-nav a,.rank-row{transition:none!important}
+}
+
+/* Slightly more life: light and particles move, the artwork stays anchored. */
+.crystal-medal{isolation:isolate;--jewel-light:236,192,94}
+.second .crystal-medal{--jewel-light:157,205,255}
+.third .crystal-medal{--jewel-light:126,218,143}
+.crystal-medal::before{
+ content:"";position:absolute;inset:18%;z-index:-1;border-radius:50%;pointer-events:none;
+ box-shadow:0 0 18px 5px rgba(var(--jewel-light),.5);opacity:.15;
+ animation:jewel-aura 5.5s ease-in-out infinite;animation-play-state:var(--hero-motion-state);
+}
+.crystal-medal::after{
+ content:"";position:absolute;left:67%;top:19%;width:14%;height:14%;pointer-events:none;
+ background:linear-gradient(90deg,transparent 42%,#fff7df 50%,transparent 58%),linear-gradient(transparent 42%,#fff7df 50%,transparent 58%);
+ opacity:0;transform:rotate(12deg) scale(.5);
+ animation:jewel-spark 7.5s ease-in-out infinite;animation-play-state:var(--hero-motion-state);
+}
+.second .crystal-medal::before,.second .crystal-medal::after{animation-delay:-2.5s}
+.third .crystal-medal::before,.third .crystal-medal::after{animation-delay:-5s}
+@keyframes jewel-aura{0%,100%{opacity:.12}50%{opacity:.48}}
+@keyframes jewel-spark{0%,55%,85%,100%{opacity:0;transform:rotate(12deg) scale(.5)}68%{opacity:.85;transform:rotate(24deg) scale(1)}}
+.gem-reflection::after{animation-duration:7s}
+.velvet-diamond{animation:velvet-beacon 6s ease-in-out infinite;animation-play-state:var(--hero-motion-state)}
+@keyframes velvet-beacon{0%,100%{text-shadow:0 0 2px #e8d4a022}50%{text-shadow:0 0 12px #e8d4a0aa}}
+.world-motes i{width:3px;height:3px;animation-duration:9s}
+.world-motes i:nth-child(9){display:block;--x:18%;--y:38%;--delay:-1s}
+.world-motes i:nth-child(10){display:block;--x:87%;--y:52%;--delay:-4.5s}
+.world-motes i:nth-child(11){display:block;--x:48%;--y:5%;--delay:-6.5s}
+.world-motes i:nth-child(12){display:block;--x:57%;--y:73%;--delay:-8s}
+@keyframes velvet-dust{0%,100%{opacity:0;translate:0 16px}40%{opacity:.7}85%{opacity:0;translate:9px -25px}}
+@media(hover:hover) and (pointer:fine){
+ .podium-card{transition:translate .5s cubic-bezier(.2,.7,.3,1),filter .4s ease}
+ .podium-card:hover{translate:0 -5px;filter:brightness(1.055)}
+ .podium-card:hover .crystal-medal::before{animation-duration:2.8s}
+ .rank-row{transition:background-color .3s ease,translate .3s ease}
+ .rank-row:hover{translate:3px 0;background-color:#c7ab5718}
+}
+@media(prefers-reduced-motion:reduce){
+ .crystal-medal::before,.crystal-medal::after{display:none}
+ .velvet-diamond{animation:none!important}
+ .podium-card:hover,.rank-row:hover{translate:0 0}
+}
+
+/* The whole framed portrait floats together, preserving the badge/face alignment. */
+.podium-card:not(.motion-arrive){
+ animation:velvet-float 7.8s ease-in-out infinite;
+ animation-play-state:var(--hero-motion-state);
+}
+.podium-card.second:not(.motion-arrive){animation-duration:9.2s;animation-delay:0s}
+.podium-card.third:not(.motion-arrive){animation-duration:8.6s;animation-delay:0s}
+@keyframes velvet-float{0%,100%{translate:0 0}50%{translate:0 -3px}}
+
+/* Broad translucent mist stays behind the cards, never over text or portraits. */
+.world{overflow:hidden}
+.world::after{
+ content:"";display:block;position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(ellipse 52% 13% at 16% 67%,#b6d1bc24,transparent 85%),radial-gradient(ellipse 45% 16% at 84% 43%,#b7cc9c1a,transparent 85%);
+ animation:velvet-mist 22s ease-in-out infinite;
+ animation-play-state:var(--hero-motion-state);
+}
+@keyframes velvet-mist{0%,100%{transform:translateX(-4%);opacity:.35}50%{transform:translateX(4%);opacity:.85}}
+
+/* Scale is independent of the existing tilted frame transforms. */
+.podium-card{transition:scale .28s cubic-bezier(.2,.8,.3,1),filter .3s ease}
+.rank-row{transition:scale .25s ease,background-color .3s ease,translate .3s ease}
+.podium-card:active{scale:.987;filter:brightness(1.07);animation-play-state:paused}
+.rank-row:active{scale:.992;background-color:#c7ab5720}
+@media(hover:hover) and (pointer:fine){
+ .podium-card:not(.motion-arrive):hover{animation-play-state:paused;scale:1.006}
+ .podium-card:not(.motion-arrive):active{scale:.987}
+}
+.podium-card:focus-visible{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+ .podium-card:not(.motion-arrive){animation:none!important}
+ .world::after{display:none}
+ .podium-card,.rank-row{transition:none!important}
+ .podium-card:hover,.podium-card:active,.podium-card:not(.motion-arrive):hover,.podium-card:not(.motion-arrive):active,.rank-row:active{scale:1}
+}
