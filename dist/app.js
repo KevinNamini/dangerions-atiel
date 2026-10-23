@@ -8,17 +8,6 @@ function validFeed(fresh,previous){
  return true;
 }
 let data=window.DANGERIONS_DATA;
-if(location.protocol==='https:'||location.protocol==='http:'){
-  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),6500);
-  try {
-    const response=await fetch('https://raw.githubusercontent.com/KevinNamini/dangerions-atiel/main/data/history.json?t='+Date.now(),{signal:controller.signal,cache:'no-store'});
-    if(!response.ok)throw new Error('Observation feed unavailable');
-    const fresh=await response.json();
-    if(!validFeed(fresh,data))throw new Error('Invalid observations');
-    if(Date.parse(fresh.updatedAt)>=Date.parse(data.updatedAt))data=fresh;
-  }catch(error){data={...data,feedUnavailable:true};}
-  finally{clearTimeout(timeout);}
-}
 if(!data?.players?.length){document.getElementById('update-label').textContent='Charakterdaten derzeit nicht verfügbar';return;}
 const $=id=>document.getElementById(id),n=v=>new Intl.NumberFormat('de-DE').format(v),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const dayOf=d=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(d));
@@ -60,12 +49,13 @@ const referenceCrops={
  Mocro:[135,1292,65,69], BrouceLee:[135,1392,65,68]
 };
 function referenceCrop(box,cls,label){const [x,y,w,h]=box;return `<span class="${cls} reference-crop" role="img" aria-label="${esc(label)}" style="--crop-ratio:${w}/${h}"><img src="assets/velvet-reference.jpg" alt="" style="width:${921/w*100}%;height:${1536/h*100}%;left:${-x/w*100}%;top:${-y/h*100}%" draggable="false"></span>`;}
-function image(p,cls='portrait'){const box=referenceCrops[p.name];if(box)return referenceCrop(box,cls,p.name+' – Charakterillustration aus der Designvorlage');return `<img class="${cls}" src="assets/${esc(p.name)}.png" data-fallback="${esc(p.avatar)}" alt="${esc(p.name)} – Aion-Charakterporträt" loading="lazy">`;}
+const portraitPanels={NaminiLee:0,JKLee:50,SurfingLee:100};
+function image(p,cls='portrait'){if(Object.hasOwn(portraitPanels,p.name))return `<span class="${cls} hd-portrait" role="img" aria-label="${esc(p.name)} – Charakterillustration aus der Designvorlage" style="--portrait-x:${portraitPanels[p.name]}%"></span>`;const box=referenceCrops[p.name];if(box)return referenceCrop(box,cls,p.name+' – Charakterillustration aus der Designvorlage');return `<img class="${cls}" src="assets/${esc(p.name)}.png" data-fallback="${esc(p.avatar)}" alt="${esc(p.name)} – Aion-Charakterporträt" loading="lazy">`;}
 function medal(r){return referenceCrop(r===1?[410,152,123,125]:r===2?[129,214,109,105]:[698,249,103,108],'medal-art','');}
 
 const top=[players[1],players[0],players[2]].filter(Boolean);
-$('podium').innerHTML=top.map(p=>{const r=rank(p),style=r===1?'first':r===2?'second':'third',gain=delta(p);return `<button class="podium-card ${style}" data-player="${esc(p.name)}" aria-label="${esc(p.name)}, Rang ${r}, ${esc(p.className)}, Level ${p.level}, Item-Level ${p.itemLevel}. Profil öffnen"><div class="card-inner"><div class="card-picture">${image(p)}</div><h2 class="podium-name">${esc(p.name)}</h2><div class="card-stat"><span class="podium-value">${n(p.itemLevel)}</span>${gain!==null&&gain!==0?`<span class="podium-gain ${gain<0?'negative':''}">${gain>0?'+':'−'}${n(Math.abs(gain))}</span>`:''}</div></div><div class="top-rank" aria-hidden="true">${medal(Math.min(r,3))}</div><span class="card-spark tl" aria-hidden="true">✧</span><span class="card-spark tr" aria-hidden="true">✧</span><span class="card-spark bl" aria-hidden="true">✧</span><span class="card-spark br" aria-hidden="true">✧</span></button>`}).join('');
-$('roster').innerHTML=players.map((p,i)=>`<div role="button" tabindex="0" class="rank-row ${i<3?'on-podium':''} ${i===0?'leader':''} ${p.name==='NaminiLee'?'mine':''}" style="--row-index:${i};--power:${p.itemLevel/players[0].itemLevel*100}%;--class-color:${p.color}" data-player="${esc(p.name)}" aria-label="Rang ${rank(p)}: ${esc(p.name)}, ${esc(p.className)}, Level ${p.level}, Item-Level ${p.itemLevel}. ${progress.movement(p).value===null?'Kein Rangvergleich.':progress.movement(p).value===0?'Rang unverändert.':Math.abs(progress.movement(p).value)+(Math.abs(progress.movement(p).value)===1?' Platz ':' Plätze ')+(progress.movement(p).value>0?'aufgestiegen.':'abgestiegen.')} Profil öffnen"><span class="rank-position"><span class="rank-num">${String(rank(p)).padStart(2,'0')}</span>${movementHTML(p)}</span><div class="rank-person"><div class="rank-avatar">${image(p)}</div><div><div class="rank-name">${esc(p.name)}${p.name==='Mocro'?'<small class="alt-character" title="Stechers Zweitcharakter">Stecher · Zweitcharakter</small>':''}</div><div class="rank-meta">${icon(p)}<span>${esc(p.className)}</span><span class="level">· ${p.level}</span></div></div></div><div class="rank-il">${n(p.itemLevel)}<small>${i===0?'Spitze der Legion':n(players[i-1].itemLevel-p.itemLevel)+' bis zum Vordermann'}</small></div>${deltaHTML(p)}<span class="profile-open" aria-hidden="true">↗</span></div>`).join('');
+$('podium').innerHTML=top.map((p,slot)=>{const r=rank(p),style=['second','first','third'][slot],gain=delta(p);return `<button class="podium-card ${style}" data-player="${esc(p.name)}" aria-label="${esc(p.name)}, Rang ${r}, ${esc(p.className)}, Level ${p.level}, Item-Level ${p.itemLevel}. Profil öffnen"><span class="card-engraving" aria-hidden="true"></span><div class="card-inner"><div class="card-picture">${image(p)}</div><h2 class="podium-name">${esc(p.name)}</h2><div class="card-stat"><span class="podium-value">${n(p.itemLevel)}</span>${gain!==null&&gain!==0?`<span class="podium-gain ${gain<0?'negative':''}">${gain>0?'+':'−'}${n(Math.abs(gain))}</span>`:''}</div></div><div class="top-rank" aria-hidden="true">${medal(Math.min(r,3))}</div><span class="card-spark tl" aria-hidden="true">✧</span><span class="card-spark tr" aria-hidden="true">✧</span><span class="card-spark bl" aria-hidden="true">✧</span><span class="card-spark br" aria-hidden="true">✧</span></button>`}).join('');
+$('roster').innerHTML=players.map((p,i)=>`<div role="button" tabindex="0" class="rank-row ${i<3?'on-podium':''} ${i===0?'leader':''} ${p.name==='NaminiLee'?'mine':''}" style="--row-index:${i};--power:${p.itemLevel/players[0].itemLevel*100}%;--class-color:${p.color}" data-player="${esc(p.name)}" aria-label="Rang ${rank(p)}: ${esc(p.name)}, ${esc(p.className)}, Level ${p.level}, Item-Level ${p.itemLevel}. ${progress.movement(p).value===null?'Kein Rangvergleich.':progress.movement(p).value===0?'Rang unverändert.':Math.abs(progress.movement(p).value)+(Math.abs(progress.movement(p).value)===1?' Platz ':' Plätze ')+(progress.movement(p).value>0?'aufgestiegen.':'abgestiegen.')} Profil öffnen"><span class="rank-position"><span class="rank-num">${rank(p)}</span>${movementHTML(p)}</span><div class="rank-person"><div class="rank-avatar">${image(p)}</div><div><div class="rank-name">${esc(p.name)}${p.name==='Mocro'?'<small class="alt-character" title="Stechers Zweitcharakter">Stecher · Zweitcharakter</small>':''}</div><div class="rank-meta">${icon(p)}<span>${esc(p.className)}</span><span class="level">· ${p.level}</span></div></div></div><div class="rank-il">${n(p.itemLevel)}<small>${i===0?'Spitze der Legion':n(players[i-1].itemLevel-p.itemLevel)+' bis zum Vordermann'}</small></div>${deltaHTML(p)}<span class="profile-open" aria-hidden="true">↗</span></div>`).join('');
 const updated=new Date(data.updatedAt);
 const age=(Date.now()-updated.getTime())/36e5;lastRenderStale=age>2;
 const updateText=`Geprüft ${updated.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',timeZone:'Europe/Berlin'})} · ${updated.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Berlin'})} Uhr${age>2?' · Abruf überfällig':''}`;
@@ -101,6 +91,7 @@ async function refreshFeed(){
  }catch(error){data={...data,feedUnavailable:true};renderDashboard();}
  finally{clearTimeout(timer);refreshing=false;}
 }
+await refreshFeed();
 if(typeof setInterval==='function')setInterval(refreshFeed,300000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshFeed();});
 })();

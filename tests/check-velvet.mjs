@@ -40,3 +40,12 @@ assert.match(css,/prefers-reduced-motion:reduce/);
 assert.match(css,/rank-row.on-podium\{display:none/);
 assert.match(css,/velvet-stage.webp/);
 console.log('PASS: every roster member can become gold leader, live values remain independent of artwork, all ten players remain available, reduced motion supported.');
+// Even tied ranks occupy distinct physical positions, and the artwork follows the player.
+const tied=structuredClone(original);tied.players.forEach(p=>p.itemLevel=2000);
+const tieApp=mount(tied);await tieApp.ready;
+for(const slot of ['first','second','third'])assert.equal((tieApp.el('podium').innerHTML.match(new RegExp('class="podium-card '+slot+'"','g'))||[]).length,1);
+// A slow remote feed must not leave the mobile hero empty while it loads.
+const slowApp=mount(original,()=>new Promise(()=>{}));
+assert.equal((slowApp.el('podium').innerHTML.match(/class="podium-card/g)||[]).length,3);
+assert.doesNotMatch(slowApp.el('roster').innerHTML,/>0[4-9]<\/span>/);
+console.log('PASS: tied players keep separate podium slots; saved roster renders before remote fetch completes; ranks have no leading zero.');
