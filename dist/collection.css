@@ -1,0 +1,76 @@
+/* One collection: warm overhead light, rank-specific metals, quiet detail. */
+.hero{isolation:isolate}
+.hero::before{
+ content:"";position:absolute;inset:0 -12% -4%;z-index:-1;pointer-events:none;
+ background:radial-gradient(ellipse 44% 64% at 50% 13%,#efdaa11c,transparent 76%),linear-gradient(105deg,transparent 35%,#eed9a006 48%,transparent 66%);
+}
+.velvet-diamond{display:flex;align-items:center;justify-content:center;height:58px;padding-top:20px;margin-bottom:9px}
+.guild-seal{display:block;width:38px;height:38px;filter:drop-shadow(0 1px 1px #0009) drop-shadow(0 0 9px #e6c88518)}
+.hero h1{color:#eadfc4;text-shadow:0 1px 2px #0009}
+.velvet-nav>a{color:#9ba28d}
+.velvet-nav>a.active{color:#f0e6ce}
+
+.podium::before{
+ content:"";position:absolute;inset:8% 19% -2%;pointer-events:none;
+ background:radial-gradient(ellipse at 51% 46%,#e9bf6820,transparent 68%);
+}
+.podium-card{
+ --metal-high:#eee4cd;--metal-mid:#a9a792;--metal-deep:#424a43;--metal-line:#d4d7c080;
+ background:linear-gradient(110deg,var(--metal-high),var(--metal-deep) 2%,var(--metal-high) 3%,#20291f 4%,var(--metal-mid) 5%,#122319 6% 94%,var(--metal-mid) 96%,var(--metal-deep) 97%,var(--metal-high) 98%,var(--metal-deep));
+ box-shadow:0 2.5cqw 3.8cqw -1cqw #000b,inset 0 1px 0 var(--metal-high),inset 0 0 0 1px var(--metal-mid);
+}
+.podium-card.first{
+ --metal-high:#ffe8ac;--metal-mid:#c5a56a;--metal-deep:#665035;--metal-line:#edcc8899;
+ background:linear-gradient(110deg,var(--metal-high),var(--metal-deep) 2%,#f6dfab 3%,#29291b 4%,var(--metal-mid) 5%,#15251a 6% 94%,var(--metal-mid) 96%,var(--metal-deep) 97%,var(--metal-high) 98%,var(--metal-deep));
+ box-shadow:0 2.8cqw 4cqw -1cqw #000c,0 0 3cqw #e5bd6414,inset 0 1px 0 #ffedbf,inset 0 0 0 1px #c8a875;
+}
+.podium-card.third{--metal-high:#ecc6a0;--metal-mid:#af7f59;--metal-deep:#563e30;--metal-line:#c9956988}
+.podium-card::before{border-color:var(--metal-line);box-shadow:inset 0 0 0 1px #0e1c16,0 1px 0 #fff1cf12}
+.podium-card::after{border-color:var(--metal-line);opacity:.65}
+.second .card-engraving{filter:saturate(.2);opacity:.7}
+.third .card-engraving{filter:sepia(.22) saturate(.85);opacity:.76}
+.first .card-engraving{opacity:.94}
+.first .card-engraving::before{
+ content:"";position:absolute;inset:.5cqw;border:1px solid #e8c98530;border-radius:inherit;
+ box-shadow:inset 0 0 0 2px #04150c55;pointer-events:none;
+}
+.card-picture{border-color:var(--metal-line)}
+.card-inner{background:linear-gradient(135deg,#10261a,#06170f 65%,#06150e)}
+.podium-name,.first .podium-name{border-bottom-color:var(--metal-line);color:#ede3ca}
+.podium-value{color:#f3ead6;font-variant-numeric:lining-nums tabular-nums}
+.podium-gain{color:#a6bc96}
+
+/* A curved fabric highlight and a soft contact shadow connect podium and list. */
+.hero::after{
+ content:"";position:absolute;left:-8%;right:-8%;bottom:-5cqw;height:11cqw;z-index:-1;pointer-events:none;
+ background:radial-gradient(ellipse 50% 25% at 50% 17%,#0009,transparent 82%),radial-gradient(ellipse 73% 27% at 48% 44%,#35594635,transparent 70%),radial-gradient(ellipse 75% 32% at 55% 70%,#0005,transparent 75%);
+}
+.rank-section{position:relative}
+.rank-section .section-top h2{text-shadow:0 2px 10px #0003}
+.rank-period{color:#b5bea8;border-color:#cbb78045}
+.roster{border-top-color:#bba77666}
+.rank-row,.rank-row.mine,.rank-row.leader,.rank-row:hover{
+ border-bottom-color:transparent;
+ background-image:linear-gradient(90deg,#a18e5740,#b8a57060 22%,#a18e5730 80%,#a18e5718);
+ background-size:100% 1px;background-position:left bottom;background-repeat:no-repeat;
+}
+.rank-position .rank-num,.leader .rank-position .rank-num{color:#b7b8a0;font-size:24px}
+.rank-avatar{
+ border-color:#c7b17e99;border-radius:9px;
+ box-shadow:0 3px 9px #0007,0 0 0 1px #05150e,inset 0 1px 0 #f1dca955;
+}
+.rank-avatar::after{box-shadow:inset 0 0 0 2px #061a1644,inset 0 1px 0 #ffe7ad55,inset 0 -2px 4px #0007;border:1px solid #c9af7326}
+.rank-name{color:#ece2c9}
+.rank-meta,.alt-character{color:#99a58e}
+.rank-il{color:#f0e7d1;letter-spacing:-.7px;font-variant-numeric:lining-nums tabular-nums}
+.delta,.delta.neutral{color:#a0b68d;opacity:.85;font-variant-numeric:lining-nums tabular-nums}
+.rank-row:focus-visible{outline:1px solid #d6be87;outline-offset:3px;border-radius:3px}
+@media(max-width:720px){
+ .velvet-diamond{height:36px;padding-top:9px;margin-bottom:7px}
+ .guild-seal{width:27px;height:27px}
+ .hero h1{letter-spacing:5px}
+ .rank-position .rank-num,.leader .rank-position .rank-num{font-size:16px}
+ .rank-avatar{border-radius:7px}
+ .delta,.delta.neutral{font-size:10px;letter-spacing:0}
+}
+@media(max-width:370px){.rank-position .rank-num{font-size:15px}.delta,.delta.neutral{font-size:9px}}
