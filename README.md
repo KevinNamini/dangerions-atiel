@@ -50,3 +50,13 @@ Die Prüfungen decken Rangfolge, Gleichstände, Profile, Ansichtswechsel, Tagesd
 Inoffizielles Fanprojekt. Charakterbilder und Werte stammen aus den verlinkten öffentlichen NC-Profilen. AION 2 © NC Corporation. Die vom offiziellen Webauftritt verwendete öffentliche Schnittstelle benötigt keinen Login, ist aber nicht als stabile Entwickler-API dokumentiert.
 
 Das Festungs-Artwork wurde eigens erzeugt; Schwingenwappen und Klassensymbole wurden als SVG gestaltet. Schriftarten: Cinzel und Manrope unter SIL Open Font License; Lizenzen in `licenses/`.
+
+## Eclipse / podium design (23 October 2026)
+
+`dist/ascension.css` layers the responsive podium over `assets/ascension-scene.webp`. The scene was extracted from the approved mockup using the built-in Imagegen editor (remove UI, portraits, logo and eclipse; preserve the gothic citadel, mist and gold light). `assets/crest-centered.png` is the original mockup emblem, deterministically isolated and tightly cropped to 94×70 pixels. The CSS eclipse disc and emblem share the same parent and exact 50%/50% centre; neither uses optical offsets. Rank medals are individual native SVG assets and follow the calculated rank. No player name, portrait or score is baked into the scene.
+
+The public character IDs in `dist/portraits.js` were checked against the official profile API. NaminiLee, JKLee and SurfingLee retain their approved local portraits. Other players use their verified current NC image URL with the existing local portrait or class icon as a fallback. Stecher's official gender is female; the linked profile shows the masked female portrait. No synthetic portrait is substituted.
+
+Entrance transitions, slow fog, drifting embers, corona light, emblem reflection, portrait highlights, hover feedback and existing rank-change effects are separate animations. Ambient motion pauses off screen and in background tabs; reduced-motion settings disable motion. Chronology and data collection are unchanged.
+
+Validation: `node tests/check-design.mjs` and `node tests/check-progress.mjs`.

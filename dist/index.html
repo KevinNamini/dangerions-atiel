@@ -8,20 +8,20 @@
 <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="alt-character.css">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chronicle.css"><link rel="stylesheet" href="rank-motion.css"><link rel="stylesheet" href="hero-motion.css"><script src="data.js" defer></script><script src="progress.js" defer></script><script src="chronicle.js" defer></script><script src="app.js" defer></script><script src="hero-motion.js" defer></script>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chronicle.css"><link rel="stylesheet" href="rank-motion.css"><link rel="stylesheet" href="hero-motion.css"><link rel="stylesheet" href="ascension.css"><script src="data.js" defer></script><script src="progress.js" defer></script><script src="chronicle.js" defer></script><script src="portraits.js" defer></script><script src="app.js" defer></script><script src="hero-motion.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#rangliste">Zur Rangliste</a>
-<div class="world" aria-hidden="true"><div class="eclipse-corona"></div><div class="world-motes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="world" aria-hidden="true"><div class="world-motes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
 <main>
 <section class="hero" aria-labelledby="hero-title">
-<div class="hero-crest"><img src="assets/crest.svg" alt="Wappen der Dangerions: schwarze Schwingen und goldener Kristall"><span class="crest-glint" aria-hidden="true"></span></div>
+<div class="eclipse-seal"><div class="eclipse-disc" aria-hidden="true"></div><div class="eclipse-corona" aria-hidden="true"></div><div class="hero-crest"><img src="assets/crest-centered.png" alt="Wappen der Dangerions: schwarze Schwingen und goldener Kristall"><span class="crest-glint" aria-hidden="true"></span></div></div>
 <h1 id="hero-title">DANGERIONS</h1>
 <div id="podium" class="podium" aria-label="Die ersten drei Plätze nach Item-Level"></div>
 <nav class="hero-nav" aria-label="Hauptnavigation"><a href="#rangliste">Rangliste</a><a href="#chronik">Chronik</a></nav>
 </section>
 <section class="rank-section wrap" id="rangliste" aria-labelledby="rank-title">
-<div class="section-top"><div><p class="eyebrow">01 / DER WETTSTREIT</p><h2 id="rank-title">Jeder Aufstieg <em>zählt.</em></h2><p>Eine Legion. Gemeinsam nach oben.</p></div><div class="rank-tools"><button class="compact-toggle active" id="view-list" aria-pressed="true">☷ <span>Rangliste</span></button><button class="compact-toggle" id="view-cards" aria-pressed="false">▦ <span>Karten</span></button></div></div>
+<div class="section-top"><div><h2 id="rank-title">Die <em>Rangliste.</em></h2></div><div class="rank-tools"><button class="compact-toggle active" id="view-list" aria-pressed="true">☷ <span>Rangliste</span></button><button class="compact-toggle" id="view-cards" aria-pressed="false">▦ <span>Karten</span></button></div></div>
 <div class="rank-caption"><span><b>✦</b> DANGERIONS · ITEM-LEVEL</span><small id="comparison-label">7 Tage · letzter Stand</small></div>
 <div class="rank-columns" aria-hidden="true"><span>RANG</span><span>DAEVA</span><span>ITEM-LEVEL</span><span id="rank-delta-heading">IL · 7 TAGE</span><span>PROFIL</span></div>
 <div class="roster" id="roster"></div>
