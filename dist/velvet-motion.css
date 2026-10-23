@@ -1,0 +1,63 @@
+/* Light moves around the artwork; portrait crops and card geometry stay untouched. */
+:root{--hero-motion-state:paused;--chronicle-motion-state:paused;--entrance-motion-state:running}
+
+/* A soft change in the existing velvet's light, with no moving background texture. */
+.world::before{
+  content:"";display:block;position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 48% 32%,#d2ba73 0%,transparent 54%);
+  opacity:.025;animation:velvet-breathe 18s ease-in-out infinite;
+  animation-play-state:var(--hero-motion-state);
+}
+@keyframes velvet-breathe{0%,100%{opacity:.025}50%{opacity:.075}}
+
+/* The mask restricts the reflection to a two-pixel frame, never over a face. */
+@supports ((mask-composite:exclude) or (-webkit-mask-composite:xor)){
+  .card-engraving::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;
+    background:linear-gradient(125deg,transparent 35%,#f6e4b64d 45%,#fff4d8b3 50%,#f6e4b64d 55%,transparent 65%);
+    background-size:300% 300%;background-position:100% 100%;opacity:0;
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+    animation:velvet-frame-light 14s ease-in-out infinite;
+    animation-play-state:var(--hero-motion-state);
+  }
+  .second .card-engraving::after{animation-delay:-4.5s}
+  .third .card-engraving::after{animation-delay:-9s}
+}
+@keyframes velvet-frame-light{
+  0%,65%,100%{background-position:100% 100%;opacity:0}
+  70%{opacity:.65}
+  88%{background-position:0% 0%;opacity:0}
+}
+
+/* A tiny highlight adds depth to each existing gemstone without moving its badge. */
+.gem-reflection::before{
+  content:"";position:absolute;left:22%;top:18%;width:25%;height:25%;
+  background:radial-gradient(ellipse at center,#fff8e9b3 0%,#fff8e933 20%,transparent 65%);
+  opacity:0;animation:velvet-gem-glow 12s ease-in-out infinite;
+  animation-play-state:var(--hero-motion-state);
+}
+.second .gem-reflection::before{animation-delay:-4s}
+.third .gem-reflection::before{animation-delay:-8s}
+@keyframes velvet-gem-glow{0%,66%,100%{opacity:0}77%{opacity:.55}87%{opacity:0}}
+
+/* Entrances run once per player and surface, not on each background data refresh. */
+.podium-card{animation:none}
+.podium-card.motion-arrive{animation:velvet-card-enter .85s cubic-bezier(.2,.65,.3,1) both;animation-play-state:var(--entrance-motion-state)}
+.podium-card.second.motion-arrive{animation-delay:.1s}
+.podium-card.third.motion-arrive{animation-delay:.2s}
+.rank-row.motion-arrive{animation:velvet-row-enter .6s ease-out both;animation-play-state:var(--entrance-motion-state)}
+@keyframes velvet-card-enter{from{opacity:.35;translate:0 8px}to{opacity:1;translate:0 0}}
+@keyframes velvet-row-enter{from{opacity:.45;translate:0 6px}to{opacity:1;translate:0 0}}
+
+.velvet-nav a{transition:color .25s ease,text-shadow .25s ease}
+.velvet-nav a:hover,.velvet-nav a:focus-visible{text-shadow:0 0 15px #e2c78355}
+@media(hover:hover) and (pointer:fine){
+  .rank-row{transition:background-color .25s ease}
+  .rank-row:hover{background-color:#c7ab5710}
+}
+@media(prefers-reduced-motion:reduce){
+  .world::before,.card-engraving::after,.gem-reflection::before{display:none}
+  .podium-card.motion-arrive,.rank-row.motion-arrive{animation:none!important}
+  .velvet-nav a,.rank-row{transition:none!important}
+}
