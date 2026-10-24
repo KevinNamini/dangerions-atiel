@@ -7,7 +7,6 @@ window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,p
   let start=null,suppressClick=false;
   const sign=v=>(v>0?'+':v<0?'−':'±')+n(Math.abs(v));
   const arrow='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
-  const turn='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8a8 8 0 1 0 1 8M19 3v5h-5"/></svg>';
   const seal='<svg viewBox="0 0 80 88" aria-hidden="true"><circle cx="40" cy="43" r="28"/><path d="M40 3v15m-6-7 6-8 6 8M35 25h10l-2 43-3 10-3-10ZM25 24h30M37 18h6v7M11 31C2 49 14 70 32 75M69 31c9 18-3 39-21 44M11 45l-7-6M13 54l-8-3M17 63l-8-1M24 70l-8 2M69 45l7-6M67 54l8-3M63 63l8-1M56 70l8 2"/></svg>';
   function card(p,i){
     const name=esc(p.name),open=flipped===p.name,d=change(p),series=points.get(p.name)||[];
@@ -18,13 +17,12 @@ window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,p
       <button class="album-face album-front" data-album-flip="${name}" aria-label="${name}: Karte wenden und Statistiken anzeigen" aria-expanded="${open}" aria-controls="album-back-${page*size+i}" ${open?'inert aria-hidden="true"':''}>
         ${art}<span class="album-art-shade"></span><span class="album-front-name">${name}</span><span class="album-foil" aria-hidden="true"></span><span class="album-frame" aria-hidden="true"></span>
       </button>
-      <div class="album-face album-back" id="album-back-${page*size+i}" ${!open?'inert aria-hidden="true"':''}>
+      <div class="album-face album-back" id="album-back-${page*size+i}" role="group" tabindex="-1" aria-label="${name}: Statistiken. Zum Zurückdrehen antippen oder Enter drücken." ${!open?'inert aria-hidden="true"':''}>
         <span class="album-frame" aria-hidden="true"></span><div class="album-back-content"><span class="album-seal">${seal}</span>
         <h4>${name}</h4><span class="album-class">${esc(p.className)} · ${p.level}</span>
         <strong class="album-value">${n(p.itemLevel)}</strong><span class="album-value-label">Item-Level</span>
         <button class="album-history" data-album-inspect="${name}" aria-label="Ausführlichen Verlauf von ${name} anzeigen"><span class="album-history-label"><span>${esc(periodLabel)}</span><strong>${d===null?'—':sign(d)}</strong></span>${chart(series)}<span class="album-dates">${series.length?`<span>${date(series[0].observedAt)}</span><span>${date(series.at(-1).observedAt)}</span>`:'<span>Kein Verlauf</span>'}</span></button>
-        <div class="album-back-footer"><a class="album-profile" href="https://siel.tools/eu/atiel/${encodeURIComponent(p.name)}" target="_blank" rel="noopener noreferrer" aria-label="Profil von ${name} auf Siel öffnen">Profil öffnen ${arrow}</a>
-        <button class="album-return" data-album-flip="${name}" aria-label="${name}: Porträt zeigen">${turn}</button></div>
+        <div class="album-back-footer"><a class="album-profile" href="https://siel.tools/eu/atiel/${encodeURIComponent(p.name)}" target="_blank" rel="noopener noreferrer" aria-label="Profil von ${name} auf Siel öffnen">Profil öffnen ${arrow}</a></div>
         </div>
       </div></div></div><span class="album-sleeve" aria-hidden="true"></span>
     </article>`;
@@ -47,7 +45,7 @@ window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,p
       front.inert=open;back.inert=!open;
       front.setAttribute('aria-hidden',String(open));back.setAttribute('aria-hidden',String(!open));
       front.setAttribute('aria-expanded',String(open));
-      if(focus&&pocket.dataset.albumName===name)(open?back.querySelector('[data-album-flip]'):front).focus({preventScroll:true});
+      if(focus&&pocket.dataset.albumName===name)(open?back:front).focus({preventScroll:true});
     });
   }
   function changePage(direction,focus){
@@ -66,6 +64,7 @@ window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,p
   };
   root.onkeydown=e=>{
     if(e.key==='Escape'&&flipped){e.preventDefault();sync(flipped);}
+    if((e.key==='Enter'||e.key===' ')&&flipped&&e.target.matches('.album-back')){e.preventDefault();sync(flipped);}
     if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();changePage(e.key==='ArrowRight'?1:-1,true);}
   };
   root.onpointerdown=e=>{suppressClick=false;if(e.pointerType==='touch')start={x:e.clientX,y:e.clientY};};
