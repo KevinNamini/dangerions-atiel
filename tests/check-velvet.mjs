@@ -2,12 +2,13 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 
-const source=fs.readFileSync(new URL('../dist/progress.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/chronicle.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');
+const source=fs.readFileSync(new URL('../dist/album.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/progress.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/chronicle.js',import.meta.url),'utf8')+';\n'+fs.readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');
 const original=JSON.parse(fs.readFileSync(new URL('../data/history.json',import.meta.url),'utf8'));
 class Element {
   constructor(dataset={}){this.dataset=dataset;this.innerHTML='';this.textContent='';this.style={};this.listeners={};this.attrs={};this.hidden=false;this.classes=new Set();this.classList={add:x=>this.classes.add(x),remove:x=>this.classes.delete(x),toggle:(x,v)=>v?this.classes.add(x):this.classes.delete(x)};}
   setAttribute(k,v){this.attrs[k]=v;}
   addEventListener(k,f){this.listeners[k]=f;}
+  querySelectorAll(){return [];}
   appendChild(){}
   showModal(){this.open=true;}
   close(){this.open=false;this.onclose?.({});}

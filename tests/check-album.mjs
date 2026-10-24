@@ -1,0 +1,32 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const window={};vm.runInNewContext(fs.readFileSync(new URL('../dist/album.js',import.meta.url),'utf8'),{window,Date,Math,Number,Array,encodeURIComponent});
+const data=JSON.parse(fs.readFileSync(new URL('../data/history.json',import.meta.url),'utf8'));
+const before=JSON.stringify(data),state={},selected=[];
+const root={innerHTML:'',querySelectorAll:()=>[],querySelector:()=>({focus(){}})};
+const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
+const args={root,players:data.players,state,n:v=>v.toLocaleString('de-DE'),esc,image:p=>`<span>${esc(p.name)}</span>`,points:new Map(data.players.map(p=>[p.name,[]])),chart:()=>'',change:()=>null,periodLabel:'7 Tage',onSelect:n=>selected.push(n),onInspect:()=>{}};
+const click=(type,value)=>root.onclick({target:{closest:selector=>selector===`[data-album-${type}]`?{dataset:{['album'+type[0].toUpperCase()+type.slice(1)]:value}}:null},preventDefault(){}});
+window.createDangerionsAlbum(args);
+const collected=[];
+for(let page=0;page<3;page++){
+ collected.push(...[...root.innerHTML.matchAll(/data-album-name="([^"]+)"/g)].map(m=>m[1]));
+ if(page<2)click('page','1');
+}
+assert.deepEqual(collected,data.players.map(p=>p.name),'Every player is reachable once across the three pages.');
+assert.match(root.innerHTML,/data-album-page="1"[^>]* disabled/);
+click('page','1');assert.equal(state.albumPage,2,'No page beyond the last.');
+const last=data.players.at(-1);click('flip',last.name);assert.equal(state.albumFlipped,last.name);assert.equal(selected.at(-1),last.name);
+window.createDangerionsAlbum(args);assert.match(root.innerHTML,/is-flipped/,'Live redraw preserves the open card.');
+assert.match(root.innerHTML,/Kein Verlauf/);assert.doesNotMatch(root.innerHTML,/NaN|undefined|Infinity/);
+root.onkeydown({key:'Escape',preventDefault(){}});assert.equal(state.albumFlipped,null);
+click('page','-1');assert.equal(state.albumPage,1);assert.equal(state.albumFlipped,null);
+root.onpointerdown({pointerType:'touch',clientX:200,clientY:300});root.onpointerup({clientX:300,clientY:305});assert.equal(state.albumPage,0,'Horizontal swipe returns to previous page.');
+root.onpointerdown({pointerType:'touch',clientX:200,clientY:300});root.onpointerup({clientX:120,clientY:420});assert.equal(state.albumPage,0,'Vertical scrolling does not turn pages.');
+const changed=structuredClone(data.players);changed[0].itemLevel=2345;
+window.createDangerionsAlbum({...args,players:changed});assert.match(root.innerHTML,/2\.345/,'Card readings follow refreshed data.');
+assert.equal(JSON.stringify(data),before,'Rendering and interaction must never mutate historical data.');
+const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.ok(html.indexOf('album.js')<html.indexOf('chronicle.js'));
+const css=fs.readFileSync(new URL('../dist/album.css',import.meta.url),'utf8');assert.match(css,/prefers-reduced-motion:reduce/);
+console.log('PASS: ten players, pagination limits, swipe versus vertical scroll, flip state across data refresh, Escape, live values, untouched history and reduced motion.');

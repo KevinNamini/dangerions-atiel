@@ -50,11 +50,15 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     const changes=[...previews.values()].flatMap(points=>points.map(v=>v.value-points[0].value));
     const low=Math.min(0,...changes),high=Math.max(0,...changes);
     const changeY=value=>high===low?28:44-(value-low)/(high-low)*34;
-    $('chart-select').innerHTML=progressPlayers.map(p=>{
-      const d=delta(p);
-      return `<button class="atlas-path ${selected===p.name?'active':''}" data-chart="${esc(p.name)}" style="--path-color:${p.color}" aria-pressed="${selected===p.name}" aria-controls="chart" aria-label="Verlauf von ${esc(p.name)} anzeigen. ${d===null?'Kein Vergleich':signed(d)+' Item-Level '+(progress.provisional?'seit Start':'in 7 Tagen')}"><span class="path-identity">${image(p)}<strong>${esc(p.name)}</strong><span class="path-selection" aria-hidden="true"></span></span><span class="path-preview">${miniChart(previews.get(p.name),changeY)}<strong class="path-gain ${d===null||d===0?'neutral':d<0?'down':'up'}">${d===null?'—':signed(d)}</strong></span></button>`;
-    }).join('');
+    window.createDangerionsAlbum({root:$('chart-select'),players:progressPlayers,state,selected,n,esc,image,
+      points:previews,chart:points=>miniChart(points,changeY),period,
+      change:p=>period==='7'?delta(p):(previews.get(p.name).length>1?previews.get(p.name).at(-1).value-previews.get(p.name)[0].value:null),
+      periodLabel:period==='7'?(progress.provisional?'seit Start':'7 Tage'):hourly()?(hourlyProgress.provisional?'seit Start':'24 h'):period==='all'?'Gesamt':'30 Tage',
+      onSelect:name=>{selected=name;state.selected=name;state.observation=null;state.inspection=false;renderFocus();},
+      onInspect:()=>{$('chart').scrollIntoView({block:'start',behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
+    });
   }
+
   function selectObservation(day,reveal=true){
     const point=activePoints.find(v=>v.id===day);
     if(!point)return;
@@ -131,20 +135,6 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
     document.querySelectorAll('[data-period]').forEach(b=>{if(b.dataset.period==='24h'){b.textContent=hourlyProgress.provisional?'Seit Start':'24 h';b.title=hourlyProgress.provisional?'Vorläufig: vorhandener Tagesstand und neue Stundenwerte':'Letzte 24 Stunden';}b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period));});
     renderPaths();renderFocus();
   }
-  $('chart-select').onclick=e=>{
-    const b=e.target.closest('[data-chart]');
-    if(!b||!players.some(p=>p.name===b.dataset.chart))return;
-    selected=b.dataset.chart;state.selected=selected;state.observation=null;state.inspection=false;
-    document.querySelectorAll('[data-chart]').forEach(c=>{
-      const active=c.dataset.chart===selected;
-      c.classList.toggle('active',active);c.setAttribute('aria-pressed',String(active));
-    });
-    renderFocus();
-    const focus=$('chart');
-    if(focus.getBoundingClientRect&&focus.getBoundingClientRect().top<0){
-      focus.scrollIntoView({block:'start',behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-    }
-  };
   $('chart').onclick=e=>{
     const b=e.target.closest('[data-observation]');if(b)selectObservation(b.dataset.observation);
   };
