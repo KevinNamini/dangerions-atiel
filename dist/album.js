@@ -1,6 +1,6 @@
 /* A real, paginated collection. Artwork is decorative; readings come from the chronicle. */
 'use strict';
-window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,points,chart,change,periodLabel,onSelect,onInspect}){
+window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,points,chart,change,periodLabel,onSelect}){
   const size=4,count=Math.max(1,Math.ceil(players.length/size));
   let page=Math.max(0,Math.min(count-1,Number(state.albumPage)||0));
   let flipped=players.some(p=>p.name===state.albumFlipped)?state.albumFlipped:null;
@@ -21,7 +21,7 @@ window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,p
         <span class="album-frame" aria-hidden="true"></span><div class="album-back-content"><span class="album-seal">${seal}</span>
         <h4>${name}</h4><span class="album-class">${esc(p.className)} · ${p.level}</span>
         <strong class="album-value">${n(p.itemLevel)}</strong><span class="album-value-label">Item-Level</span>
-        <button class="album-history" data-album-inspect="${name}" aria-label="Ausführlichen Verlauf von ${name} anzeigen"><span class="album-history-label"><span>${esc(periodLabel)}</span><strong>${d===null?'—':sign(d)}</strong></span>${chart(series)}<span class="album-dates">${series.length?`<span>${date(series[0].observedAt)}</span><span>${date(series.at(-1).observedAt)}</span>`:'<span>Kein Verlauf</span>'}</span></button>
+        <div class="album-history"><span class="album-history-label"><span>${esc(periodLabel)}</span><strong>${d===null?'—':sign(d)}</strong></span>${chart(series)}<span class="album-dates">${series.length?`<span>${date(series[0].observedAt)}</span><span>${date(series.at(-1).observedAt)}</span>`:'<span>Kein Verlauf</span>'}</span></div>
         <div class="album-back-footer"><a class="album-profile" href="https://siel.tools/eu/atiel/${encodeURIComponent(p.name)}" target="_blank" rel="noopener noreferrer" aria-label="Profil von ${name} auf Siel öffnen">Profil öffnen ${arrow}</a></div>
         </div>
       </div></div></div><span class="album-sleeve" aria-hidden="true"></span>
@@ -56,10 +56,9 @@ window.createDangerionsAlbum=function({root,players,state,selected,n,esc,image,p
   }
   root.onclick=e=>{
     if(suppressClick){suppressClick=false;e.preventDefault();return;}
-    const flip=e.target.closest('[data-album-flip]'),nav=e.target.closest('[data-album-page]'),inspect=e.target.closest('[data-album-inspect]');
+    const flip=e.target.closest('[data-album-flip]'),nav=e.target.closest('[data-album-page]');
     if(flip)sync(flip.dataset.albumFlip);
     else if(nav)changePage(Number(nav.dataset.albumPage),true);
-    else if(inspect){selected=inspect.dataset.albumInspect;onSelect(selected);onInspect();}
     else if(!e.target.closest('a,button')&&e.target.closest('.album-back'))sync(e.target.closest('[data-album-name]').dataset.albumName);
   };
   root.onkeydown=e=>{

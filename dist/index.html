@@ -9,7 +9,7 @@
 <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="alt-character.css">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chronicle.css"><link rel="stylesheet" href="rank-motion.css"><link rel="stylesheet" href="velvet.css?v=20261023-3"><link rel="stylesheet" href="crystal.css?v=20261023-3"><link rel="stylesheet" href="velvet-motion-v3.css"><link rel="stylesheet" href="roster-cards.css?v=20261024-list"><link rel="stylesheet" href="album.css?v=20261024-3"><script src="album.js?v=20261024-3" defer></script><script src="data.js" defer></script><script src="progress.js" defer></script><script src="chronicle.js?v=20261024-album2" defer></script><script src="portraits.js?v=20261023-5" defer></script><script src="app.js?v=20261024-portraits" defer></script><script src="hero-motion.js?v=20261024-1" defer></script>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="chronicle.css"><link rel="stylesheet" href="rank-motion.css"><link rel="stylesheet" href="velvet.css?v=20261023-3"><link rel="stylesheet" href="crystal.css?v=20261023-3"><link rel="stylesheet" href="velvet-motion-v3.css"><link rel="stylesheet" href="roster-cards.css?v=20261024-list"><link rel="stylesheet" href="album.css?v=20261024-4"><script src="album.js?v=20261024-4" defer></script><script src="data.js" defer></script><script src="progress.js" defer></script><script src="chronicle.js?v=20261024-album3" defer></script><script src="portraits.js?v=20261023-5" defer></script><script src="app.js?v=20261024-portraits" defer></script><script src="hero-motion.js?v=20261024-1" defer></script>
 </head>
 <body>
 <a class="skip" href="#rangliste">Zur Rangliste</a>
@@ -33,13 +33,9 @@
 <div class="ascension-atlas">
 <div class="atlas-paths-heading" id="legionsalbum"><span class="album-brand" aria-hidden="true">DANGERIONS</span><h2 id="chronicle-title">Die Legion</h2><span id="atlas-order-label">Zuwachs · 7 Tage</span></div>
 <div id="chart-select" class="atlas-paths" role="group" aria-label="Spieler-Sammelalbum"></div>
-<details class="album-statistics" id="album-statistics"><summary>Statistiken</summary><div id="chart" class="atlas-focus" aria-live="polite" aria-atomic="false"></div></details>
-<details class="atlas-footnote"><summary>Zeitraum &amp; Quellen</summary><div><div class="period-tabs" role="group" aria-label="Zeitraum"><button data-period="24h" aria-pressed="false">24 h</button><button class="active" data-period="7" aria-pressed="true">7 Tage</button><button data-period="30" aria-pressed="false">30 Tage</button><button data-period="all" aria-pressed="false">Alle</button></div><span id="days-tag"></span><p id="chart-note"></p></div></details>
 </div>
-<details class="chronicle-archive"><summary>Legionsbuch</summary>
-<aside class="chronicle-recap"><div class="daily-champion" id="daily-champion"></div><div class="atlas-pulse" id="atlas-pulse"></div><div class="archive-status"><span class="archive-icon" aria-hidden="true">◷</span><div><h3>Das Archiv wächst mit euch.</h3><p id="archive-status-text"></p></div></div></aside>
-<div class="chronicle-bottom"><div><p class="eyebrow">DAS LEGIONSBUCH</p><h3>Die letzten Kapitel</h3></div><div class="timeline" id="timeline"></div></div>
-</details>
+<!-- Retain internal render targets for the shared history calculations. -->
+<div hidden inert aria-hidden="true"><div id="chart"></div><span id="days-tag"></span><p id="chart-note"></p><div id="daily-champion"></div><div id="atlas-pulse"></div><p id="archive-status-text"></p><div id="timeline"></div></div>
 </div></section>
 <section class="legion-section wrap" id="legion" aria-labelledby="legion-title"><div class="legion-mark"><img src="assets/crest.svg" alt="Dangerions-Wappen"><span>EST. ATIEL</span></div><div class="legion-copy"><p class="eyebrow">03 / EIN BANNER. EINE LEGION.</p><h2 id="legion-title">Rivalen im Ranking.<br><em>Verbündete in Atreia.</em></h2><p>Vom ersten Flug bis zum nächsten Meilenstein: Wir steigen gemeinsam auf. Diese Halle gehört den Dangerions.</p><div class="guild-pills"><span>✦ Asmodier</span><span>⌖ Atiel · Europa</span><span>◇ <b id="roster-count">8</b> erfasste Daevas</span></div></div></section>
 </main>

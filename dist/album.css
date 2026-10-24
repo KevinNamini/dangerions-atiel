@@ -111,16 +111,7 @@ button.album-front{padding:0;cursor:pointer;text-align:center;color:#f4e5bf}
 @media(max-width:759px){.album-seal{flex-basis:13%}.album-back-content{padding-bottom:7%}.album-back-footer .album-profile{min-height:34px}.album-history .path-mini{height:34px}}
 @media(max-width:350px){.album-back-content{padding-bottom:7%}.album-history .path-mini{height:28px}.album-back-footer .album-profile{min-height:32px}.album-seal{display:none}}
 
-/* The collection follows the ranking; the detailed chart opens on demand. */
+/* The collection follows the ranking without additional expandable sections. */
 #legionsalbum{border-top:0;padding-top:32px}
-.album-statistics{margin:18px 24px 0;border-top:1px solid #bca46a26;scroll-margin-top:20px}
-.album-statistics>summary{display:flex;align-items:center;justify-content:center;gap:12px;min-height:52px;list-style:none;cursor:pointer;color:#b6ac8e;font:400 14px var(--display)}
-.album-statistics>summary::-webkit-details-marker{display:none}
-.album-statistics>summary:after{content:'+';font-size:22px;color:#bba16e}
-.album-statistics[open]>summary:after{content:'−'}
-.album-statistics .atlas-focus{scroll-margin-top:20px}
-.album-statistics>summary:focus-visible{outline:2px solid #ddc28a;outline-offset:3px}
-.atlas-footnote .period-tabs{display:flex;justify-content:center;flex-wrap:wrap;margin:0 auto 20px}
-@media(max-width:759px){.album-statistics{margin-inline:8px}}
 
 .album-back:focus-visible{outline:2px solid #f0d9a0;outline-offset:3px}
