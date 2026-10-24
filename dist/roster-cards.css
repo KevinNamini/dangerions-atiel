@@ -47,3 +47,23 @@
 
 /* Earlier portrait zoom rules must not escape the circular metal mounts. */
 .rank-avatar>.portrait.character-art,.rank-avatar>.portrait.official-portrait{transform:none;scale:1;translate:none;object-position:center 28%}
+
+/* One shared, proportional layout for every vitrine row. */
+.rank-section{container-type:inline-size}
+.rank-row,.rank-row.mine,.rank-row.leader{grid-template-columns:11% 25% 34% 5% 25%;column-gap:0;padding:7px 5% 7px 3%;min-height:clamp(64px,17cqw,150px);border-radius:12px}
+.rank-person{display:contents}
+.rank-position{width:72%;height:auto;aspect-ratio:4/5;justify-self:center;margin:0;gap:0;align-items:center}
+.rank-position .rank-num,.leader .rank-position .rank-num{display:grid;place-items:center;align-self:center;width:100%;height:100%;margin:0;padding:0;font:400 clamp(20px,5.4cqw,46px)/1 Georgia,serif;letter-spacing:-.5px;color:#eddfbe;-webkit-text-fill-color:#eddfbe;-webkit-text-stroke:0;text-shadow:0 1px 2px #000;transform:none;translate:none}
+.rank-avatar{justify-self:center;width:88%;height:auto;aspect-ratio:1;min-width:0;padding:2px;overflow:hidden;border-radius:50%;flex:none}
+.rank-avatar>.portrait{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px)}
+.rank-avatar>.portrait.character-art,.rank-avatar>.portrait.official-portrait{transform:scale(1.22);transform-origin:50% 25%;object-position:center 25%}
+.rank-name{align-self:center;margin:0;padding-left:6%;font:400 clamp(13px,4.1cqw,36px)/1.15 Georgia,serif;letter-spacing:-.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-il{justify-self:stretch;align-self:center;text-align:center;margin:0;padding:0;font:400 clamp(22px,6.2cqw,53px)/1 Georgia,serif;letter-spacing:-.7px;font-variant-numeric:lining-nums tabular-nums}
+.vitrine-divider{margin-block:15%;align-self:stretch;font-size:clamp(16px,3cqw,27px)}
+@media(max-width:720px){.rank-section{padding-inline:5px}.rank-row,.rank-row.mine,.rank-row.leader{padding-block:5px}.rank-position{border-radius:6px}.rank-name{font-size:4.05cqw}.rank-position::before,.rank-position::after{font-size:8px}}
+.rank-position{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.rank-name{font-size:clamp(15px,4.6cqw,40px)}
+.rank-il{font-size:clamp(24px,6.8cqw,58px)}
+@media(max-width:370px){.rank-name{font-size:4.45cqw;letter-spacing:-.5px}.rank-il{font-size:6.8cqw}}
+.rank-position{width:88%}
+.rank-section{max-width:860px}
