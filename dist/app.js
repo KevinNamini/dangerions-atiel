@@ -45,10 +45,10 @@ glyphs.sorcerer='<path d="m5 21 11-14M15 3l1 4 4 1-4 1-1 4-1-4-4-1 4-1 1-4ZM5 4v
 function icon(p){return `<svg class="class-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="${esc(p.color)}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${glyphs[p.classKey]||glyphs.gladiator}</svg>`;}
 // Portraits belong to characters, not podium slots. New leaders keep their own artwork.
 const portraitPanels={NaminiLee:0,JKLee:50,SurfingLee:100};
-const heroPortraits={Stecher:'Stecher-hero.webp',LordSanchez2:'LordSanchez2-hero.webp'};
+const heroPortraits={Stecher:'Stecher-hero.webp',LordSanchez2:'LordSanchez2-hero.webp',FumosLee:'FumosLee-hero.webp',BrouceLee:'BrouceLee-hero.webp',Roctopus:'Roctopus-hero.webp',Mocro:'Mocro-hero.webp',S7onedMonkey:'S7onedMonkey-hero.webp'};
 function image(p,cls='portrait'){
  if(Object.hasOwn(portraitPanels,p.name))return `<span class="${cls} hd-portrait" role="img" aria-label="${esc(p.name)} – Charakterillustration aus der Designvorlage" style="--portrait-x:${portraitPanels[p.name]}%"></span>`;
- if(Object.hasOwn(heroPortraits,p.name))return `<img class="${cls} character-art" src="assets/${heroPortraits[p.name]}" data-fallback="assets/${esc(p.name)}.png" alt="${esc(p.name)} – Illustration nach dem Charakterprofil" loading="lazy" decoding="async">`;
+ if(Object.hasOwn(heroPortraits,p.name))return `<img class="${cls} character-art" src="assets/${heroPortraits[p.name]}" data-fallback="${p.name==='Mocro'?esc(window.DANGERIONS_PORTRAITS?.Mocro||p.avatar):'assets/'+esc(p.name)+'.png'}" alt="${esc(p.name)} – Illustration nach dem Charakterprofil" loading="lazy" decoding="async">`;
  const src=p.name==='Mocro'?(window.DANGERIONS_PORTRAITS?.Mocro||p.avatar):`assets/${esc(p.name)}.png`;
  return `<img class="${cls} official-portrait" src="${esc(src)}" data-fallback="${esc(p.avatar)}" alt="${esc(p.name)} – Aion-Charakterporträt" loading="lazy" decoding="async">`;
 }

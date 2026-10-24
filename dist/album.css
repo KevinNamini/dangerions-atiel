@@ -1,7 +1,7 @@
 /* Scoped to the chronicle's player collection. The ranking and hero are untouched. */
 #legionsalbum{display:flex;flex-direction:column;gap:5px;padding:32px 0 26px;text-align:center;margin:0 24px;border-top-color:#bca46a35;scroll-margin-top:15px}
 #legionsalbum .album-brand{font:400 9px var(--display);letter-spacing:.5em;color:#d1bf91}
-#legionsalbum h3{font:400 clamp(30px,6vw,45px)/1.2 var(--display);color:#f0e2bf;letter-spacing:.02em}
+#legionsalbum h2{font:400 clamp(30px,6vw,45px)/1.2 var(--display);color:#f0e2bf;letter-spacing:.02em;margin:0}
 #legionsalbum #atlas-order-label{font:400 10px var(--display);letter-spacing:.05em;color:#a79f85;margin-top:5px}
 #legionsalbum:after{content:'◇';display:block;width:110px;margin-top:4px;color:#bdaa76;font-size:12px;background:linear-gradient(90deg,#bdaa7660,transparent 40%,transparent 60%,#bdaa7660) center/100% 1px no-repeat}
 .legion-album{--album-gold:#ddc28a;--path-color:#dabb77;position:relative;max-width:660px;margin:0 auto;padding:0 16px 14px;isolation:isolate;color:#ecdfbc;font-family:var(--display)}
@@ -23,10 +23,11 @@ button.album-front{padding:0;cursor:pointer;text-align:center;color:#f4e5bf}
 .album-frame{position:absolute;inset:-1px;z-index:3;background:url('assets/album-frame.webp') center/100% 100% no-repeat;pointer-events:none;opacity:.85;filter:saturate(.62)}
 .album-foil{position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(112deg,transparent 25%,#ffe9b508 35%,#fff7d82c 42%,transparent 50%);transform:translateX(-130%);animation:album-glint 13s ease-in-out infinite;animation-delay:calc(var(--card-index)*-2.3s);animation-play-state:var(--chronicle-motion-state,paused)}
 .album-sleeve{position:absolute;inset:9% 2px 2px;border-radius:2px 2px 7px 7px;border:1px solid #d2e0cf30;border-top-color:#edf0d94a;background:linear-gradient(119deg,#ffffff08 0%,#ffffff02 18%,transparent 24%,#ffffff07 86%,#dce2d51c 100%);box-shadow:inset 1px 0 1px #fff2,inset -2px -2px 2px #101b1680,1px 1px 1px #0005;z-index:5;pointer-events:none;clip-path:polygon(0 0,35% 0,38% 2%,42% 3%,58% 3%,62% 2%,65% 0,100% 0,100% 100%,0 100%);transition:opacity .4s}
-.album-pocket.is-flipped{z-index:8}
+.album-pocket.is-flipped{z-index:8;background:transparent;border-color:transparent;box-shadow:none}
 .album-pocket.is-flipped .album-lift{transform:translateY(-8%) rotate(-2deg);transition-delay:0s}
 .album-pocket.is-flipped .album-turn{transform:rotateY(180deg);transition-delay:.2s}
-.album-pocket.is-flipped .album-sleeve{opacity:.25;z-index:0}
+.album-pocket-seam{transition:opacity .25s}
+.album-pocket.is-flipped .album-sleeve,.album-pocket.is-flipped .album-pocket-seam{opacity:0;visibility:hidden}
 .album-back{transform:rotateY(180deg) translateZ(1px);background:radial-gradient(ellipse at 40% 30%,#173b2459,transparent 70%),#071d12 url('assets/album-leather.webp') 50%/360% 160%;text-align:center}
 .album-back-content{position:relative;display:flex;flex-direction:column;align-items:center;height:100%;padding:7% 9% 4%;z-index:4;box-sizing:border-box}
 .album-seal{display:block;flex:0 0 16%;min-height:0;color:#c6a662;opacity:.85}
@@ -111,3 +112,15 @@ button.album-front{padding:0;cursor:pointer;text-align:center;color:#f4e5bf}
 .album-back-content h4{max-width:100%}
 @media(max-width:759px){.album-seal{flex-basis:13%}.album-back-content{padding-bottom:7%}.album-back-footer .album-profile,.album-return{min-height:34px}.album-return{flex-basis:26px}.album-history .path-mini{height:34px}}
 @media(max-width:350px){.album-back-content{padding-bottom:7%}.album-history .path-mini{height:28px}.album-back-footer .album-profile,.album-return{min-height:32px}.album-seal{display:none}}
+
+/* The collection follows the ranking; the detailed chart opens on demand. */
+#legionsalbum{border-top:0;padding-top:32px}
+.album-statistics{margin:18px 24px 0;border-top:1px solid #bca46a26;scroll-margin-top:20px}
+.album-statistics>summary{display:flex;align-items:center;justify-content:center;gap:12px;min-height:52px;list-style:none;cursor:pointer;color:#b6ac8e;font:400 14px var(--display)}
+.album-statistics>summary::-webkit-details-marker{display:none}
+.album-statistics>summary:after{content:'+';font-size:22px;color:#bba16e}
+.album-statistics[open]>summary:after{content:'−'}
+.album-statistics .atlas-focus{scroll-margin-top:20px}
+.album-statistics>summary:focus-visible{outline:2px solid #ddc28a;outline-offset:3px}
+.atlas-footnote .period-tabs{display:flex;justify-content:center;flex-wrap:wrap;margin:0 auto 20px}
+@media(max-width:759px){.album-statistics{margin-inline:8px}}

@@ -52,7 +52,7 @@ assert.doesNotMatch(slowApp.el('roster').innerHTML,/>0[4-9]<\/span>/);
 console.log('PASS: tied players keep separate podium slots; saved roster renders before remote fetch completes; ranks have no leading zero.');
 
 // Hero art must remain attached to the same character through rank changes.
-for(const name of ['Stecher','LordSanchez2']){
+for(const name of ['Stecher','LordSanchez2','FumosLee','BrouceLee','Roctopus','Mocro','S7onedMonkey']){
  for(const place of [1,2,3]){
   const data=structuredClone(original);
   data.players.forEach((p,i)=>p.itemLevel=p.name===name?10000:1000+i);
@@ -65,5 +65,5 @@ for(const name of ['Stecher','LordSanchez2']){
 }
 const artApp=mount(original);await artApp.ready;
 assert.doesNotMatch(artApp.el('roster').innerHTML,/reference-crop/);
-for(const name of ['FumosLee','BrouceLee','S7onedMonkey','Roctopus'])assert.match(artApp.el('roster').innerHTML,new RegExp('assets/'+name+'\\.png'));
-console.log('PASS: Stecher and LordSanchez2 carry their own hero portraits into all three podium slots; lower rows use character assets.');
+for(const name of ['FumosLee','BrouceLee','S7onedMonkey','Roctopus','Mocro'])assert.match(artApp.el('roster').innerHTML,new RegExp('src="assets/'+name+'-hero\\.webp"')); 
+console.log('PASS: All seven individually illustrated players carry their own portraits into all three podium slots and ranking thumbnails.');

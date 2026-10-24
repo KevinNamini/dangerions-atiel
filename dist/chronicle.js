@@ -55,7 +55,7 @@ window.createDangerionsChronicle = function ({data,players,history,currentDay,ra
       change:p=>period==='7'?delta(p):(previews.get(p.name).length>1?previews.get(p.name).at(-1).value-previews.get(p.name)[0].value:null),
       periodLabel:period==='7'?(progress.provisional?'seit Start':'7 Tage'):hourly()?(hourlyProgress.provisional?'seit Start':'24 h'):period==='all'?'Gesamt':'30 Tage',
       onSelect:name=>{selected=name;state.selected=name;state.observation=null;state.inspection=false;renderFocus();},
-      onInspect:()=>{$('chart').scrollIntoView({block:'start',behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
+      onInspect:()=>{$('album-statistics').open=true;$('chart').scrollIntoView({block:'start',behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
     });
   }
 
