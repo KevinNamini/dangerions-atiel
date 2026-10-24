@@ -1,5 +1,49 @@
-/* Restore the original continuous list beneath the podium. */
-.rank-section{padding-top:24px}
-/* Keep the section label accessible without a second visible ranking heading. */
+/* The quiet velvet showcase below the three original podium cards. */
+.rank-section{position:relative;width:min(960px,94%);padding:34px 14px 30px;isolation:isolate}
 .rank-section>.section-top{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-@media(max-width:720px){.rank-section{padding-top:17px}}
+.rank-section::before{content:'';position:absolute;inset:19px 0 12px;z-index:-1;pointer-events:none;border:1px solid #bca16b55;border-radius:26px;background:linear-gradient(115deg,#04180f99,#061a13aa 50%,#001108a6),url('assets/velvet-stage.webp') center 78%/cover;box-shadow:inset 0 0 0 4px #03120b,inset 0 0 0 5px #b9a16a33,0 15px 35px #0005}
+.roster{display:grid;gap:7px;border:0;padding:0;margin:0}
+.rank-row,.rank-row.mine,.rank-row.leader{display:grid;grid-template-columns:54px minmax(0,1fr) 22px 124px;gap:16px;min-height:108px;padding:8px 28px 8px 15px;border:0;border-radius:18px;background:#03160f url('assets/vitrine-panel.webp') center/100% 140% no-repeat;box-shadow:0 5px 8px #0006;align-items:center;overflow:visible;transition:filter .25s,box-shadow .25s;translate:none}
+.rank-row.on-podium{display:none}
+.rank-row:hover{background:#03160f url('assets/vitrine-panel.webp') center/100% 140% no-repeat;filter:brightness(1.1);translate:none;transform:none;box-shadow:0 7px 12px #0008}
+.rank-row:focus-visible{outline:2px solid #e2ca95;outline-offset:4px}
+.rank-row::before,.rank-row::after{display:none!important}
+.rank-position{display:grid;place-items:center;height:58px;align-self:center;position:relative;border:1px solid #ab8b4c;border-radius:11px;background:linear-gradient(125deg,#71613b33,#07180f 26%,#06130d 70%,#af92592a);box-shadow:inset 0 0 0 3px #03130c,inset 0 0 0 4px #ac8e4f63,0 2px 6px #0008}
+.rank-position::before,.rank-position::after{content:'◇';position:absolute;left:50%;transform:translateX(-50%);font:14px/1 Georgia,serif;color:#c5a162;text-shadow:0 1px 2px #000;background:#07170f}
+.rank-position::before{top:-6px}.rank-position::after{bottom:-6px}
+.rank-position .rank-num,.leader .rank-position .rank-num{font:400 35px/1 Georgia,serif;color:#ecdfbf;text-align:center;letter-spacing:-1px;font-variant-numeric:lining-nums tabular-nums}
+.rank-person{display:flex;gap:28px;align-items:center;min-width:0}
+.rank-avatar{position:relative;flex:0 0 90px;width:90px;height:90px;padding:4px;overflow:visible;border:1px solid #eed49a;border-radius:50%;background:linear-gradient(125deg,#d9b465,#554222 22%,#f2d491 45%,#6f512b 65%,#dbc18a);box-shadow:0 3px 8px #000a,inset 0 0 0 1px #6a4d26,0 0 0 2px #091b10}
+.rank-avatar::after{content:'';position:absolute;inset:2px;border:1px solid #dfc08099;border-radius:50%;pointer-events:none;box-shadow:inset 0 0 5px #f6d58d40}
+.rank-avatar>.portrait{display:block;width:100%;height:100%;padding:0;border:0;border-radius:50%;object-fit:cover;object-position:center 28%;background-color:#092015}
+.rank-name{font:400 clamp(22px,3.3vw,37px)/1.12 Georgia,serif;color:#ede3cc;letter-spacing:-.65px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 4px #0008}
+.vitrine-divider{position:relative;display:grid;place-items:center;align-self:stretch;margin-block:17px;color:#bca16a;font:25px/1 Georgia,serif;text-shadow:0 1px 4px #000}
+.vitrine-divider::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(transparent,#ac91555c 25% 38%,transparent 42% 58%,#ac91555c 62% 75%,transparent)}
+.rank-il{font:400 43px/1 Georgia,serif;color:#f0e5cd;text-align:right;letter-spacing:-1px;min-width:0;font-variant-numeric:lining-nums tabular-nums;text-shadow:0 2px 4px #0008}
+.podium .podium-gain,.rank-row .delta,.rank-row .rank-move{display:none!important}
+@media(max-width:720px){
+.rank-section{width:94%;padding:24px 7px 20px}
+.rank-section::before{inset:16px 0 8px;border-radius:15px;box-shadow:inset 0 0 0 2px #03120b,inset 0 0 0 3px #b9a16a33,0 10px 22px #0005}
+.roster{gap:5px}
+.rank-row,.rank-row.mine,.rank-row.leader{grid-template-columns:28px minmax(0,1fr) 10px 59px;column-gap:9px;min-height:66px;padding:5px 13px 5px 8px;border-radius:11px}
+.rank-position{height:33px;border-radius:7px;box-shadow:inset 0 0 0 2px #03130c,inset 0 0 0 3px #ac8e4f63,0 2px 4px #0008}
+.rank-position .rank-num,.leader .rank-position .rank-num{font-size:22px;letter-spacing:-.5px}
+.rank-position::before,.rank-position::after{font-size:9px}.rank-position::before{top:-4px}.rank-position::after{bottom:-4px}
+.rank-person{gap:11px}
+.rank-avatar{flex-basis:50px;width:50px;height:50px;padding:2px}
+.rank-avatar::after{inset:1px}
+.rank-name{font-size:clamp(14px,4.05vw,25px);letter-spacing:-.35px}
+.rank-il{font-size:clamp(23px,6.4vw,38px);letter-spacing:-.7px}
+.vitrine-divider{font-size:17px;margin-block:10px}
+}
+@media(max-width:370px){
+.rank-row,.rank-row.mine,.rank-row.leader{grid-template-columns:24px minmax(0,1fr) 7px 53px;column-gap:6px;padding-inline:7px 11px;min-height:60px}
+.rank-position{height:30px}.rank-position .rank-num,.leader .rank-position .rank-num{font-size:20px}
+.rank-person{gap:7px}.rank-avatar{flex-basis:42px;width:42px;height:42px}.rank-name{font-size:13.5px;letter-spacing:-.4px}.rank-il{font-size:23px}
+}
+@media(prefers-reduced-motion:reduce){.rank-row,.rank-row:hover{transition:none;translate:none;transform:none}}
+
+.rank-avatar>.vitrine-duo{background-image:url('assets/album-duo.webp');background-size:300% auto;background-position:var(--vitrine-portrait) 20%;background-repeat:no-repeat}
+
+/* Earlier portrait zoom rules must not escape the circular metal mounts. */
+.rank-avatar>.portrait.character-art,.rank-avatar>.portrait.official-portrait{transform:none;scale:1;translate:none;object-position:center 28%}

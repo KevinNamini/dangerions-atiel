@@ -67,3 +67,9 @@ const artApp=mount(original);await artApp.ready;
 assert.doesNotMatch(artApp.el('roster').innerHTML,/reference-crop/);
 for(const name of ['FumosLee','BrouceLee','S7onedMonkey','Roctopus','Mocro'])assert.match(artApp.el('roster').innerHTML,new RegExp('src="assets/'+name+'-hero\\.webp"')); 
 console.log('PASS: All seven individually illustrated players carry their own portraits into all three podium slots and ranking thumbnails.');
+
+// Ranking readings stay concise; growth is reserved for the album backs.
+assert.doesNotMatch(artApp.el('podium').innerHTML,/podium-gain/);
+assert.doesNotMatch(artApp.el('roster').innerHTML,/class="delta|rank-move|bis zum Vordermann/);
+assert.match(artApp.el('chart-select').innerHTML,/album-history-label[^]*?\+1/);
+console.log('PASS: podium and ranking omit growth; album retains real growth readings.');
