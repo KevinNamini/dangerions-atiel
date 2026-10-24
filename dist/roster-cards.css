@@ -1,52 +1,56 @@
-/* A quiet second pair in the collection. Sorted slots, never fixed identities. */
-#roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:26px;border-top:0}
+/* Secondary character cameos: one continuous ranking beneath the podium. */
+.rank-section{padding-top:24px}
+.rank-section>.section-top{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px;border-top:0}
 #roster>.rank-row{grid-column:1/-1}
-#roster>.rank-row:nth-child(4),#roster>.rank-row:nth-child(5){
- position:relative;isolation:isolate;grid-column:auto;display:flex;flex-wrap:wrap;align-items:center;align-content:flex-start;justify-content:center;
- width:100%;max-width:300px;min-height:0;gap:0;padding:7px 7px 17px;margin:4px 0 30px;
- border:1px solid #9e976b90;border-radius:9px;background:radial-gradient(ellipse at 50% 95%,#263a2540,transparent 70%),linear-gradient(145deg,#1b2b20,#071c13 65%);
- box-shadow:0 14px 28px #0005,inset 0 0 0 2px #081910,inset 0 0 0 3px #afa47836;
- overflow:hidden;transition:border-color .3s,box-shadow .3s,translate .4s;
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)){
+ position:relative;isolation:isolate;grid-column:auto;display:grid;
+ grid-template-columns:76px minmax(0,1fr);grid-template-rows:19px 30px 20px auto;
+ width:100%;max-width:232px;min-height:0;column-gap:14px;row-gap:0;padding:10px 13px 10px 10px;margin:0 0 24px;
+ border:1px solid #9e976b60;border-radius:7px;
+ background:radial-gradient(ellipse at 10% 10%,#50604426,transparent 75%),linear-gradient(135deg,#14271d,#081b13);
+ box-shadow:0 6px 16px #0003,inset 0 1px 0 #ded0a414;
+ transition:border-color .3s,box-shadow .3s,translate .3s;
 }
 #roster>.rank-row:nth-child(4){justify-self:end}
 #roster>.rank-row:nth-child(5){justify-self:start}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5))::after{content:"";position:absolute;inset:5px;border:1px solid #c3b58a38;border-radius:5px;pointer-events:none;z-index:3;background:linear-gradient(135deg,#f3e1ae16,transparent 30%,transparent 75%,#d6c38b0a)}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-position{position:absolute;left:17px;top:17px;z-index:4;width:32px;height:38px;border:1px solid #c7b88a80;border-radius:3px 3px 10px 10px;background:linear-gradient(150deg,#26352ae8,#07170ff5);box-shadow:0 3px 9px #0006,inset 0 1px #e9d9ad30}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-num{font-size:22px;color:#d9d0ad}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5))::after{content:"";position:absolute;inset:3px;border:1px solid #c3b58a12;border-radius:4px;pointer-events:none}
 #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-person{display:contents}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar{position:relative;width:100%;height:auto;aspect-ratio:1/.92;flex:0 0 100%;margin:0 0 12px;border:0;border-bottom:1px solid #a6986d66;border-radius:4px 4px 0 0;box-shadow:none}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#091b1370,transparent 28%),linear-gradient(90deg,#06160c25,transparent 30%,transparent 75%,#06160c25)}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .portrait{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 33%;border-radius:3px 3px 0 0;transition:scale .7s ease}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-person>div:last-child{flex:0 0 100%;min-width:0;text-align:center;padding:0 4px}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font:400 25px/1.2 Georgia,serif;letter-spacing:-.5px;white-space:nowrap;overflow-wrap:normal}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-meta{justify-content:center;font-size:12px;letter-spacing:.2px;margin:6px 0 12px;color:#9da992}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font:400 34px/1 Georgia,serif;letter-spacing:-.7px;min-width:0;text-align:center;font-variant-numeric:lining-nums tabular-nums}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta{font:400 13px/1 Georgia,serif;min-width:0;margin-left:12px;align-self:flex-end;padding-bottom:3px;color:#aec49b}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar{grid-column:1;grid-row:1/4;width:76px;height:76px;align-self:center;margin:0;border:1px solid #b2a78166;border-radius:5px;box-shadow:0 3px 8px #0005;overflow:hidden}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .portrait{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 29%;border-radius:4px;transition:scale .5s ease}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-position{grid-column:2;grid-row:1;display:block;align-self:start;text-align:right;height:auto;width:auto}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-num{font:400 15px/1 Georgia,serif;text-align:right;color:#a8b09a}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-num::before{content:"— ";color:#777f6666;font-size:12px}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-person>div:last-child{grid-column:1/-1;grid-row:4;min-width:0;text-align:center;padding-top:12px}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font:400 19px/1.2 Georgia,serif;letter-spacing:-.3px;white-space:nowrap;overflow-wrap:normal}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-meta{display:none}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{grid-column:2;grid-row:2;align-self:center;font:400 29px/1 Georgia,serif;letter-spacing:-.6px;min-width:0;text-align:right;font-variant-numeric:lining-nums tabular-nums}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta{grid-column:2;grid-row:3;align-self:end;font:400 11px/1 Georgia,serif;min-width:0;margin:0;padding:0;text-align:right;color:#a8be97}
 #roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta.down{color:#d39483}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta.neutral{display:none}
-#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .alt-character{font-size:10px;line-height:1.2;margin:4px 0 12px}
-#roster>.rank-row:nth-child(6){border-top:1px solid #c4b58d55}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .alt-character{font-size:9px;margin:3px 0 0}
+#roster>.rank-row:nth-child(6){border-top:1px solid #c4b58d40}
 #roster>.rank-row:focus-visible{outline:2px solid #d8c18c;outline-offset:4px}
 @media(hover:hover) and (pointer:fine){
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover{translate:0 -3px;border-color:#cbb985;box-shadow:0 18px 30px #0006,inset 0 0 0 2px #081910,inset 0 0 0 3px #afa47860}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover .portrait{scale:1.035}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover{translate:0 -2px;border-color:#b0a378;box-shadow:0 8px 18px #0005,inset 0 1px 0 #ded0a426}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover .portrait{scale:1.025}
 }
 @media(max-width:720px){
- #roster{column-gap:14px}
- #roster>.rank-row:nth-child(4),#roster>.rank-row:nth-child(5){padding:5px 5px 12px;margin:2px 0 22px;border-radius:7px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5))::after{inset:3px;border-radius:4px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar{aspect-ratio:1/1.02;margin-bottom:9px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-position{left:11px;top:11px;width:24px;height:28px;border-radius:2px 2px 7px 7px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-num{font-size:16px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font-size:clamp(16px,4.1vw,23px);letter-spacing:-.5px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-meta{font-size:10px;margin:4px 0 9px;letter-spacing:0}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font-size:28px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta{font-size:10px;margin-left:8px;padding-bottom:3px}
+ .rank-section{padding-top:17px}
+ #roster{column-gap:12px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)){grid-template-columns:56px minmax(0,1fr);grid-template-rows:15px 27px 16px;column-gap:8px;padding:9px 10px 9px 9px;margin-bottom:18px;border-radius:6px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar{width:56px;height:62px;border-radius:4px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-num{font-size:12px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-person>div:last-child{padding-top:10px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font-size:15px;letter-spacing:-.25px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font-size:24px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta{font-size:10px}
 }
 @media(max-width:370px){
- #roster{column-gap:10px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font-size:16px;letter-spacing:-.6px}
- #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font-size:25px}
+ #roster{column-gap:9px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)){grid-template-columns:48px minmax(0,1fr);column-gap:6px;padding:8px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar{width:48px;height:58px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font-size:14px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){
  #roster>.rank-row:is(:nth-child(4),:nth-child(5)),#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .portrait{transition:none!important}

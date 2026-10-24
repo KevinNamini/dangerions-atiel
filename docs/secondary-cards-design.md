@@ -13,3 +13,7 @@ The user now explicitly wants Stecher and LordSanchez2 presented side by side as
 Style sorted slots four and five as a pair. Artwork remains bound to each character, so promotion to the podium works without replacing images or hardcoding names. Preserve the approved hero and existing animation system. Use the existing high-resolution female Stecher and armored LordSanchez2 art, with better space and framing rather than changing their identities. No medals for these cards: a small engraved rank label distinguishes them from the top three.
 
 Keep remaining players in aligned compact rows. Check 320px, 390px and desktop, readable names and values, image crops, profile interaction, and dynamic rank changes. Reduced-motion preferences remain respected.
+
+## Mobile hierarchy revision
+
+The large paired cards competed with the podium on phones. Replace them with two low character cameos: portrait at left, discreet rank and score at right, name beneath. Mobile height is approximately 103–106px; desktop height approximately 126px. Remove the visible intermediate heading and period label, retaining the accessible section name. The sequence now reads as one ranking. The top three retain their large artwork, medals, and animations; all lower rows stay compact. Verified 320px and 390px layouts without horizontal overflow.
