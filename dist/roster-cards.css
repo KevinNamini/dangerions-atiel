@@ -1,63 +1,55 @@
-/* Character folios for sorted positions 4–8; the approved hero stays untouched. */
-#roster{border-top:0}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8){
- position:relative;isolation:isolate;display:grid;
- grid-template-columns:32px minmax(0,1fr) 116px;grid-template-rows:1fr 1fr;
- column-gap:20px;row-gap:6px;min-height:122px;padding:14px 22px 14px 12px;
- margin-bottom:12px;border:1px solid #b9bc9426;border-radius:10px;
- background:radial-gradient(ellipse at 95% 45%,color-mix(in srgb,var(--class-color) 10%,transparent),transparent 65%),linear-gradient(110deg,#10271d,#061a13 62%,#0b2118);
- box-shadow:0 5px 15px #0003,inset 0 1px 0 #e2d4a60a;
- overflow:hidden;transition:border-color .3s ease,box-shadow .3s ease,translate .3s ease,scale .25s ease;
+/* A quiet second pair in the collection. Sorted slots, never fixed identities. */
+#roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:26px;border-top:0}
+#roster>.rank-row{grid-column:1/-1}
+#roster>.rank-row:nth-child(4),#roster>.rank-row:nth-child(5){
+ position:relative;isolation:isolate;grid-column:auto;display:flex;flex-wrap:wrap;align-items:center;align-content:flex-start;justify-content:center;
+ width:100%;max-width:300px;min-height:0;gap:0;padding:7px 7px 17px;margin:4px 0 30px;
+ border:1px solid #9e976b90;border-radius:9px;background:radial-gradient(ellipse at 50% 95%,#263a2540,transparent 70%),linear-gradient(145deg,#1b2b20,#071c13 65%);
+ box-shadow:0 14px 28px #0005,inset 0 0 0 2px #081910,inset 0 0 0 3px #afa47836;
+ overflow:hidden;transition:border-color .3s,box-shadow .3s,translate .4s;
 }
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8)::after{
- content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
- background:linear-gradient(var(--class-color),var(--class-color)) left center/2px 42% no-repeat;
- opacity:.38;
-}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-position{grid-column:1;grid-row:1/3;align-self:stretch}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-num{font-size:23px;color:#acb5a1}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-person{grid-column:2;grid-row:1/3;gap:20px;min-width:0}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-avatar{
- width:76px;height:92px;flex:0 0 76px;border-radius:7px;border:1px solid #c6b68a75;
- box-shadow:0 3px 9px #0008,0 0 0 3px #07160f;
-}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-name{font-size:27px;letter-spacing:-.5px;line-height:1.2}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-meta{font-size:15px;margin-top:8px;color:#a5b09a}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-il{
- grid-column:3;grid-row:1;align-self:end;justify-self:end;font-size:36px;line-height:1;letter-spacing:-.7px;
- font-variant-numeric:lining-nums tabular-nums;
-}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8)>.delta{
- grid-column:3;grid-row:2;align-self:start;justify-self:end;font-size:15px;line-height:1.2;min-width:0;
- font-variant-numeric:lining-nums tabular-nums;
-}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8):has(>.delta.neutral) .rank-il{grid-row:1/3;align-self:center}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8) .alt-character{font-size:13px;line-height:1.3;margin-top:8px;letter-spacing:0}
-#roster>.rank-row:nth-child(8){margin-bottom:22px}
-#roster>.rank-row:nth-child(n+4):nth-child(-n+8):focus-visible{outline:2px solid #d8c18c;outline-offset:3px}
+#roster>.rank-row:nth-child(4){justify-self:end}
+#roster>.rank-row:nth-child(5){justify-self:start}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5))::after{content:"";position:absolute;inset:5px;border:1px solid #c3b58a38;border-radius:5px;pointer-events:none;z-index:3;background:linear-gradient(135deg,#f3e1ae16,transparent 30%,transparent 75%,#d6c38b0a)}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-position{position:absolute;left:17px;top:17px;z-index:4;width:32px;height:38px;border:1px solid #c7b88a80;border-radius:3px 3px 10px 10px;background:linear-gradient(150deg,#26352ae8,#07170ff5);box-shadow:0 3px 9px #0006,inset 0 1px #e9d9ad30}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-num{font-size:22px;color:#d9d0ad}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-person{display:contents}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar{position:relative;width:100%;height:auto;aspect-ratio:1/.92;flex:0 0 100%;margin:0 0 12px;border:0;border-bottom:1px solid #a6986d66;border-radius:4px 4px 0 0;box-shadow:none}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#091b1370,transparent 28%),linear-gradient(90deg,#06160c25,transparent 30%,transparent 75%,#06160c25)}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .portrait{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 33%;border-radius:3px 3px 0 0;transition:scale .7s ease}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-person>div:last-child{flex:0 0 100%;min-width:0;text-align:center;padding:0 4px}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font:400 25px/1.2 Georgia,serif;letter-spacing:-.5px;white-space:nowrap;overflow-wrap:normal}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-meta{justify-content:center;font-size:12px;letter-spacing:.2px;margin:6px 0 12px;color:#9da992}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font:400 34px/1 Georgia,serif;letter-spacing:-.7px;min-width:0;text-align:center;font-variant-numeric:lining-nums tabular-nums}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta{font:400 13px/1 Georgia,serif;min-width:0;margin-left:12px;align-self:flex-end;padding-bottom:3px;color:#aec49b}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta.down{color:#d39483}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta.neutral{display:none}
+#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .alt-character{font-size:10px;line-height:1.2;margin:4px 0 12px}
+#roster>.rank-row:nth-child(6){border-top:1px solid #c4b58d55}
+#roster>.rank-row:focus-visible{outline:2px solid #d8c18c;outline-offset:4px}
 @media(hover:hover) and (pointer:fine){
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8):hover{translate:0 -2px;border-color:color-mix(in srgb,var(--class-color) 40%,#b9bc94);box-shadow:0 8px 20px #0005,inset 0 1px 0 #e2d4a612}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover{translate:0 -3px;border-color:#cbb985;box-shadow:0 18px 30px #0006,inset 0 0 0 2px #081910,inset 0 0 0 3px #afa47860}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover .portrait{scale:1.035}
 }
 @media(max-width:720px){
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8){grid-template-columns:19px minmax(0,1fr) 64px;column-gap:10px;row-gap:5px;min-height:96px;padding:10px 12px 10px 6px;margin-bottom:9px;border-radius:8px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-num{font-size:17px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-person{gap:12px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-avatar{width:55px;height:74px;flex-basis:55px;border-radius:5px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-name{font-size:16px;letter-spacing:-.35px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-meta{font-size:10px;margin-top:6px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-il{font-size:26px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8)>.delta{font-size:11px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .alt-character{font-size:9px;margin-top:6px;white-space:normal;max-width:110px}
- #roster>.rank-row:nth-child(8){margin-bottom:18px}
+ #roster{column-gap:14px}
+ #roster>.rank-row:nth-child(4),#roster>.rank-row:nth-child(5){padding:5px 5px 12px;margin:2px 0 22px;border-radius:7px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5))::after{inset:3px;border-radius:4px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-avatar{aspect-ratio:1/1.02;margin-bottom:9px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-position{left:11px;top:11px;width:24px;height:28px;border-radius:2px 2px 7px 7px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-num{font-size:16px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font-size:clamp(16px,4.1vw,23px);letter-spacing:-.5px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-meta{font-size:10px;margin:4px 0 9px;letter-spacing:0}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font-size:28px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5))>.delta{font-size:10px;margin-left:8px;padding-bottom:3px}
 }
 @media(max-width:370px){
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8){grid-template-columns:17px minmax(0,1fr) 57px;column-gap:8px;padding-right:9px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-person{gap:9px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-avatar{width:47px;height:68px;flex-basis:47px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-name{font-size:14px}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8) .rank-il{font-size:24px}
+ #roster{column-gap:10px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-name{font-size:16px;letter-spacing:-.6px}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)) .rank-il{font-size:25px}
 }
 @media(prefers-reduced-motion:reduce){
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8){transition:none!important}
- #roster>.rank-row:nth-child(n+4):nth-child(-n+8):hover{translate:0 0}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)),#roster>.rank-row:is(:nth-child(4),:nth-child(5)) .portrait{transition:none!important}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover{translate:0 0}
+ #roster>.rank-row:is(:nth-child(4),:nth-child(5)):hover .portrait{scale:1}
 }
