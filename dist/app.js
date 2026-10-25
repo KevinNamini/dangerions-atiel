@@ -38,7 +38,7 @@ function icon(p){return `<svg class="class-icon" viewBox="0 0 24 24" aria-hidden
 const portraitPanels={NaminiLee:0,JKLee:50,SurfingLee:100};
 const heroPortraits={Stecher:'Stecher-hero.webp',LordSanchez2:'LordSanchez2-hero.webp',FumosLee:'FumosLee-hero.webp',BrouceLee:'BrouceLee-hero.webp',Roctopus:'Roctopus-hero.webp',Mocro:'Mocro-hero.webp',S7onedMonkey:'S7onedMonkey-hero.webp'};
 function image(p,cls='portrait'){
- if(p.name==='Stecher')return `<span class="${cls} album-duo" role="img" aria-label="Stecher – Charakterillustration aus dem Album" style="background-image:url('assets/album-duo.webp');background-size:200% 100%;background-position:left center;background-repeat:no-repeat"></span>`;
+ if(p.name==='Stecher')return `<svg class="${cls} album-portrait" role="img" aria-label="Stecher – Charakterillustration aus dem Album" viewBox="0 0 724 1086" preserveAspectRatio="xMidYMid slice" style="overflow:hidden"><image href="assets/album-duo.webp" width="1448" height="1086"/></svg>`;
  if(Object.hasOwn(portraitPanels,p.name))return `<span class="${cls} hd-portrait" role="img" aria-label="${esc(p.name)} – Charakterillustration aus der Designvorlage" style="--portrait-x:${portraitPanels[p.name]}%"></span>`;
  if(Object.hasOwn(heroPortraits,p.name))return `<img class="${cls} character-art" src="assets/${heroPortraits[p.name]}" data-fallback="${p.name==='Mocro'?esc(window.DANGERIONS_PORTRAITS?.Mocro||p.avatar):'assets/'+esc(p.name)+'.png'}" alt="${esc(p.name)} – Illustration nach dem Charakterprofil" loading="lazy" decoding="async">`;
  const src=p.name==='Mocro'?(window.DANGERIONS_PORTRAITS?.Mocro||p.avatar):`assets/${esc(p.name)}.png`;
