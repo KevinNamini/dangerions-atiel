@@ -3,33 +3,16 @@ window.DANGERIONS_DATA = {
   "server": "Atiel",
   "region": "Europa",
   "faction": "Asmodier",
-  "updatedAt": "2026-10-27T16:05:46.628490+00:00",
+  "updatedAt": "2026-10-28T07:26:52.751902+00:00",
   "scheduleEnabled": true,
   "players": [
-    {
-      "name": "NaminiLee",
-      "classKey": "gladiator",
-      "className": "Gladiator",
-      "level": 45,
-      "itemLevel": 2105,
-      "combatPower": 97816,
-      "guild": "Dangerions",
-      "server": "Atiel",
-      "color": "#f0ce8c",
-      "avatar": "assets/NaminiLee.png",
-      "avatarType": "portrait",
-      "title": "Through Hell and Back",
-      "url": "https://siel.tools/eu/atiel/NaminiLee",
-      "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
-      "observedAt": "2026-10-27T16:04:26.524536+00:00"
-    },
     {
       "name": "JKLee",
       "classKey": "ranger",
       "className": "Waldläufer",
       "level": 45,
-      "itemLevel": 2080,
-      "combatPower": 107808,
+      "itemLevel": 2114,
+      "combatPower": 112036,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#a9d6b3",
@@ -38,7 +21,24 @@ window.DANGERIONS_DATA = {
       "title": "Through Hell and Back",
       "url": "https://siel.tools/eu/atiel/JKLee",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izU0jxC3X6ResHxCMbZDrKQ%3D?region=eu",
-      "observedAt": "2026-10-27T16:04:26.584880+00:00"
+      "observedAt": "2026-10-28T07:26:00.162884+00:00"
+    },
+    {
+      "name": "NaminiLee",
+      "classKey": "gladiator",
+      "className": "Gladiator",
+      "level": 45,
+      "itemLevel": 2106,
+      "combatPower": 98391,
+      "guild": "Dangerions",
+      "server": "Atiel",
+      "color": "#f0ce8c",
+      "avatar": "assets/NaminiLee.png",
+      "avatarType": "portrait",
+      "title": "Through Hell and Back",
+      "url": "https://siel.tools/eu/atiel/NaminiLee",
+      "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-iy9LePA9vMKe-iI6eLgZFo8%3D?region=eu",
+      "observedAt": "2026-10-28T07:26:00.113463+00:00"
     },
     {
       "name": "Stecher",
@@ -55,15 +55,15 @@ window.DANGERIONS_DATA = {
       "title": "Saint of Altgard",
       "url": "https://siel.tools/eu/atiel/Stecher",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i1tBrUZ3xg05lihgmWa05Eo%3D?region=eu",
-      "observedAt": "2026-10-27T16:05:15.871881+00:00"
+      "observedAt": "2026-10-28T07:26:33.141383+00:00"
     },
     {
       "name": "SurfingLee",
       "classKey": "spiritmaster",
       "className": "Beschwörer",
       "level": 45,
-      "itemLevel": 1561,
-      "combatPower": 73675,
+      "itemLevel": 1571,
+      "combatPower": 74478,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#b5a0eb",
@@ -72,15 +72,15 @@ window.DANGERIONS_DATA = {
       "title": "Can I Go to the Bathroom?",
       "url": "https://siel.tools/eu/atiel/SurfingLee",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i37_xQHtIq3KPFnl6Cw6aRE%3D?region=eu",
-      "observedAt": "2026-10-27T16:04:57.849805+00:00"
+      "observedAt": "2026-10-28T07:26:22.056229+00:00"
     },
     {
       "name": "LordSanchez2",
       "classKey": "templar",
       "className": "Templer",
       "level": 45,
-      "itemLevel": 1407,
-      "combatPower": 65534,
+      "itemLevel": 1462,
+      "combatPower": 65138,
       "guild": "Dangerions",
       "server": "Atiel",
       "color": "#8db7e6",
@@ -89,7 +89,7 @@ window.DANGERIONS_DATA = {
       "title": "Encountering Zikel's Core",
       "url": "https://siel.tools/eu/atiel/LordSanchez2",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i64pqpVXnLI49ibv1c0Xrs8%3D?region=eu",
-      "observedAt": "2026-10-27T16:04:42.336569+00:00"
+      "observedAt": "2026-10-28T07:26:11.018660+00:00"
     },
     {
       "name": "FumosLee",
@@ -106,7 +106,7 @@ window.DANGERIONS_DATA = {
       "title": "Betrayer and Survivor",
       "url": "https://siel.tools/eu/atiel/FumosLee",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i2R7pXXT81r5rwKk5BkKPZQ%3D?region=eu",
-      "observedAt": "2026-10-27T16:04:42.276220+00:00"
+      "observedAt": "2026-10-28T07:26:11.178342+00:00"
     },
     {
       "name": "Mocro",
@@ -123,7 +123,7 @@ window.DANGERIONS_DATA = {
       "title": "",
       "url": "https://siel.tools/eu/atiel/Mocro",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-ixmETJ6gsmfI9UvsyyFr2CQ%3D?region=eu",
-      "observedAt": "2026-10-27T16:05:31.740374+00:00"
+      "observedAt": "2026-10-28T07:26:44.065605+00:00"
     },
     {
       "name": "BrouceLee",
@@ -140,7 +140,7 @@ window.DANGERIONS_DATA = {
       "title": "",
       "url": "https://siel.tools/eu/atiel/BrouceLee",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i7vryLZ7xv8FAYSEirbKb1I%3D?region=eu",
-      "observedAt": "2026-10-27T16:04:58.002770+00:00"
+      "observedAt": "2026-10-28T07:26:22.235528+00:00"
     },
     {
       "name": "S7onedMonkey",
@@ -157,7 +157,7 @@ window.DANGERIONS_DATA = {
       "title": "Saint of Altgard",
       "url": "https://siel.tools/eu/atiel/S7onedMonkey",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-izG7y9QsI1Qe_OyimmelJfA%3D?region=eu",
-      "observedAt": "2026-10-27T16:05:31.763814+00:00"
+      "observedAt": "2026-10-28T07:26:44.077329+00:00"
     },
     {
       "name": "Roctopus",
@@ -174,7 +174,7 @@ window.DANGERIONS_DATA = {
       "title": "",
       "url": "https://siel.tools/eu/atiel/Roctopus",
       "officialUrl": "https://aion2.plaync.com/en-us/characters/2322/NGez0OkmLm4ARHzxujw-i6MaMG41S36PbXYirigCshc%3D?region=eu",
-      "observedAt": "2026-10-27T16:05:15.845675+00:00"
+      "observedAt": "2026-10-28T07:26:32.981670+00:00"
     }
   ],
   "history": [
@@ -860,6 +860,61 @@ window.DANGERIONS_DATA = {
           "itemLevel": 321,
           "level": 31,
           "observedAt": "2026-10-27T16:05:15.845675+00:00"
+        }
+      }
+    },
+    {
+      "day": "2026-10-28",
+      "values": {
+        "JKLee": {
+          "itemLevel": 2114,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:00.162884+00:00"
+        },
+        "NaminiLee": {
+          "itemLevel": 2106,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:00.113463+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 1746,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:33.141383+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 1571,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:22.056229+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 1462,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:11.018660+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:11.178342+00:00"
+        },
+        "Mocro": {
+          "itemLevel": 885,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:44.065605+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 779,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:22.235528+00:00"
+        },
+        "S7onedMonkey": {
+          "itemLevel": 411,
+          "level": 26,
+          "observedAt": "2026-10-28T07:26:44.077329+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 321,
+          "level": 31,
+          "observedAt": "2026-10-28T07:26:32.981670+00:00"
         }
       }
     }
@@ -11223,6 +11278,73 @@ window.DANGERIONS_DATA = {
           "itemLevel": 321,
           "level": 31,
           "observedAt": "2026-10-27T16:05:15.845675+00:00"
+        }
+      }
+    },
+    {
+      "capturedAt": "2026-10-28T07:26:52.751902+00:00",
+      "roster": [
+        "JKLee",
+        "NaminiLee",
+        "LordSanchez2",
+        "FumosLee",
+        "BrouceLee",
+        "SurfingLee",
+        "Roctopus",
+        "Stecher",
+        "Mocro",
+        "S7onedMonkey"
+      ],
+      "values": {
+        "JKLee": {
+          "itemLevel": 2114,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:00.162884+00:00"
+        },
+        "NaminiLee": {
+          "itemLevel": 2106,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:00.113463+00:00"
+        },
+        "Stecher": {
+          "itemLevel": 1746,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:33.141383+00:00"
+        },
+        "SurfingLee": {
+          "itemLevel": 1571,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:22.056229+00:00"
+        },
+        "LordSanchez2": {
+          "itemLevel": 1462,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:11.018660+00:00"
+        },
+        "FumosLee": {
+          "itemLevel": 948,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:11.178342+00:00"
+        },
+        "Mocro": {
+          "itemLevel": 885,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:44.065605+00:00"
+        },
+        "BrouceLee": {
+          "itemLevel": 779,
+          "level": 45,
+          "observedAt": "2026-10-28T07:26:22.235528+00:00"
+        },
+        "S7onedMonkey": {
+          "itemLevel": 411,
+          "level": 26,
+          "observedAt": "2026-10-28T07:26:44.077329+00:00"
+        },
+        "Roctopus": {
+          "itemLevel": 321,
+          "level": 31,
+          "observedAt": "2026-10-28T07:26:32.981670+00:00"
         }
       }
     }
